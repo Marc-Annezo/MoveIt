@@ -32,7 +32,7 @@ class HomeController extends AbstractController
         $participant = $user->getIdParticipant();
 
         if($participant->getNom() == null or $participant->getPrenom() == null or $participant->getTelephone() == null or $participant->getSite() == null){
-            return $this->render('monprofil.html.twig');
+            return $this->render('home/index.html.twig');
         }
 
         return $this->render('home/index.html.twig');
