@@ -12,14 +12,11 @@ class FormParticipantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+
             ->add('prenom')
+            ->add('nom')
             ->add('telephone')
-            ->add('administrateur')
-            ->add('actif')
-            ->add('idUtilisateur')
             ->add('site')
-            ->add('sorties_participant')
         ;
     }
 
