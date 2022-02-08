@@ -34,7 +34,7 @@ class Participant
     private $idUtilisateur;
 
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'participants')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $site;
 
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
@@ -47,6 +47,9 @@ class Participant
     {
         $this->sorties_orga = new ArrayCollection();
         $this->sorties_participant = new ArrayCollection();
+        $this->setAdministrateur(false);
+        $this->setActif(true);
+
     }
 
     public function getId(): ?int
