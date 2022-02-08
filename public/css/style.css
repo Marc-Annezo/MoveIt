@@ -1,0 +1,19 @@
+.logoNavBar {
+    width: 30px;
+    height: 70px;
+}
+
+.titrelogo {
+    font-family: 'Spicy Rice', cursive;
+    font-size: 2.6em;
+    color: darkcyan;
+    text-decoration: none;
+}
+
+nav {
+    height: 8%;
+}
+
+navbar-item:hover {
+    background-color: #B0413E;
+}
