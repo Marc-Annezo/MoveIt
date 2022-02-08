@@ -28,7 +28,6 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
 
-
             // encode the plain password
             $user->setPassword(
             $userPasswordHasher->hashPassword(
@@ -37,6 +36,14 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setIdParticipant($participant);
+
+            if($form->get('admin')->getData()===true){
+
+                $user->setRoles(["ROLE_ADMIN"]);
+            }else{
+                $user->setRoles(["ROLE_VISITOR"]);
+            }
+
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
