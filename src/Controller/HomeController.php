@@ -53,28 +53,44 @@ class HomeController extends AbstractController
 
         // Obtenir le participant
         $userSession = $this->getUser()->getUserIdentifier();
-        $utilisateur = $repoUser->findOneBy(["email"=>$userSession]);
+        $utilisateur = $repoUser->findOneBy(["email" => $userSession]);
         $participant = $utilisateur->getIdParticipant();
 
         //trouver la sortie dans la base de donnée
-        $sortie = $sortieRepository->findOneBy(['id'=>$idsortie]);
+        $sortie = $sortieRepository->findOneBy(['id' => $idsortie]);
 
         //ajouter l'utilisateur a la sortie
         //ou le supprimer
+        $nbinscrit = count($sortie->getInscrits());
+        $date_du_jour = new \DateTime('now');
 
 
+        // verifier que le nombre max d'inscrit n'est pas dépassé
+        // verifier que la date du jour est inferieur a la date de fin d'inscription
 
-        $entityManager->persist($sortie->addInscrit($participant));
-        $entityManager->flush();
+        if (($nbinscrit < $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription())
+            or ($date_du_jour < $sortie->getDateLimiteInscription() and in_array($participant, $sortie->getInscrits(), TRUE))
+
+        ) {
+
+            try {
+                $entityManager->persist($sortie->addInscritOuSuppression($participant));
+
+                $entityManager->flush();
+                $this->addFlash('success', 'félicitation vous êtes inscrit');
+
+            } catch (Exception $e) {
 
 
+            }
 
+        } else {
+
+            $this->addFlash('error', 'Vous ne pouvez pas vous inscrire');
+        }
 
         return $this->render('home/index.html.twig');
     }
-
-
-
 
 }
 
