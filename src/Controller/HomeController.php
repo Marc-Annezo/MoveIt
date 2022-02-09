@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,16 @@ class HomeController extends AbstractController
 
 
     #[Route('/home', name: 'home')]
-    public function accueil(): Response
+    public function accueil(
+        SortieRepository $sortieRepository,
+
+    ): Response
 
     {
+    $listeSorties = $sortieRepository->findAll();
+
         return $this->render('home/index.html.twig',
+        compact('listeSorties')
 
         );
     }
@@ -62,7 +69,7 @@ class HomeController extends AbstractController
         //ajouter l'utilisateur a la sortie
         //ou le supprimer
         $nbinscrit = count($sortie->getInscrits());
-        $date_du_jour = new \DateTime('now');
+        $date_du_jour = new DateTime('now');
 
 
         // verifier que le nombre max d'inscrit n'est pas dépassé

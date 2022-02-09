@@ -17,7 +17,7 @@
 
         <div class="row">
 
-        <div class="col-auto mr-auto">
+        <div class="col-auto mr-auto ml-5">
             <h2>Filtrer les sorties</h2>
         </div>
 
@@ -25,15 +25,13 @@
             <form method="post" action="" class="col-lg">
                 <div class="row">
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 ml-3">
                         <div class="form-group row">
-
                             <label for="selection_du_site" class="col-lg col-form-label">Site : </label>
                             <div class="col-lg">
                                 <select class="form-control" name="selection_du_site">
-                                    <option value="">sites :</option>
-                                    <option value=""
-                                    </option>
+                                    <option value=""></option>
+                                    <option value=""></option>
                                 </select>
                             </div>
                         </div>
@@ -93,28 +91,32 @@
     {% block table %}
 
         <div class="table-container">
-            <table class="table is-hoverable">
+            <table class="table is-fullwidth is-hoverable mx-3">
                 <thead>
-                <th>aa</th>
-                <th>aa</th>
-                <th>aa</th>
+                <th>Nom de la sortie</th>
+                <th>Date de la sortie</th>
+                <th>Clôture</th>
+                <th >inscrits/places</th>
+                <th>Etat</th>
+                <th>Inscrit</th>
+                <th>Organisateur</th>
+                <th>Actions</th>
                 </thead>
+
                 <tbody>
                 <tr>
-                    <td>zz</td>
-                    <td>zz</td>
-                    <td>zz</td>
+                    {% for sortie in listeSorties %}
+                        <td>{{ sortie.nom }}</td>
+                        <td>{{ sortie.dateHeureDebut|date("d/m/Y H:i") }}</td>
+                        <td>{{ sortie.dateHeureFin|date("d/m/Y") }}</td>
+                        <td>{{ sortie.inscrits|length }}/{{ sortie.nbInscriptionsMax }}</td>
+                        <td>{{ sortie.etat }}</td>
+                        <td>à définir</td>
+                        <td>{{ sortie.organisateur }}</td>
+                        <td>Aucune action à afficher</td>
+                    {% endfor %}
                 </tr>
-                <tr>
-                    <td>ee</td>
-                    <td>ee</td>
-                    <td>ee</td>
-                </tr>
-                <tr>
-                    <td>rr</td>
-                    <td>rr</td>
-                    <td>tt</td>
-                </tr>
+
                 </tbody>
             </table>
         </div>
