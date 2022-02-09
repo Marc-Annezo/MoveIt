@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SortieController!{% endblock %}
+
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+
+        {{ app.user.id }}
+
+{{ form_start(creerSortie) }}
+
+        {{ form_label(creerSortie.nom) }}
+        {{ form_widget(creerSortie.nom) }}
+        {{ form_errors(creerSortie.nom) }}
+
+
+        {{ form_label(creerSortie.dateHeureDebut) }}
+        {{ form_widget(creerSortie.dateHeureDebut) }}
+        {{ form_errors(creerSortie.dateHeureDebut) }}
+
+        {{ form_label(creerSortie.dateHeureFin) }}
+        {{ form_widget(creerSortie.dateHeureFin) }}
+        {{ form_errors(creerSortie.dateHeureFin) }}
+
+        {{ form_label(creerSortie.dateLimiteInscription) }}
+        {{ form_widget(creerSortie.dateLimiteInscription) }}
+        {{ form_errors(creerSortie.dateLimiteInscription) }}
+
+        {{ form_label(creerSortie.nbInscriptionsMax) }}
+        {{ form_widget(creerSortie.nbInscriptionsMax) }}
+        {{ form_errors(creerSortie.nbInscriptionsMax) }}
+
+        {{ form_label(creerSortie.InfosSortie) }}
+        {{ form_widget(creerSortie.InfosSortie) }}
+        {{ form_errors(creerSortie.InfosSortie) }}
+
+        {{ form_label(creerSortie.lieu) }}
+        {{ form_widget(creerSortie.lieu) }}
+        {{ form_errors(creerSortie.lieu) }}
+
+
+{#        {{ form_label(creerSortie.site) }}#}
+{#        {{ form_widget(creerSortie.site) }}#}
+{#        {{ form_errors(creerSortie.site) }}#}
+
+{{ form_end(creerSortie) }}
+
+        <a href="/home">
+        <button class="button is-link">Annuler</button>
+        </a>
+{% endblock %}
