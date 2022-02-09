@@ -1,22 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<br>
-    <br>
-    <br>
-    <br>
-    <br>
-    {{ form_start(monProfilForm) }}
-    {{ form_row(monProfilForm.prenom) }}
-    {{ form_row(monProfilForm.nom) }}
-    {{ form_row(monProfilForm.telephone) }}
-    {{ form_row(monProfilForm.site) }}
+{% block title %}Modifier mon profil{% endblock %}
 
+
+{% block body %}
+
+    <h1>Mon profil</h1>
+
+    <img src="https://via.placeholder.com/250x250" alt="Ma photo de profil">
+
+    {{ form_start(monProfilFormParticipant) }}
+
+    <div class="group">
+        {{ form_label(monProfilFormParticipant.prenom) }}
+        {{ form_widget(monProfilFormParticipant.prenom) }}
+        {{ form_errors(monProfilFormParticipant.prenom) }}
+    </div>
+
+    <div class="group">
+        {{ form_label(monProfilFormParticipant.nom) }}
+        {{ form_widget(monProfilFormParticipant.nom) }}
+        {{ form_errors(monProfilFormParticipant.nom) }}
+    </div>
+
+    <div class="group">
+        {{ form_label(monProfilFormParticipant.telephone) }}
+        {{ form_widget(monProfilFormParticipant.telephone) }}
+        {{ form_errors(monProfilFormParticipant.telephone) }}
+    </div>
+
+    <div class="group">
+        {{ form_label(monProfilFormParticipant.email) }}
+        {{ form_widget(monProfilFormParticipant.email) }}
+        {{ form_errors(monProfilFormParticipant.email) }}
+    </div>
+
+    <div class="group">
+        {{ form_label(monProfilFormParticipant.site) }}
+        {{ form_widget(monProfilFormParticipant.site) }}
+        {{ form_errors(monProfilFormParticipant.site) }}
+    </div>
 
     <button type="submit" class="btn">Enregistrer</button>
 
     {{ form_end(monProfilForm) }}
 
-<a href="index.html.twig">Annuler</a>
+{{ form_start(monProfilFormUtilisateur) }}
+
+    <div class="group">
+        {{ form_label(monProfilFormUtilisateur.password) }}
+        {{ form_widget(monProfilFormUtilisateur.password) }}
+        {{ form_errors(monProfilFormUtilisateur.password) }}
+    </div>
+
+    <div class="group">
+        {{ form_label(monProfilFormUtilisateur.password) }}
+        {{ form_widget(monProfilFormUtilisateur.password) }}
+        {{ form_errors(monProfilFormUtilisateur.password) }}
+    </div>
+
+    <button type="submit" class="btn">Enregistrer</button>
+
+    {{ form_end(monProfilFormUtilisateur) }}
+
+<a href="{{ path('home') }}"><button type="button">Annuler</button></a>
 
 {% endblock %}

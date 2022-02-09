@@ -24,6 +24,9 @@ class Participant
     #[ORM\Column(type: 'string', length: 15, nullable: true)]
     private $telephone;
 
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private $email;
+
     #[ORM\Column(type: 'boolean')]
     private $administrateur;
 
@@ -42,9 +45,6 @@ class Participant
 
     #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'inscrits')]
     private $sorties_participant;
-
-    #[ORM\Column(type: 'string', length: 50, nullable: true)]
-    private $email;
 
     public function __construct()
     {
@@ -214,4 +214,10 @@ class Participant
 
         return $this;
     }
+
+    public function getUserIdentifier(): string
+    {
+        return (string)$this->nom;
+    }
+
 }

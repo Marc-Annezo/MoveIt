@@ -28,10 +28,12 @@ class UtilisateurController extends AbstractController
         $participant = $utilisateur->getIdParticipant();
 
 
-        $form = $this->createForm(FormParticipantType::class, $participant);
-        $form->handleRequest($request);
+        $formParticipant = $this->createForm(FormParticipantType::class, $participant);
+        $formParticipant->handleRequest($request);
+        $formUtilisateur = $this->createForm(FormParticipantType::class, $utilisateur);
+        $formUtilisateur->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
 
             $participant = new Participant();
             $entityManager->persist($participant);
@@ -42,14 +44,20 @@ class UtilisateurController extends AbstractController
             return $this->redirectToRoute('MonProfil');
         }
 
+        if ($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()) {
 
+            $utilisateur = new Utilisateur();
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
 
+            // do anything else you need here, like send an email
 
-
-
+            return $this->redirectToRoute('MonProfil');
+        }
 
         return $this->render('utilisateur/profil.html.twig', [
-            'monProfilForm' => $form -> createView()
+            'monProfilFormParticipant' => $formParticipant -> createView(),
+            'monProfilFormUtilisateur' => $formUtilisateur -> createView()
         ]);
     }
 }
