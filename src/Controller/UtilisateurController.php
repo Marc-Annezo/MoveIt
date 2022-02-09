@@ -75,6 +75,7 @@ class UtilisateurController extends AbstractController
 
             // Récupération du participant correspond à l'id utilisateur
             $participant = $user->getIdParticipant();
+            dd($participant->getSite());
             $entityManager->persist($participant);
             $entityManager->flush();
 
@@ -92,7 +93,7 @@ class UtilisateurController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('MonProfil');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('utilisateur/resetmdp.html.twig', [

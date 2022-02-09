@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Participant;
+use App\Entity\Site;
 use App\Entity\Utilisateur;
 use ContainerN9gqLe0\getUtilisateurAuthenticatorService;
 use Doctrine\ORM\Mapping\Entity;
@@ -52,7 +53,13 @@ class FormParticipantType extends AbstractType
             ])
 
 
-            ->add('site', TextType::class, ['label' => 'Ville de rattachement :'])
+            ->add('site', EntityType::class, [
+                'class' =>'App\Entity\Site',
+                'label' => 'Site de rattachement :',
+                "attr" => ['class' => "checkbox"]
+            ]
+
+            )
 
         ;
     }
