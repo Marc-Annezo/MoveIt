@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    {{ form_start(monProfilForm) }}
+    {{ form_row(monProfilForm.prenom) }}
+    {{ form_row(monProfilForm.nom) }}
+    {{ form_row(monProfilForm.telephone) }}
+    {{ form_row(monProfilForm.site) }}
+
+
+    <button type="submit" class="btn">Enregistrer</button>
+
+    {{ form_end(monProfilForm) }}
+
+<a href="index.html.twig">Annuler</a>
+
+{% endblock %}
