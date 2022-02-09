@@ -190,8 +190,14 @@ class Sortie
         return $this->inscrits;
     }
 
-    public function addInscrit(Participant $inscrit): self
+    public function addInscritOuSuppression(Participant $inscrit): self
     {
+        if (!$this->inscrits->contains($inscrit)) {
+            $this->inscrits[] = $inscrit;
+            $inscrit->removeSortiesParticipant($this);
+
+        }
+
         if (!$this->inscrits->contains($inscrit)) {
             $this->inscrits[] = $inscrit;
             $inscrit->addSortiesParticipant($this);

@@ -17,6 +17,7 @@ class FormParticipantType extends AbstractType
             ->add('nom')
             ->add('telephone')
             ->add('site')
+            ->add('email')
         ;
     }
 

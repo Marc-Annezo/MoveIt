@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,6 +39,43 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig');
     }
+
+    #[Route('/inscrire/{idsortie}', name: 'inscriptionsortie')]
+    public function inscriptionSortie(
+        $idsortie,
+        UtilisateurRepository $repoUser,
+        SortieRepository $sortieRepository,
+        EntityManagerInterface $entityManager
+
+    ): Response
+
+    {
+
+        // Obtenir le participant
+        $userSession = $this->getUser()->getUserIdentifier();
+        $utilisateur = $repoUser->findOneBy(["email"=>$userSession]);
+        $participant = $utilisateur->getIdParticipant();
+
+        //trouver la sortie dans la base de donnée
+        $sortie = $sortieRepository->findOneBy(['id'=>$idsortie]);
+
+        //ajouter l'utilisateur a la sortie
+        //ou le supprimer
+
+
+
+        $entityManager->persist($sortie->addInscrit($participant));
+        $entityManager->flush();
+
+
+
+
+        return $this->render('home/index.html.twig');
+    }
+
+
+
+
 }
 
 

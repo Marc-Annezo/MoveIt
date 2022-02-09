@@ -43,6 +43,9 @@ class Participant
     #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'inscrits')]
     private $sorties_participant;
 
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private $email;
+
     public function __construct()
     {
         $this->sorties_orga = new ArrayCollection();
@@ -196,6 +199,18 @@ class Participant
     public function removeSortiesParticipant(Sortie $sortiesParticipant): self
     {
         $this->sorties_participant->removeElement($sortiesParticipant);
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
