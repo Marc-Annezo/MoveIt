@@ -1,2 +1,124 @@
 {% extends 'base.html.twig' %}
 
+{% block body %}
+
+    {% block espace %}
+
+        <section class="hero">
+            <div class="hero-body is-10">
+                <div class="column is-1">Bonjour</div>
+                <div class="column is-1">{{ 'now'|date('d - m -Y') }}</div>
+            </div>
+        </section>
+
+    {% endblock %}
+
+    {% block filtres %}
+
+        <div class="row">
+
+        <div class="col-auto mr-auto">
+            <h2>Filtrer les sorties</h2>
+        </div>
+
+        <div class="row">
+            <form method="post" action="" class="col-lg">
+                <div class="row">
+
+                    <div class="col-lg-4">
+                        <div class="form-group row">
+
+                            <label for="selection_du_site" class="col-lg col-form-label">Site : </label>
+                            <div class="col-lg">
+                                <select class="form-control" name="selection_du_site">
+                                    <option value="">sites :</option>
+                                    <option value=""
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="barre_recherche" class="col-lg col-form-label">Le nom de la sortie contient
+                                : </label>
+                            <div class="col-lg">
+                                <input type="search" class="form-control" name="barre_recherche" aria-label="Search">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Entre" class="col-lg col-form-label">Entre le : </label>
+                            <div class="col-lg">
+                                <input type="date" class="form-control" name="dateEntree">
+                            </div>
+                            <label for="Et" class="col-lg col-form-label">Et</label>
+                            <div class="col-lg">
+                                <input type="date" class="form-control" name="dateEt">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1">
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="organisateur">
+                            <label for="organisateur" class="form-check-label">Sorties dont je suis
+                                l'organisateur.trice</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="inscrit">
+                            <label for="inscrit" class="form-check-label">Sorties auxquelles je suis
+                                inscrit.e</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="nonInscrit">
+                            <label for="nonInscrit" class="form-check-label">Sorties auxquelles je ne suis pas
+                                inscrit.e</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="termine">
+                            <label for="termine" class="form-check-label">Sorties passées</label>
+                        </div>
+                    </div>
+
+                    <div class="col-lg text-justify">
+                        <button class="button is-success is-medium is-rounded">Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% endblock %}
+
+    {% block table %}
+
+        <div class="table-container">
+            <table class="table is-hoverable">
+                <thead>
+                <th>aa</th>
+                <th>aa</th>
+                <th>aa</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>zz</td>
+                    <td>zz</td>
+                    <td>zz</td>
+                </tr>
+                <tr>
+                    <td>ee</td>
+                    <td>ee</td>
+                    <td>ee</td>
+                </tr>
+                <tr>
+                    <td>rr</td>
+                    <td>rr</td>
+                    <td>tt</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    {% endblock %}
+
+{% endblock %}

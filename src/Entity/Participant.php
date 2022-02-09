@@ -214,4 +214,10 @@ class Participant
 
         return $this;
     }
+
+    public function getUserIdentifier(): string
+    {
+        return (string)$this->nom;
+    }
+
 }
