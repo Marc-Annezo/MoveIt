@@ -198,7 +198,7 @@ class HomeController extends AbstractController
                 $sortie_qui_sont_terminees= $etatRepository->findOneBy(['libelle'=>'Annulee']);
             }
 
-            $sortiesresultats = $sortieRepository->filtres(
+            $listeSorties = $sortieRepository->filtres(
                                     $date_entree_datetime,
                                     $date_sortie_datetime,
                                     $textsearch,
@@ -211,13 +211,17 @@ class HomeController extends AbstractController
 
 
             );
-
-            dd($sortiesresultats);
+            $sites= $siteRepository->findAll();
+            $listeSortiesParticipant = $participant ->getSortiesParticipant();
 
         }
 
-        return $this->redirectToRoute('home',
+        return $this->render('home/index.html.twig',
+            ['listeSorties'=>$listeSorties,
+                'listeSortiesParticipant'=>$listeSortiesParticipant,
+                'sites'=>$sites,
 
+            ]
         );
     }
 
