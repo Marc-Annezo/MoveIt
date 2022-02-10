@@ -32,7 +32,7 @@ class HomeController extends AbstractController
 
 
 
-    $listeSorties = $sortieRepository->findAll();
+        $listeSorties = $sortieRepository->findAll();
         $userSession = $this->getUser()->getUserIdentifier();
         $utilisateur = $repoUser->findOneBy(["email" => $userSession]);
         $participant = $utilisateur->getIdParticipant();
@@ -42,7 +42,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig',
         ['listeSorties'=>$listeSorties,
          'listeSortiesParticipant'=>$listeSortiesParticipant,
-            'sites'=>$sites,
+         'sites'=>$sites,
 
         ]
         );
@@ -164,16 +164,27 @@ class HomeController extends AbstractController
                $organisateur=$participant;
             }
 
-
             //input sortie dont je suis le participant
-
             $sortie_inscrit = filter_input(INPUT_POST, 'inscrit', FILTER_SANITIZE_STRING);
 
             if ($sortie_inscrit){
 
-                $sortie_inscrit=$participant;
+                $sortie_inscrit = $participant;
+
             }
 
+            //sortie ou je ne suis pas inscrit
+            $sortie_non_inscrit = filter_input(INPUT_POST, 'nonInscrit', FILTER_SANITIZE_STRING);
+            if ($sortie_non_inscrit){
+
+                $sortie_non_inscrit=$participant;
+            }
+
+            //sortie déja terminée
+            $sortie_qui_sont_terminees = filter_input(INPUT_POST, 'termine', FILTER_SANITIZE_STRING);
+            if($sortie_qui_sont_terminees){
+                $sortie_qui_sont_terminees='ok';
+            }
 
             $sortiesresultats = $sortieRepository->filtres(
                                     $date_entree_datetime,
@@ -182,8 +193,11 @@ class HomeController extends AbstractController
                                     $organisateur,
                                     $sortie_inscrit,
                                     $site,
-            );
+                                    $sortie_qui_sont_terminees,
+                                    $sortie_non_inscrit
 
+
+            );
 
             dd($sortiesresultats);
 

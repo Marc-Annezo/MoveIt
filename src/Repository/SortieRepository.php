@@ -19,7 +19,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function filtres($param1,$param2,$param3,$param4,$param5,$param6){
+    public function filtres($param1,$param2,$param3,$param4,$param5,$param6,$param7,$param8){
 
         $qb=$this->createQueryBuilder('s');
 
@@ -42,10 +42,29 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if($param5 != null){
-            $qb->andWhere('s.inscrits = :param5')
+            $qb->andWhere(
+                $qb-> expr()->isMemberOf(':param5','s.inscrits')
+            )
                 ->setParameter('param5',$param5);
-
         }
+        if($param5 != null){
+            $qb->andWhere(
+                $qb-> expr()->isMemberOf(':param5','s.inscrits')
+            )
+                ->setParameter('param5',$param5);
+        }
+
+        if($param8 != null){
+                $qb->andWhere(':param8 NOT MEMBER OF s.inscrits')
+                ->setParameter('param8',$param8);
+        }
+
+
+
+
+
+
+
 
 
 
