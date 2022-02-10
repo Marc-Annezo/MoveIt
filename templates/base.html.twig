@@ -44,8 +44,8 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="admin/gestionville.html.twig">Gérer villes</a>
-                        <a class="navbar-item" href="admin/gestionsite.html.twig">Gérer les sites</a>
+                        <a class="navbar-item" href="{{ path('admin_gestionville') }}">Gérer villes</a>
+                        <a class="navbar-item" href="{{ path('admin_gestionsite') }}">Gérer les sites</a>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
             <div>
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-warning">Se déconnecter</a>
+                        <a class="button is-warning" href="{{ path('app_logout') }}">Se déconnecter</a>
                     </div>
                 </div>
             </div>
