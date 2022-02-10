@@ -8,7 +8,7 @@
     <h3 class="has-text-centered is-size-3"> Gestionnaire de villes </h3>
 
 
-    <form class="box m-6">
+    <div class="box m-6">
         <p class="has-text-centered"> Filtrer les villes </p>
         <div class="field">
             <label class="label"> Le nom contient : </label>
@@ -36,17 +36,16 @@
                                 <tr>
                                     <td>{{ ville.nom}}</td>
                                     <td> {{ ville.CodePostal }}</td>
-                                    <td><a href={{ path('admin_modifierville')}}> Modifier</a> - <a href={{ path('admin_supprimerville')}}> Supprimer</a></td>
+{#                                    <td><a href={{ path('admin_modifierville')}}> Modifier</a> - <a href={{ path('admin_supprimerville')}}> Supprimer</a></td>#}
                                 </tr>
                             {% endfor %}
 
 
                             <tr>
-                                <form action="{{ path('admin_ajouterville') }}">
-                                <input type="text" name="nom">
-                                <input type="text" name="cp">
+                                {{ form_start(ajoutVille) }}
+                                {{ form_widget(ajoutVille) }}
                                 <button type="submit"> Ajouter </button>
-                                </form>
+                                {{ form_end(ajoutVille) }}
                             </tr>
 
                         </table>
@@ -61,7 +60,7 @@
 
             </div>
         </div>
-    </form>
+    </div>
 
 
 {% endblock %}

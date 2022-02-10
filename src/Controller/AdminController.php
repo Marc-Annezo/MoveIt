@@ -26,38 +26,38 @@ class AdminController extends AbstractController
     {
         $listeVille = $villeRepo->findAll();
 
-        return $this->renderForm('admin/gestionville.html.twig',
-            compact('listeVille')
-        );
-    }
-
-   #[Route('/ajouterville', name: 'ajouterville')]
-    public function ajouterville(Request $request,
-                                 EntityManagerInterface $em,
-                                 VilleRepository $villeRepo,
-
-    ): Response
-
-    {
         $nvVille = new Ville();
-        $listeVille = $villeRepo->findAll();
+        $ajoutVille = $this->createForm(FormVilleType ::class, $nvVille);
+        $ajoutVille->handleRequest($request);
 
-        $champNom = $request->request->get('nom');
-        $champCP = $request->request->get('cp');
+        if ($ajoutVille->isSubmitted() && $ajoutVille->isValid()){
+            $em->persist($nvVille);
+            $em->flush();
 
-        $nvVille->setNom($champNom);
-        $nvVille->setCodePostal($champCP);
+            return $this->redirectToRoute('admin_gestionville');
+        }
 
-        $em->persist($nvVille);
-        $em->flush();
-
-        return $this->render('admin/gestionville.html.twig',
-            compact('listeVille')
+        return $this->renderForm('admin/gestionville.html.twig',
+            compact('listeVille', 'ajoutVille')
         );
-
     }
 
-    #[Route('/modifierville', name: 'modifierville')]
+//   #[Route('/ajouterville', name: 'ajouterville')]
+//    public function ajouterville(Request $request,
+//                                 EntityManagerInterface $em,
+//                                 VilleRepository $villeRepo,
+//
+//    ): Response
+//
+//    {
+//
+//        return $this->render('admin/gestionville.html.twig',
+//
+//        );
+//
+//    }
+
+ /*   #[Route('/modifierville', name: 'modifierville')]
     public function modifierville(Request $request,
                                   EntityManagerInterface $em,
                                   VilleRepository $villeRepo,
@@ -129,5 +129,5 @@ class AdminController extends AbstractController
         return $this->render('admin/gestionsite.html.twig',
             compact('listeSite')
         );
-    }
+    } */
 }
