@@ -17,7 +17,6 @@
     {% block filtres %}
 
         <div class="row">
-
         <div class="col-auto mr-auto ml-5">
             <h2>Filtrer les sorties</h2>
         </div>
@@ -31,8 +30,10 @@
                             <label for="selection_du_site" class="col-lg col-form-label">Site : </label>
                             <div class="col-lg">
                                 <select class="form-control" name="selection_du_site">
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                    <option value="">Nantes - Faraday</option>
+                                    <option value="">Nantes - Franklin</option>
+                                    <option value="">Angers</option>
+                                    <option value="">Rennes</option>
                                 </select>
                             </div>
                         </div>
@@ -82,7 +83,7 @@
                     </div>
 
                     <div class="col-lg text-justify">
-                        <button class="button is-success is-medium is-rounded">Rechercher</button>
+                        <button class="button is-info is-medium">Rechercher</button>
                     </div>
                 </div>
             </form>
@@ -113,9 +114,16 @@
                         <td>{{ sortie.dateHeureFin|date("d/m/Y") }}</td>
                         <td>{{ sortie.inscrits|length }}/{{ sortie.nbInscriptionsMax }}</td>
                         <td>{{ sortie.etat }}</td>
-                        <td>à définir</td>
+                        <td>X</td>
                         <td>{{ sortie.organisateur }}</td>
-                        <td>Aucune action à afficher</td>
+                    <td>
+                            <a href="">- Afficher</a>
+                            <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire/Se désister</a>
+                            <a href="">- Modifier/Annuler</a>
+                            <a href="">- Publier</a>
+                    </td>
+                </tr>
+                        </td>
                 </tr>
                     {% endfor %}
                 </tr>
@@ -123,6 +131,7 @@
                 </tbody>
             </table>
         </div>
+
 
     {% endblock %}
 

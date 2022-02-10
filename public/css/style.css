@@ -5,12 +5,7 @@ table{
 }
 
 .titrelogo {
-    font-family: 'Spicy Rice', cursive;
+    font-family: 'Dancing Script', cursive;
     font-size: 2.6em;
-    color: darkcyan;
-    text-decoration: none;
-}
-
-nav {
-    height: 8%;
+    color: black;
 }
