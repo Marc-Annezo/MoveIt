@@ -108,87 +108,30 @@
                 <tbody>
                 <tr>
                     {% for sortie in listeSorties %}
-                       <tr>
-                        <td>{{ sortie.nom }}</td>
-                        <td>{{ sortie.dateHeureDebut|date("d/m/Y H:i") }}</td>
-                        <td>{{ sortie.dateHeureFin|date("d/m/Y") }}</td>
-                        <td>{{ sortie.inscrits|length }}/{{ sortie.nbInscriptionsMax }}</td>
-                        <td>{{ sortie.etat }}</td>
-                        <td>X</td>
-                        <td>{{ sortie.organisateur }}</td>
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td>{{ sortie.dateHeureDebut|date("d/m/Y H:i") }}</td>
+                    <td>{{ sortie.dateHeureFin|date("d/m/Y") }}</td>
+                    <td>{{ sortie.inscrits|length }}/{{ sortie.nbInscriptionsMax }}</td>
+                    <td>{{ sortie.etat }}</td>
+                    <td>X</td>
+                    <td>{{ sortie.organisateur }}</td>
                     <td>
-                            <a href="">- Afficher</a>
-                            <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire/Se désister</a>
-                            <a href="">-Modifier/Annuler</a>
-                            <a href="">- Publier</a>
+                        <a href="">- Afficher</a>
+                        <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire/Se désister</a>
+                        <a href="">- Modifier/Annuler</a>
+                        <a href="">- Publier</a>
                     </td>
                 </tr>
-                        </td>
+                </td>
                 </tr>
-                    {% endfor %}
+                {% endfor %}
                 </tr>
 
                 </tbody>
             </table>
         </div>
 
-
-<div class="box">
-    <div class="card-table">
-        <div class="content">
-            <table class="table is-fullwidth is-striped">
-                <tbody>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                <tr>
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-</div>
     {% endblock %}
 
 
