@@ -118,7 +118,16 @@
                     <td>{{ sortie.organisateur }}</td>
                     <td>
                         <a href="">- Afficher</a>
-                        <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire/Se désister</a>
+                        {% for listeDeMesSorties in listeSortiesParticipant %}
+                        {% if listeDeMesSorties is same as sortie %}
+                            <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- Se désister</a>
+                        {% endif %}
+                        {% else %}
+                        <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire</a>
+                        {% endfor %}
+
+
+
                         <a href="">- Modifier/Annuler</a>
                         <a href="">- Publier</a>
                     </td>

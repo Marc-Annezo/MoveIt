@@ -21,15 +21,21 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'home')]
     public function accueil(
         SortieRepository $sortieRepository,
+        UtilisateurRepository $repoUser,
 
     ): Response
 
     {
     $listeSorties = $sortieRepository->findAll();
+        $userSession = $this->getUser()->getUserIdentifier();
+        $utilisateur = $repoUser->findOneBy(["email" => $userSession]);
+        $participant = $utilisateur->getIdParticipant();
+        $listeSortiesParticipant = $participant ->getSortiesParticipant();
 
         return $this->render('home/index.html.twig',
-        ['listeSorties'=>$listeSorties]
-
+        ['listeSorties'=>$listeSorties,
+         'listeSortiesParticipant'=>$listeSortiesParticipant
+        ]
         );
     }
 
