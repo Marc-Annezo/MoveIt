@@ -7,6 +7,7 @@
         <section class="hero">
             <div class="hero-body is-10">
                 <div class="column is-1">Bonjour</div>
+
                 <div class="column is-1">{{ 'now'|date('d - m -Y') }}</div>
             </div>
         </section>
@@ -106,6 +107,7 @@
                 <tbody>
                 <tr>
                     {% for sortie in listeSorties %}
+                       <tr>
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.dateHeureDebut|date("d/m/Y H:i") }}</td>
                         <td>{{ sortie.dateHeureFin|date("d/m/Y") }}</td>
@@ -114,6 +116,7 @@
                         <td>à définir</td>
                         <td>{{ sortie.organisateur }}</td>
                         <td>Aucune action à afficher</td>
+                </tr>
                     {% endfor %}
                 </tr>
 

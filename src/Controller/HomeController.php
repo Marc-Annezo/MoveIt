@@ -42,6 +42,8 @@ class HomeController extends AbstractController
 
         if($participant->getNom() == null or $participant->getPrenom() == null or $participant->getTelephone() == null or $participant->getSite() == null){
             return $this->redirectToRoute('MonProfil');
+        } else {
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('home/index.html.twig');
