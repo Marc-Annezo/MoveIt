@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,14 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
+        $valeurChamp = $request->request->get('email');
+        $checkbox = $request->request->get('_remember_me');
+
+        if($checkbox!=null) {
+            setcookie('authMail', $valeurChamp, time() + 604800);
+        }
+
+
         return new Passport(
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
@@ -54,7 +63,7 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
         // For example:
 
 
-            return new RedirectResponse($this->urlGenerator->generate('check'));
+        return new RedirectResponse($this->urlGenerator->generate('check'));
 
      //   throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
