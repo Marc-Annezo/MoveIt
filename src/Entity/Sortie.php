@@ -193,7 +193,7 @@ class Sortie
 
     public function addInscritOuSuppression(Participant $inscrit): self
     {
-        if (!$this->inscrits->contains($inscrit)) {
+        if ($this->inscrits->contains($inscrit)) {
             $this->inscrits[] = $inscrit;
             $inscrit->removeSortiesParticipant($this);
 

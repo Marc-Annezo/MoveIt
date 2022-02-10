@@ -81,13 +81,15 @@ class HomeController extends AbstractController
         // verifier que la date du jour est inferieur a la date de fin d'inscription
 
         if (($nbinscrit < $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription())
-            or ($date_du_jour < $sortie->getDateLimiteInscription() and in_array($participant, $sortie->getInscrits(), TRUE))
+            or ($nbinscrit <=$sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription() and in_array($participant, $sortie->getInscrits(), TRUE))
 
         ) {
 
             try {
-                $entityManager->persist($sortie->addInscritOuSuppression($participant));
 
+
+                $sortie->addInscritOuSuppression($participant);
+                $entityManager->persist($participant);
                 $entityManager->flush();
                 $this->addFlash('success', 'félicitation vous êtes inscrit');
 
@@ -101,7 +103,7 @@ class HomeController extends AbstractController
             $this->addFlash('error', 'Vous ne pouvez pas vous inscrire');
         }
 
-        return $this->render('home/index.html.twig');
+        return $this->redirectToRoute('home');
     }
 
     #[Route('/home/filtres', name: 'filtres')]
