@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
@@ -126,6 +127,7 @@ class HomeController extends AbstractController
         SiteRepository $siteRepository,
         UtilisateurRepository $repoUser,
         SortieRepository $sortieRepository,
+        EtatRepository $etatRepository,
 
 
     ): Response
@@ -141,20 +143,30 @@ class HomeController extends AbstractController
             //site universitaire
             $nomdusite = filter_input(INPUT_POST, 'selection_du_site', FILTER_SANITIZE_STRING);
 
-                $site = $siteRepository->findOneBy(['nom'=>$nomdusite]);
+            $site=null;
+            if ($nomdusite!= "ok") {
+            $site = $siteRepository->findOneBy(['nom' => $nomdusite]);
 
+        }
 
             //input search
             $textsearch = filter_input(INPUT_POST, 'barre_recherche', FILTER_SANITIZE_STRING);
 
 
             // input date début inférieur
+            $date_entree_datetime=null;
             $date_entree = filter_input(INPUT_POST, 'dateEntree', FILTER_SANITIZE_STRING);
-            $date_entree_datetime = strtotime($date_entree);
 
+            if ($date_entree != "") {
+                $date_entree_datetime = $date_entree;
+            }
             //input date début supérieur
+            $date_sortie_datetime=null;
             $sortie_terminee = filter_input(INPUT_POST, 'dateEt', FILTER_SANITIZE_STRING);
-            $date_sortie_datetime = strtotime($sortie_terminee);
+
+            if($sortie_terminee !="") {
+                $date_sortie_datetime = $sortie_terminee;
+            }
 
             //checkbox sortie dont je suis l'organisateur
             $organisateur = filter_input(INPUT_POST, 'organisateur', FILTER_SANITIZE_STRING);
@@ -183,7 +195,7 @@ class HomeController extends AbstractController
             //sortie déja terminée
             $sortie_qui_sont_terminees = filter_input(INPUT_POST, 'termine', FILTER_SANITIZE_STRING);
             if($sortie_qui_sont_terminees){
-                $sortie_qui_sont_terminees='ok';
+                $sortie_qui_sont_terminees= $etatRepository->findOneBy(['libelle'=>'Annulee']);
             }
 
             $sortiesresultats = $sortieRepository->filtres(
@@ -194,7 +206,8 @@ class HomeController extends AbstractController
                                     $sortie_inscrit,
                                     $site,
                                     $sortie_qui_sont_terminees,
-                                    $sortie_non_inscrit
+                                    $sortie_non_inscrit,
+
 
 
             );

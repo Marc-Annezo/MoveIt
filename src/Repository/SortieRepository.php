@@ -23,8 +23,11 @@ class SortieRepository extends ServiceEntityRepository
 
         $qb=$this->createQueryBuilder('s');
 
-        $qb->where('s.site = :param6')
-            ->setParameter('param6',$param6);
+        if( $param6!=null  ) {
+            $qb->andWhere('s.site = :param6')
+                ->setParameter('param6', $param6);
+
+        }
 
 
         if($param3 != null){
@@ -42,48 +45,37 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if($param5 != null){
-            $qb->andWhere(
-                $qb-> expr()->isMemberOf(':param5','s.inscrits')
-            )
-                ->setParameter('param5',$param5);
-        }
-        if($param5 != null){
+
             $qb->andWhere(
                 $qb-> expr()->isMemberOf(':param5','s.inscrits')
             )
                 ->setParameter('param5',$param5);
         }
 
+        if ($param7){
+
+            $qb->andWhere('s.etat = :param7')
+            ->setParameter('param7',$param7);
+        }
+
         if($param8 != null){
+
                 $qb->andWhere(':param8 NOT MEMBER OF s.inscrits')
                 ->setParameter('param8',$param8);
         }
 
+         if ($param1 != null) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-//         if ($param1 != null) {
-//             $qb->andWhere('s.dateHeureDebut > :param1')
-//                 ->setParameter('param1',$param1);
-//         }
+             $qb->andWhere('s.dateHeureDebut > :param1')
+                 ->setParameter('param1',$param1);
+         }
 //        if ($param2 != null) {
 //            $qb->andWhere('s.dateHeureDebut < :param2')
 //                ->setParameter('param2',$param2);
 //        }
 
-
-
          $query=$qb->getQuery();
+
          return $query->getResult();
 
     }
