@@ -19,6 +19,53 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function filtres($param1,$param2,$param3,$param4,$param5){
+
+        $qb=$this->createQueryBuilder('s');
+
+        if($param3 != null){
+            $qb->andWhere(
+               $qb-> expr()->like('s.nom',':param3')
+            )
+                ->setParameter('param3', '%'.$param3.'%');
+
+        }
+
+        if($param4 != null) {
+
+            $qb->andWhere('s.organisateur = :param4')
+                ->setParameter('param4',$param4);
+        }
+
+        if($param5 != null){
+            $qb->andWhere('s.inscrits = :param5')
+                ->setParameter('param5',$param5);
+
+        }
+
+
+
+
+
+
+//         if ($param1 != null) {
+//             $qb->andWhere('s.dateHeureDebut > :param1')
+//                 ->setParameter('param1',$param1);
+//         }
+//        if ($param2 != null) {
+//            $qb->andWhere('s.dateHeureDebut < :param2')
+//                ->setParameter('param2',$param2);
+//        }
+
+
+
+         $query=$qb->getQuery();
+         return $query->getResult();
+
+    }
+
+
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
