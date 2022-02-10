@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Site;
+use App\Entity\Ville;
+use App\Form\FormVilleType;
 use App\Repository\SiteRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,11 +17,87 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     #[Route('/gestionville', name: 'gestionville')]
-    public function gestionville(): Response
+    public function gestionville(Request $request,
+                                 EntityManagerInterface $em,
+                                 VilleRepository $villeRepo,
+
+    ): Response
+
     {
-        return $this->render('admin/gestionville.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
+        $listeVille = $villeRepo->findAll();
+
+        return $this->renderForm('admin/gestionville.html.twig',
+            compact('listeVille')
+        );
+    }
+
+   #[Route('/ajouterville', name: 'ajouterville')]
+    public function ajouterville(Request $request,
+                                 EntityManagerInterface $em,
+                                 VilleRepository $villeRepo,
+
+    ): Response
+
+    {
+        $nvVille = new Ville();
+        $listeVille = $villeRepo->findAll();
+
+        $champNom = $request->request->get('nom');
+        $champCP = $request->request->get('cp');
+
+        $nvVille->setNom($champNom);
+        $nvVille->setCodePostal($champCP);
+
+        $em->persist($nvVille);
+        $em->flush();
+
+        return $this->render('admin/gestionville.html.twig',
+            compact('listeVille')
+        );
+
+    }
+
+    #[Route('/modifierville', name: 'modifierville')]
+    public function modifierville(Request $request,
+                                  EntityManagerInterface $em,
+                                  VilleRepository $villeRepo,
+    ) : Response
+
+    {
+        // récupération de la ville
+
+
+        // création du formulaire de modification de la ville
+        $form = $this->createForm(FormVilleType ::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+
+        $modifVille = $form -> getData();
+        $modifVille -> setNom('nom');
+        $modifVille -> setCodePostal('CodePostal');
+        $em -> persist ($modifVille);
+        $em -> flush();
+
+        $listeVille = $villeRepo->findAll();
+        return $this->render('admin/gestionville.html.twig',
+            compact('listeVille')
+        );
+    }
+
+    #[Route('/supprimerville', name: 'supprimerville')]
+    public function supprimerville(Request $request,
+                                   VilleRepository $villeRepo,
+                                   EntityManagerInterface $em,
+    ) : Response
+
+    {
+        $supprimerville = $this.
+        $em -> remove();
+
+        $listeVille = $villeRepo->findAll();
+        return $this->render('admin/gestionville.html.twig',
+            compact('listeVille')
+        );
     }
 
     #[Route('/gestionsite', name: 'gestionsite')]

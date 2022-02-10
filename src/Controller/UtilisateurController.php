@@ -23,7 +23,7 @@ class UtilisateurController extends AbstractController
     public function utilisateur(Request $request,
                                 EntityManagerInterface $entityManager,
                                 ParticipantRepository $participantRepository,
-    UtilisateurRepository $utilisateurRepository
+                                UtilisateurRepository $utilisateurRepository
     ): Response
     {
         // Récupération de l'utilisateur

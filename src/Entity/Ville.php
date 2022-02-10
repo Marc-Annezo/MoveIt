@@ -16,10 +16,10 @@ class Ville
     private $id;
 
     #[ORM\Column(type: 'string', length: 100)]
-    private $nom;
+    private ?string $nom;
 
     #[ORM\Column(type: 'string', length: 5)]
-    private $CodePostal;
+    private ?string $CodePostal;
 
     #[ORM\OneToMany(mappedBy: 'idVille', targetEntity: Lieu::class)]
     private $Lieux;

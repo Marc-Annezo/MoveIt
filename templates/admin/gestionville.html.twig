@@ -1,7 +1,69 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
- Vous êtes dans le gestionnaire de ville
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3 class="has-text-centered is-size-3"> Gestionnaire de villes </h3>
+
+
+    <form class="box m-6">
+        <p class="has-text-centered"> Filtrer les villes </p>
+        <div class="field">
+            <label class="label"> Le nom contient : </label>
+
+            <div class="columns">
+                <div class="column is-one-third">
+                    <input type="text" class="input">
+                </div>
+                <div class="column is-on-fifth">
+                    <button class="button"> Rechercher</button>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column is-three-fifths">
+                    <div class="table-container">
+                        <table class="table is-striped is-fullwidth">
+                            <tr>
+                                <th> Nom</th>
+                                <th> code postal</th>
+                                <th> Action</th>
+                            </tr>
+
+                            {% for ville in listeVille %}
+                                <tr>
+                                    <td>{{ ville.nom}}</td>
+                                    <td> {{ ville.CodePostal }}</td>
+                                    <td><a href={{ path('admin_modifierville')}}> Modifier</a> - <a href={{ path('admin_supprimerville')}}> Supprimer</a></td>
+                                </tr>
+                            {% endfor %}
+
+
+                            <tr>
+                                <form action="{{ path('admin_ajouterville') }}">
+                                <input type="text" name="nom">
+                                <input type="text" name="cp">
+                                <button type="submit"> Ajouter </button>
+                                </form>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="column">
+
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+
+
 {% endblock %}
 
 {% block title %}
