@@ -115,17 +115,16 @@
                     <td>{{ sortie.etat }}</td>
                     <td>X</td>
                     <td>{{ sortie.organisateur }}</td>
+
                     <td>
                         <a href="">- Afficher</a>
-                        {% for listeDeMesSorties in listeSortiesParticipant %}
-                        {% if listeDeMesSorties is same as sortie %}
+
+                        {% if sortie in listeSortiesParticipant %}
                             <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- Se désister</a>
                         {% endif %}
-                        {% else %}
+                        {% if not (sortie in listeSortiesParticipant) %}
                         <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire</a>
-                        {% endfor %}
-
-
+                        {% endif %}
 
                         <a href="">- Modifier/Annuler</a>
                         <a href="">- Publier</a>

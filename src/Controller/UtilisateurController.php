@@ -20,10 +20,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class UtilisateurController extends AbstractController
 {
     #[Route('utilisateur/profil', name: 'MonProfil')]
-    public function utilisateur(Request $request,
+    public function utilisateur(Request                $request,
                                 EntityManagerInterface $entityManager,
-                                ParticipantRepository $participantRepository,
-                                UtilisateurRepository $utilisateurRepository
+                                ParticipantRepository  $participantRepository,
+                                UtilisateurRepository  $utilisateurRepository
     ): Response
     {
         // Récupération de l'utilisateur
@@ -31,7 +31,6 @@ class UtilisateurController extends AbstractController
         $utilisateur = $utilisateurRepository->findOneBy(['email' => $userSession]);
 
         // Création du formulaire 'première connexion' du participant
-
         $participant = $utilisateur->getIdParticipant();
 
 
@@ -51,16 +50,16 @@ class UtilisateurController extends AbstractController
 
 
         return $this->render('utilisateur/profil.html.twig', [
-            'monProfilFormParticipant' => $formParticipant -> createView(),
+            'monProfilFormParticipant' => $formParticipant->createView(),
         ]);
     }
 
     #[Route('/modifiermdp', name: 'modifiermdp')]
     public function modifiermdp(
-        EntityManagerInterface $entityManager,
-        Request $request,
+        EntityManagerInterface      $entityManager,
+        Request                     $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        UtilisateurRepository $userRepo,
+        UtilisateurRepository       $userRepo,
     ): Response
     {
         // Récupération de l'utilisateur
@@ -103,6 +102,38 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/resetmdp.html.twig',
 
         );
+    }
+
+
+    #[Route('utilisateur/profil/{id}', name: 'modifierProfil')]
+    public function modifierProfil(Request $request,
+                                EntityManagerInterface $entityManager,
+                                ParticipantRepository $participantRepository,
+                                UtilisateurRepository $utilisateurRepository,
+                                $id,
+    ): Response
+    {
+        // Récupération de l'utilisateur
+        $participantModifie = $participantRepository->findOneBy($id);
+
+        // Création du formulaire 'modification profil' du participant
+        $formParticipant = $this->createForm(FormParticipantType::class, $participantModifie);
+        $formParticipant->handleRequest($request);
+
+
+        if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
+            $entityManager->persist($participantModifie);
+            $entityManager->flush();
+
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('MonProfil');
+        }
+
+
+        return $this->render('utilisateur/profil.html.twig', [
+            'monProfilFormParticipant' => $formParticipant -> createView(),
+        ]);
     }
 
 }

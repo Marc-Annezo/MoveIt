@@ -5,50 +5,140 @@
 
 {% block body %}
 
-    <h1>Mon profil</h1>
 
-    <img src="https://via.placeholder.com/250x250" alt="Ma photo de profil">
 
-    {{ form_start(monProfilFormParticipant) }}
+    <br>
+    <br>
+    <br>
 
-    <div class="group">
-        {{ form_label(monProfilFormParticipant.prenom) }}
-        {{ form_widget(monProfilFormParticipant.prenom) }}
-        {{ form_errors(monProfilFormParticipant.prenom) }}
+    <div class="block has-text-centered"><h2> Modifier votre profil </h2></div>
+
+    <div class="box m-6">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="columns is-vcentered">
+                    <div class="column is-4 is-offset-1">
+                        <figure class="image is-256x256">
+                            <img class="is-rounded" src="{{ asset('img/profil2.jpg') }}" alt="Description">
+                        </figure>
+                    </div>
+
+
+                    <div class="column is-4 is-offset-1 has-text-left has-input-right">
+
+                        <div class="colum column is-4 is-offset-1">
+
+                        </div>
+
+                        <div class="column column is-4 is-offset-1">
+
+                        </div>
+
+                        {{ form_start(monProfilFormParticipant) }}
+                        <div class="box is-link has-background-info">
+                            <div class="block has-text-white">
+                                {{ form_label(monProfilFormParticipant.prenom) }}
+                                {{ form_widget(monProfilFormParticipant.prenom) }}
+                                {{ form_errors(monProfilFormParticipant.prenom) }}
+                            </div>
+
+                            <div class="block has-text-white">
+                                {{ form_label(monProfilFormParticipant.nom) }}
+                                {{ form_widget(monProfilFormParticipant.nom) }}
+                                {{ form_errors(monProfilFormParticipant.nom) }}
+                            </div>
+
+                            <div class="block has-text-white">
+                                {{ form_label(monProfilFormParticipant.telephone) }}
+                                {{ form_widget(monProfilFormParticipant.telephone) }}
+                                {{ form_errors(monProfilFormParticipant.telephone) }}
+                            </div>
+
+                            <div class="block has-text-white">
+                                {{ form_label(monProfilFormParticipant.email) }}
+                                {{ form_widget(monProfilFormParticipant.email) }}
+                                {{ form_errors(monProfilFormParticipant.email) }}
+                            </div>
+                            <div class="notification is-primary">
+                                <button class="delete"></button>
+                                Ce champ vous permet de modifier votre mail pour recevoir les notifications. <strong>Il ne modifie pas votre mail de connexion (@campus-eni.fr)</strong>
+                            </div>
+
+                            <div class="block has-text-white">
+                                {{ form_label(monProfilFormParticipant.site) }}
+                                {{ form_widget(monProfilFormParticipant.site) }}
+                                {{ form_errors(monProfilFormParticipant.site) }}
+                            </div>
+
+
+                            <div class="block has-text-white"><a class="has-text-white"
+                                                                 href="{{ path('modifiermdp') }}"> Modifier mon mot de
+                                    passe </a></div>
+
+                            <div class="field is-grouped is-grouped-centered">
+
+                                <p class="control">
+                                    <button class="button is-link is-light"> Retour à l'accueil</button>
+                                </p>
+                                <p class="control">
+                                    <button class="button is-link is-light" type="submit"> Modifier</button>
+                                </p>
+                            </div>
+                            {{ form_end(monProfilFormParticipant) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="group">
-        {{ form_label(monProfilFormParticipant.nom) }}
-        {{ form_widget(monProfilFormParticipant.nom) }}
-        {{ form_errors(monProfilFormParticipant.nom) }}
-    </div>
 
-    <div class="group">
-        {{ form_label(monProfilFormParticipant.telephone) }}
-        {{ form_widget(monProfilFormParticipant.telephone) }}
-        {{ form_errors(monProfilFormParticipant.telephone) }}
-    </div>
+    {#    <h1>Mon profil</h1> #}
 
-    <div class="group">
-        {{ form_label(monProfilFormParticipant.email) }}
-        {{ form_widget(monProfilFormParticipant.email) }}
-        {{ form_errors(monProfilFormParticipant.email) }}
-    </div>
+    {#    <img src="https://via.placeholder.com/250x250" alt="Ma photo de profil"> #}
 
-    <div class="group">
-        {{ form_label(monProfilFormParticipant.site) }}
-        {{ form_widget(monProfilFormParticipant.site) }}
-        {{ form_errors(monProfilFormParticipant.site) }}
-    </div>
+    {#    {{ form_start(monProfilFormParticipant) }} #}
+
+    {#    <div class="group"> #}
+    {#        {{ form_label(monProfilFormParticipant.prenom) }} #}
+    {#        {{ form_widget(monProfilFormParticipant.prenom) }} #}
+    {#        {{ form_errors(monProfilFormParticipant.prenom) }} #}
+    {#    </div> #}
+
+    {#    <div class="group"> #}
+    {#        {{ form_label(monProfilFormParticipant.nom) }} #}
+    {#        {{ form_widget(monProfilFormParticipant.nom) }} #}
+    {#        {{ form_errors(monProfilFormParticipant.nom) }} #}
+    {#    </div> #}
+
+    {#    <div class="group"> #}
+    {#        {{ form_label(monProfilFormParticipant.telephone) }} #}
+    {#        {{ form_widget(monProfilFormParticipant.telephone) }} #}
+    {#        {{ form_errors(monProfilFormParticipant.telephone) }} #}
+    {#    </div> #}
+
+    {#    <div class="group"> #}
+    {#        {{ form_label(monProfilFormParticipant.email) }} #}
+    {#        {{ form_widget(monProfilFormParticipant.email) }} #}
+    {#        {{ form_errors(monProfilFormParticipant.email) }} #}
+    {#    </div> #}
+
+    {#    <div class="group"> #}
+    {#        {{ form_label(monProfilFormParticipant.site) }} #}
+    {#        {{ form_widget(monProfilFormParticipant.site) }} #}
+    {#        {{ form_errors(monProfilFormParticipant.site) }} #}
+    {#    </div> #}
 
 
-    <a href="{{ path('modifiermdp') }}"> Modifier mon mot de passe </a>
-    <button type="submit" class="btn">Enregistrer</button>
+    {#    <a href="{{ path('modifiermdp') }}"> Modifier mon mot de passe </a> #}
+    {#    <button type="submit" class="btn">Enregistrer</button> #}
 
-    {{ form_end(monProfilFormParticipant) }}
+    {#    {{ form_end(monProfilFormParticipant) }} #}
 
 
 
-<a href="{{ path('home') }}"><button type="button">Annuler</button></a>
+    <a href="{{ path('home') }}">
+        <button type="button">Annuler</button>
+    </a>
 
 {% endblock %}

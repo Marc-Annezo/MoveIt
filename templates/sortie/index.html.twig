@@ -10,6 +10,9 @@
 
         {{ app.user.id }}
 
+{#         Pour ajouter le site de l'organisateur #}
+        {{ app.user.idParticipant.site }}
+
 {{ form_start(creerSortie) }}
 
         {{ form_label(creerSortie.nom) }}
@@ -40,6 +43,8 @@
         {{ form_label(creerSortie.lieu) }}
         {{ form_widget(creerSortie.lieu) }}
         {{ form_errors(creerSortie.lieu) }}
+        <a href=""></a>
+
 
 
 {#        {{ form_label(creerSortie.site) }}#}
