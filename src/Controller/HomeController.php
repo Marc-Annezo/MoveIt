@@ -24,6 +24,7 @@ class HomeController extends AbstractController
         SortieRepository $sortieRepository,
         UtilisateurRepository $repoUser,
         SiteRepository $siteRepository,
+        EtatRepository $etatRepository,
 
     ): Response
 
@@ -38,12 +39,14 @@ class HomeController extends AbstractController
         $utilisateur = $repoUser->findOneBy(["email" => $userSession]);
         $participant = $utilisateur->getIdParticipant();
         $listeSortiesParticipant = $participant ->getSortiesParticipant();
+     //   $etat = $etatRepository->findAll();
 
 
         return $this->render('home/index.html.twig',
         ['listeSorties'=>$listeSorties,
          'listeSortiesParticipant'=>$listeSortiesParticipant,
          'sites'=>$sites,
+          'participant' =>$participant
 
         ]
         );
@@ -220,9 +223,30 @@ class HomeController extends AbstractController
             ['listeSorties'=>$listeSorties,
                 'listeSortiesParticipant'=>$listeSortiesParticipant,
                 'sites'=>$sites,
+                'participant' =>$participant
 
             ]
         );
+    }
+
+    #[Route('/sortie/annule/{id}', name: 'sortieannulee')]
+    public function annulationSortie(
+                                    $id,
+                                    SortieRepository $sortieRepository,
+                                    EtatRepository $etatRepository,
+                                    EntityManagerInterface $em,
+    ): Response
+
+    {
+
+        $sortie = $sortieRepository->findOneBy(['id'=>$id]);
+        $etat = $etatRepository->findOneBy(['libelle'=>'Annulee']);
+        $sortie->setEtat($etat);
+        $em->persist($sortie);
+        $em->flush();
+
+
+        return $this->redirectToRoute('home');
     }
 
 

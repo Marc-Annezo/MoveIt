@@ -131,21 +131,38 @@
                     <td>{{ sortie.dateHeureFin|date("d/m/Y") }}</td>
                     <td>{{ sortie.inscrits|length }}/{{ sortie.nbInscriptionsMax }}</td>
                     <td>{{ sortie.etat }}</td>
-                    <td>X</td>
+
+                    {% if participant in sortie.inscrits %}
+                    <td>Oui</td>
+                    {% endif %}
+                    {% if not (participant in sortie.inscrits) %}
+                        <td>Non</td>
+                    {% endif %}
+
+
                     <td>{{ sortie.organisateur }}</td>
 
                     <td>
-                        <a href="">- Afficher</a>
+                        <a href="">Detail</a>
 
+                        {% if (sortie.etat.libelle is not same as 'Annulee') %}
                         {% if sortie in listeSortiesParticipant %}
+
                             <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- Se désister</a>
                         {% endif %}
                         {% if not (sortie in listeSortiesParticipant) %}
                         <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire</a>
                         {% endif %}
+                        {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' %}
+                            <a href=" {{ path('sortieannulee', {'id':sortie.id}) }}">Annuler</a>
+                        {% endif %}
 
-                        <a href="">- Modifier/Annuler</a>
+                        <a href="">- Modifier</a>
                         <a href="">- Publier</a>
+                        {% endif %}
+                        {% if (sortie.etat.libelle is same as 'Annulee') %}
+                            <small>Sortie Annulée</small>
+                        {% endif %}
                     </td>
                 </tr>
                 </td>
