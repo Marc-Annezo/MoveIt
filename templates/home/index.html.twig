@@ -4,13 +4,30 @@
 
     {% block espace %}
 
-        <section class="hero">
-            <div class="hero-body is-10">
-                <div class="column is-1">Bonjour</div>
 
-                <div class="column is-1">{{ 'now'|date('d - m -Y') }}</div>
+        <div class="columns">
+            <div class="column">
+                <div>
+                    <p class="title is-5"></p>
+                    <p class="subtitle"></p>
+                </div>
             </div>
-        </section>
+            <div class="column is-narrow">
+                <div class="box" style="width: 500px;"><br>
+                    <p class="title is-5">Bonjour {{ app.user.userIdentifier }}</p>
+                    <p class="subtitle">Nous sommes le {{ 'now'|date('d - m -Y') }}</p>
+                </div>
+            </div>
+
+        </div>
+
+{#        <section class="hero">#}
+{#            <div class="column is-10">#}
+{#                <div class="column is-1"></div>#}
+
+{#                <div class="column is-1"></div>#}
+{#            </div>#}
+{#        </section>#}
 
     {% endblock %}
 
