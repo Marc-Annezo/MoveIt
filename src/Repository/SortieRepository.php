@@ -19,9 +19,13 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function filtres($param1,$param2,$param3,$param4,$param5){
+    public function filtres($param1,$param2,$param3,$param4,$param5,$param6){
 
         $qb=$this->createQueryBuilder('s');
+
+        $qb->where('s.site = :param6')
+            ->setParameter('param6',$param6);
+
 
         if($param3 != null){
             $qb->andWhere(
@@ -42,6 +46,7 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('param5',$param5);
 
         }
+
 
 
 

@@ -22,19 +22,28 @@ class HomeController extends AbstractController
     public function accueil(
         SortieRepository $sortieRepository,
         UtilisateurRepository $repoUser,
+        SiteRepository $siteRepository,
 
     ): Response
 
     {
+
+        $sites= $siteRepository->findAll();
+
+
+
     $listeSorties = $sortieRepository->findAll();
         $userSession = $this->getUser()->getUserIdentifier();
         $utilisateur = $repoUser->findOneBy(["email" => $userSession]);
         $participant = $utilisateur->getIdParticipant();
         $listeSortiesParticipant = $participant ->getSortiesParticipant();
 
+
         return $this->render('home/index.html.twig',
         ['listeSorties'=>$listeSorties,
-         'listeSortiesParticipant'=>$listeSortiesParticipant
+         'listeSortiesParticipant'=>$listeSortiesParticipant,
+            'sites'=>$sites,
+
         ]
         );
     }
@@ -132,12 +141,7 @@ class HomeController extends AbstractController
             //site universitaire
             $nomdusite = filter_input(INPUT_POST, 'selection_du_site', FILTER_SANITIZE_STRING);
 
-            if($nomdusite != ""){
-
                 $site = $siteRepository->findOneBy(['nom'=>$nomdusite]);
-
-
-            }
 
 
             //input search
@@ -177,23 +181,11 @@ class HomeController extends AbstractController
                                     $textsearch,
                                     $organisateur,
                                     $sortie_inscrit,
+                                    $site,
             );
 
 
             dd($sortiesresultats);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         }
 
