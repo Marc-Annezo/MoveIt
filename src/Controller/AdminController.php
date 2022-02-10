@@ -57,7 +57,7 @@ class AdminController extends AbstractController
 //
 //    }
 
- /*   #[Route('/modifierville', name: 'modifierville')]
+    #[Route('/modifierville', name: 'modifierville')]
     public function modifierville(Request $request,
                                   EntityManagerInterface $em,
                                   VilleRepository $villeRepo,
@@ -84,21 +84,21 @@ class AdminController extends AbstractController
         );
     }
 
-    #[Route('/supprimerville', name: 'supprimerville')]
-    public function supprimerville(Request $request,
-                                   VilleRepository $villeRepo,
-                                   EntityManagerInterface $em,
-    ) : Response
-
-    {
-        $supprimerville = $this.
-        $em -> remove();
-
-        $listeVille = $villeRepo->findAll();
-        return $this->render('admin/gestionville.html.twig',
-            compact('listeVille')
-        );
-    }
+//    #[Route('/supprimerville', name: 'supprimerville')]
+//    public function supprimerville(Request $request,
+//                                   VilleRepository $villeRepo,
+//                                   EntityManagerInterface $em,
+//    ) : Response
+//
+//    {
+//        $supprimerville = $this.
+//        $em -> remove();
+//
+//        $listeVille = $villeRepo->findAll();
+//        return $this->render('admin/gestionville.html.twig',
+//            compact('listeVille')
+//        );
+//    }
 
     #[Route('/gestionsite', name: 'gestionsite')]
     public function gestionsite(
@@ -113,21 +113,21 @@ class AdminController extends AbstractController
         );
     }
 
-    #[Route('/ajoutersite', name: 'ajoutersite')]
-    public function ajoutersite(
-        SiteRepository $siteRepo,
-        EntityManagerInterface $em,
-        Request $request,
-    ): Response
-
-    {
-        $nvSite = new Site();
-        dd($request);
-
-        $listeSite = $siteRepo->findAll();
-
-        return $this->render('admin/gestionsite.html.twig',
-            compact('listeSite')
-        );
-    } */
+//    #[Route('/ajoutersite', name: 'ajoutersite')]
+//    public function ajoutersite(
+//        SiteRepository $siteRepo,
+//        EntityManagerInterface $em,
+//        Request $request,
+//    ): Response
+//
+//    {
+//        $nvSite = new Site();
+//        dd($request);
+//
+//        $listeSite = $siteRepo->findAll();
+//
+//        return $this->render('admin/gestionsite.html.twig',
+//            compact('listeSite')
+//        );
+//    }
 }
