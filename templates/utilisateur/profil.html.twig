@@ -19,7 +19,7 @@
                 <div class="columns is-vcentered">
                     <div class="column is-4 is-offset-1">
                         <figure class="image is-256x256">
-                            <img class="is-rounded" src="{{ asset('img/profil2.jpg') }}" alt="Description">
+                            <img class="is-rounded" src="{{ asset('/uploads/' ~ participant.image ) }}" alt="Description">
                         </figure>
                     </div>
 
@@ -68,6 +68,12 @@
                                 {{ form_label(monProfilFormParticipant.site) }}
                                 {{ form_widget(monProfilFormParticipant.site) }}
                                 {{ form_errors(monProfilFormParticipant.site) }}
+                            </div>
+
+                            <div class="block has-text-white">
+                                {{ form_label(monProfilFormParticipant.my_file) }}
+                                {{ form_widget(monProfilFormParticipant.my_file) }}
+                                {{ form_errors(monProfilFormParticipant.my_file) }}
                             </div>
 
 

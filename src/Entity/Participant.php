@@ -46,6 +46,9 @@ class Participant
     #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'inscrits')]
     private $sorties_participant;
 
+    #[ORM\Column(type: 'string', length: 500, nullable: true)]
+    private $image;
+
     public function __construct()
     {
         $this->sorties_orga = new ArrayCollection();
@@ -223,6 +226,18 @@ class Participant
     public function __toString(): string
     {
         return $this->getNom();
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 
 

@@ -39,6 +39,18 @@ class UtilisateurController extends AbstractController
 
 
         if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
+
+            $file = $request->files->get('form_participant')['my_file'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid())  .'.' . $file->guessExtension();
+
+            $file->move(
+                $uploads_directory,
+                $filename
+            );
+
+       $participant->setImage($filename);
+
             $participant->setIdUtilisateur($utilisateur);
             $entityManager->persist($participant);
             $entityManager->flush();
@@ -51,6 +63,7 @@ class UtilisateurController extends AbstractController
 
         return $this->render('utilisateur/profil.html.twig', [
             'monProfilFormParticipant' => $formParticipant->createView(),
+                'participant'=>$participant
         ]);
     }
 
