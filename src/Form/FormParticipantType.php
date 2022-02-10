@@ -63,7 +63,8 @@ class FormParticipantType extends AbstractType
             )
             ->add('my_file', FileType::class, [
                 'mapped'=>false,
-                    'label'=>'Mon avatar'
+                    'label'=>'Mon avatar',
+                    'required'=>false
                 ]
 
             )
