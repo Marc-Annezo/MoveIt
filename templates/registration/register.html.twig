@@ -50,13 +50,14 @@
                         <br>
                         <figure class="image is-64x64 is-inline-block">
 
-                            <img class="" src="{{ asset('img/triangle-exclamation.svg') }}"/>
+                            <img  class="" src="{{ asset('img/triangle-exclamation.svg') }}"/>
 
                             {{ form_row(registrationForm.admin, {
-                                'label_attr': {'class': ' text-primary checkbox'},
+                                'label_attr': {'class': ' text-danger checkbox'},
                                 'label':'cocher la case si Admin  ',
                                 'attr' : {'class':'checkbox',
                                     'type':'checkbox',
+                                    'style' : 'transform: scale(1.5); cursor: pointer;'
 
                                 },
                             }) }}
