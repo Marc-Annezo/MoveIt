@@ -52,3 +52,12 @@ class RegistrationFormType extends AbstractType
         ]);
     }
 }
+
+//{{ form_row(creerSortie.nom, {
+//                'label_attr': {'class': ' text-primary'},
+//                'attr' : {'class':'input is-link',
+//                    'placeholder':'Quelle sortie ?',
+//                    'type':'text',
+//                    'aria-describedby':"inputGroup-sizing-sm"
+//                },
+//            }) }}

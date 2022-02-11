@@ -3,15 +3,75 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-    {{ form_row(registrationForm.admin) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <br>
+    <br>
+    <br>
+    <br>
+
+    {#         Pour ajouter le site de l'organisateur #}
+    }
+
+
+    <div class="box has-text-centered m-6 has-background-info">
+
+        <div class="box m-6">
+            <p class="is-size-3"> Bienvenue {{ app.user.idParticipant.prenom }}</p>
+            <label for=""> Lieu de rattachement </label>
+            <p> {{ app.user.idParticipant.site }} </p>
+
+
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'form-control ',
+                    'placeholder':'Email du Compte a creer',
+                    'type':'text',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+
+            <br>
+            {{ form_row(registrationForm.plainPassword, {
+                'label_attr': {'class': ' text-primary'},
+                'label':'Mot de passe utilisateur',
+                'attr' : {'class':'form-control ',
+                    'placeholder':'Mot de passe de l\'utilisateur',
+                    'type':'password',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+
+
+
+                    <div class="has-text-centered">
+
+                        <br>
+                        <figure class="image is-64x64 is-inline-block">
+
+                            <img class="" src="{{ asset('img/triangle-exclamation.svg') }}"/>
+
+                            {{ form_row(registrationForm.admin, {
+                                'label_attr': {'class': ' text-primary checkbox'},
+                                'label':'cocher la case si Admin  ',
+                                'attr' : {'class':'checkbox',
+                                    'type':'checkbox',
+
+                                },
+                            }) }}
+
+
+                        </figure>
+                    </div>
+            <br>
+
+            <button type="submit" class="button is-info">Register</button>
+            {{ form_end(registrationForm) }}
+
+
+        </div>
+    </div>
+    </div>
+
 {% endblock %}
