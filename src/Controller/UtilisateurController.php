@@ -123,7 +123,6 @@ class UtilisateurController extends AbstractController
     public function modifierProfil(Request $request,
                                 EntityManagerInterface $entityManager,
                                 ParticipantRepository $participantRepository,
-                                UtilisateurRepository $utilisateurRepository,
                                 $id,
     ): Response
     {
@@ -140,7 +139,6 @@ class UtilisateurController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-
             return $this->redirectToRoute('MonProfil');
         }
 

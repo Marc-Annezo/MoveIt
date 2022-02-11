@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="box has-text-centered m-6 has-background-info">
+
+        <div class="box m-6">
+            <p class="is-size-3"> Ajouter un Lieu </p>
+            <label for=""> Lieu de rattachement </label>
+            <p> {{ app.user.idParticipant.site }} </p>
+
+
+            {{ form_start(formAjoutLieu, {'attr': {'id': 'formulaireAjoutLieu', 'class': 'box p-6'}}) }}
+
+            {{ form_row(formAjoutLieu.nom, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'Que voulez vous faire ?',
+                    'type':'text',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(formAjoutLieu.rue, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'',
+                    'type':'date',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(formAjoutLieu.latitude, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'',
+                    'type':'date',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(formAjoutLieu.longitude, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'',
+                    'type':'date',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(formAjoutLieu.idVille, {
+                'label': 'Ville',
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'',
+                    'type':'date',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+
+        </div>
+
+
+        {{ form_end(formAjoutLieu) }}
+
+
+    </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

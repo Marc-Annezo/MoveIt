@@ -2,58 +2,174 @@
 
 {% block title %}Hello SortieController!{% endblock %}
 
+
 {% block body %}
     <br>
     <br>
     <br>
     <br>
 
-        {{ app.user.id }}
-
-{#         Pour ajouter le site de l'organisateur #}
-        {{ app.user.idParticipant.site }}
-
-{{ form_start(creerSortie) }}
-
-        {{ form_label(creerSortie.nom) }}
-        {{ form_widget(creerSortie.nom) }}
-        {{ form_errors(creerSortie.nom) }}
+    {#         Pour ajouter le site de l'organisateur #}
+    }
 
 
-        {{ form_label(creerSortie.dateHeureDebut) }}
-        {{ form_widget(creerSortie.dateHeureDebut) }}
-        {{ form_errors(creerSortie.dateHeureDebut) }}
+    <div class="box has-text-centered m-6 has-background-info">
 
-        {{ form_label(creerSortie.dateHeureFin) }}
-        {{ form_widget(creerSortie.dateHeureFin) }}
-        {{ form_errors(creerSortie.dateHeureFin) }}
-
-        {{ form_label(creerSortie.dateLimiteInscription) }}
-        {{ form_widget(creerSortie.dateLimiteInscription) }}
-        {{ form_errors(creerSortie.dateLimiteInscription) }}
-
-        {{ form_label(creerSortie.nbInscriptionsMax) }}
-        {{ form_widget(creerSortie.nbInscriptionsMax) }}
-        {{ form_errors(creerSortie.nbInscriptionsMax) }}
-
-        {{ form_label(creerSortie.InfosSortie) }}
-        {{ form_widget(creerSortie.InfosSortie) }}
-        {{ form_errors(creerSortie.InfosSortie) }}
-
-        {{ form_label(creerSortie.lieu) }}
-        {{ form_widget(creerSortie.lieu) }}
-        {{ form_errors(creerSortie.lieu) }}
-        <a href=""></a>
+        <div class="box m-6">
+            <p class="is-size-3"> Bienvenue {{ app.user.idParticipant.prenom }}</p>
+            <label for=""> Lieu de rattachement </label>
+            <p> {{ app.user.idParticipant.site }} </p>
 
 
+            {{ form_start(creerSortie, {'attr': {'id': 'formulaire', 'class': 'box p-6'}}) }}
 
-{#        {{ form_label(creerSortie.site) }}#}
-{#        {{ form_widget(creerSortie.site) }}#}
-{#        {{ form_errors(creerSortie.site) }}#}
+            {{ form_row(creerSortie.nom, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'Quelle sortie ?',
+                    'type':'text',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(creerSortie.dateHeureDebut, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'',
+                    'type':'date',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(creerSortie.dateHeureFin, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'',
+                    'type':'date',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(creerSortie.dateLimiteInscription, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'',
+                    'type':'date',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(creerSortie.nbInscriptionsMax, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'Nombre max de personnes',
+                    'type':'text',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
+            {{ form_row(creerSortie.InfosSortie, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'Les details de la sortie',
+                    'type':'text',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+            <br>
 
-{{ form_end(creerSortie) }}
+            <div class="block">
+                <label for="" class="text-primary"> Ville </label>
+                <select class="input is-link" name="selectVille" id="selectVille" onchange="getLieu(this.value)">
+                    {% for ville in listeVille %}
+                        <option value="{{ ville.id }}" name="{{ ville.nom }}"> {{ ville.nom }} </option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <a href="/home">
-        <button class="button is-link">Annuler</button>
-        </a>
+
+            {{ form_row(creerSortie.lieu, {
+                'label_attr': {'class': ' text-primary'},
+                'attr' : {'class':'input is-link',
+                    'placeholder':'Lieu',
+                    'type':'text',
+                    'id':'listeLieux',
+                    'aria-describedby':"inputGroup-sizing-sm"
+                },
+            }) }}
+
+
+            <div class="field is-grouped  is-grouped-centered">
+                <div class="control">
+                    {{ form_row(creerSortie.creer, {
+                        'attr' : {'class': 'button is-block is-info is-normal is-fullwidth'
+                        },
+                    }) }}
+                </div>
+
+                <div class="control">
+                    {{ form_row(creerSortie.publier, {
+
+                        'attr' : {
+                            'class': 'button is-block is-info is-normal is-fullwidth'
+                        },
+                    }) }}
+                </div>
+
+                <div class="control">
+                    <button class="button is-block is-info is-normal is-fullwidth" value="Ajouter un lieu">
+                        <a id="btn_href" class="has-text-white" href="{{ path('ajouterlieu') }}"> Ajouter un lieu </a>
+                    </button>
+                </div>
+            </div>
+
+
+
+
+
+            {{ form_end(creerSortie) }}
+
+
+        </div>
+    </div>
+    </div>
+
+    <script>
+
+
+
+    </script>
+
+
+
+
+
+    {#    <div> #}
+    {#        <div> #}
+    {#            <label>Pays:</label><br/> #}
+    {#            <select name="pays" id="liste-pays" onChange="getVille(this.value);"> #}
+    {#                <option value="">Sélectionnez le pays</option> #}
+    {#                <?php #}
+    {#    foreach($results as $pays) { #}
+    {#    ?> #}
+    {#                <option value="<?php echo $pays["id"]; ?>"><?php echo $pays["name"]; ?></option> #}
+    {#                <?php #}
+    {#    } #}
+    {#    ?> #}
+    {#            </select> #}
+    {#        </div> #}
+    {#        <div> #}
+    {#            <label>Ville:</label><br/> #}
+    {#            <select name="ville" id="list-ville"> #}
+    {#                <option value="">Sélectionnez la ville</option> #}
+    {#            </select> #}
+    {#        </div> #}
+    {#    </div> #}
+
+    {#        {{ form_label(creerSortie.site) }} #}
+    {#        {{ form_widget(creerSortie.site) }} #}
+    {#        {{ form_errors(creerSortie.site) }} #}
+
+
+
 {% endblock %}

@@ -148,7 +148,7 @@
                         {% if (sortie.etat.libelle is not same as 'Annulee') %}
                         {% if sortie in listeSortiesParticipant %}
 
-                            <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- Se désister</a>
+                            <a href="{{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- Se désister</a>
                         {% endif %}
                         {% if not (sortie in listeSortiesParticipant) %}
                         <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire</a>
