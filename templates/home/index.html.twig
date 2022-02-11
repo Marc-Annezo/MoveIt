@@ -157,8 +157,24 @@
                             <a href=" {{ path('sortieannulee', {'id':sortie.id}) }}">Annuler</a>
                         {% endif %}
 
-                        <a href="">- Modifier</a>
+
+
+                        {%  if (sortie.organisateur is same as participant) %}
+                            {%  if (sortie.etat.libelle is same as 'Ouverte' or sortie.etat.libelle is same as 'creee') %}
+                            <a href="">- Modifier</a>
+                            {% endif%}
+
+                            {%  if (sortie.etat.libelle is same as 'creee') %}
+                                <a href="">Supprimer</a>
+                            {% endif%}
+                        {% endif%}
+
+                        {%  if (sortie.etat.libelle is same as 'creee' and sortie.organisateur is same as participant) %}
+
                         <a href="">- Publier</a>
+                        {% endif%}
+
+
                         {% endif %}
                         {% if (sortie.etat.libelle is same as 'Annulee') %}
                             <small>Sortie Annulée</small>
