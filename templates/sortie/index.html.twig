@@ -136,6 +136,16 @@
 
     <script>
 
+        function getLieux(val){
+            $.ajax({
+                type: "POST",
+                url: "/listeLieuVille/{id}"
+                data:'id_ville='+val,
+                success: function(data){
+                    $("#selectVille").html(data);
+                }
+            });
+        }
 
 
     </script>

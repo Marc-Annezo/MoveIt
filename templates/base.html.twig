@@ -22,6 +22,8 @@
 {% block NavBar %}
 
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+
+
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ path('home') }}">
                 <img src="{{ asset('img/logo.png') }}">
@@ -35,10 +37,10 @@
                 <span aria-hidden="true"></span>
             </a>
         </div>
-
+        {% if app.user %}
         <div id="navbarBasicExample" class="navbar-menu is-active">
             <div class="navbar-end">
-{#                {% if 'ROLE_ADMIN' in app.user.roles %}#}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         Administrer
@@ -52,7 +54,7 @@
 
                     </div>
                 </div>
-{#                {% endif %}#}
+{               {% endif %}
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         Sorties
@@ -72,11 +74,17 @@
 
             <a class="navbar-item" href={{ path('MonProfil') }}>Mon profil</a>
 
+            {% endif %}
 
             <div>
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-warning" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        {% if app.user %}
+                            <a id="boutonCO" class="button is-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        {% else %}
+                            <a id="boutonDECO" class="button is-link" href="{{ path('app_login') }}">Se connecter </a>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
