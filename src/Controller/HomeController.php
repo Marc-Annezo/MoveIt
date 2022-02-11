@@ -285,11 +285,21 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    #[Route('/sortie/details/{id}', name: 'details')]
+    public function details(
+        SiteRepository $siteRepository,
+        UtilisateurRepository $repoUser,
+        SortieRepository $sortieRepository,
+        EtatRepository $etatRepository,
+        $id,
+    ): Response
 
+    {
 
-
-
-
+        $detailssortie = $sortieRepository->findById($id);
+        return $this->render('sortie/details.html.twig',
+            compact('detailssortie'));
+    }
 
 }
 

@@ -9,6 +9,8 @@ use App\Form\AjoutLieuType;
 use App\Form\CreerSortieType;
 use App\Form\FormLieuType;
 use App\Repository\EtatRepository;
+use App\Repository\SiteRepository;
+use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -106,6 +108,8 @@ Request $request,
             compact('formAjoutLieu')
         );
     }
+
+
 
     #[Route('/listeLieuVille/{id}', name: 'listeLieuVille')]
     public function listeLieuVille(

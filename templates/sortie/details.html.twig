@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="box">
+    {% for sortie in detailssortie %}
+        <h3>{{ sortie.nom }} au {{ sortie.lieu }}</h3>
+        <p> {{ sortie.dateHeureDebut|date("d/m/Y H:i") }} - {{ sortie.dateHeureFin|date("d/m/Y H:i")}}</p>
+        <p>Date limite d'inscription fixée au {{ sortie.dateLimiteInscription|date("d/m/Y H:i") }}</p>
+        <p>Nombre maximum de participant limité à {{ sortie.nbInscriptionsMax }}</p>
+        <p>Sortie organisée par {{ sortie.organisateur }} du site {{ sortie.site }}</p>
+        <p>{{ sortie.InfosSortie }}</p>
+    {% endfor %}
+    </div>
+
+    <div class="field is-grouped is-grouped-centered">
+
+        <p class="control">
+            <button class="button is-link is-light"><a href="{{ path('home') }}"> Retour à l'accueil</a></button>
+        </p>
+    </div>
+{% endblock %}
