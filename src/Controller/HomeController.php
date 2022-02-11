@@ -260,9 +260,10 @@ class HomeController extends AbstractController
 
         $sortie = $sortieRepository->findOneBy(['id'=>$id]);
 
-        $em->remove($sortie);
-        $em->flush();
-
+        if($sortie->getEtat()->getLibelle() == 'creee') {
+                $em->remove($sortie);
+                $em->flush();
+        }
         return $this->redirectToRoute('home');
     }
     #[Route('/sortie/publier/{id}', name: 'publiersortie')]
