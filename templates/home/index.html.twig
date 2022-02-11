@@ -165,13 +165,13 @@
                             {% endif%}
 
                             {%  if (sortie.etat.libelle is same as 'creee') %}
-                                <a href="">Supprimer</a>
+                                <a href="{{ path('sortieSuppr', {'id':sortie.id}) }}">Supprimer</a>
                             {% endif%}
                         {% endif%}
 
                         {%  if (sortie.etat.libelle is same as 'creee' and sortie.organisateur is same as participant) %}
 
-                        <a href="">- Publier</a>
+                        <a href="{{ path('publiersortie', {'id':sortie.id}) }}">Publier</a>
                         {% endif%}
 
 

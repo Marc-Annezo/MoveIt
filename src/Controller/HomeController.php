@@ -249,6 +249,44 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    #[Route('/sortie/supprimer/{id}', name: 'sortieSuppr')]
+    public function suppressionSortie(
+        $id,
+        SortieRepository $sortieRepository,
+        EntityManagerInterface $em,
+    ): Response
+
+    {
+
+        $sortie = $sortieRepository->findOneBy(['id'=>$id]);
+
+        $em->remove($sortie);
+        $em->flush();
+
+        return $this->redirectToRoute('home');
+    }
+    #[Route('/sortie/publier/{id}', name: 'publiersortie')]
+    public function publierSortie(
+        $id,
+        SortieRepository $sortieRepository,
+        EntityManagerInterface $em,
+        EtatRepository $etatRepository,
+    ): Response
+
+    {
+
+        $sortie = $sortieRepository->findOneBy(['id'=>$id]);
+        $etat = $etatRepository->findOneBy(['libelle'=>'Ouverte']);
+        $sortie->setEtat($etat);
+        $em->persist($sortie);
+        $em->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
+
+
+
 
 
 
