@@ -24,16 +24,23 @@ class AdminController extends AbstractController
     ): Response
 
     {
+        // récupère la liste des villes
         $listeVille = $villeRepo->findAll();
 
+        // Ajout d'une nouvelle ville
+        // instancie une nouvelle ville
         $nvVille = new Ville();
+
+        // créer le formulaire d'ajout ville
         $ajoutVille = $this->createForm(FormVilleType ::class, $nvVille);
         $ajoutVille->handleRequest($request);
 
+        // validation du formulaire et envoi à la DB
         if ($ajoutVille->isSubmitted() && $ajoutVille->isValid()){
             $em->persist($nvVille);
             $em->flush();
 
+        // redirection vers la page de gestionnaire des villes
             return $this->redirectToRoute('admin_gestionville');
         }
 
@@ -42,63 +49,53 @@ class AdminController extends AbstractController
         );
     }
 
-//   #[Route('/ajouterville', name: 'ajouterville')]
-//    public function ajouterville(Request $request,
-//                                 EntityManagerInterface $em,
-//                                 VilleRepository $villeRepo,
-//
-//    ): Response
-//
-//    {
-//
-//        return $this->render('admin/gestionville.html.twig',
-//
-//        );
-//
-//    }
-
     #[Route('/modifierville', name: 'modifierville')]
     public function modifierville(Request $request,
-                                  EntityManagerInterface $em,
-                                  VilleRepository $villeRepo,
+                                  EntityManagerInterface $em
+
     ) : Response
 
     {
-        // récupération de la ville
-
+        $id = $request->request->get('id');
+        $ville = $em->getRepository(Ville::class)->find($id);
 
         // création du formulaire de modification de la ville
-        $form = $this->createForm(FormVilleType ::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
+        $modifVille = $this->createForm(FormVilleType ::class, $ville);
+        $modifVille->handleRequest($request);
 
-        $modifVille = $form -> getData();
-        $modifVille -> setNom('nom');
-        $modifVille -> setCodePostal('CodePostal');
-        $em -> persist ($modifVille);
+        // validation du formulaire et envoi à la DB
+        if ($modifVille->isSubmitted() && $modifVille->isValid()
+        ) {
+            return $this->redirectToRoute('admin_gestionville');
+        }
+
+        $ville -> setNom('nom');
+        $ville -> setCodePostal('CodePostal');
+
+        $em -> persist ($ville);
         $em -> flush();
 
-        $listeVille = $villeRepo->findAll();
-        return $this->render('admin/gestionville.html.twig',
-            compact('listeVille')
+        return $this->render('admin/modifierville.html.twig',
+            ['listeVille'=>$modifVille]
         );
     }
 
-//    #[Route('/supprimerville', name: 'supprimerville')]
-//    public function supprimerville(Request $request,
-//                                   VilleRepository $villeRepo,
-//                                   EntityManagerInterface $em,
-//    ) : Response
-//
-//    {
-//        $supprimerville = $this.
-//        $em -> remove();
-//
-//        $listeVille = $villeRepo->findAll();
-//        return $this->render('admin/gestionville.html.twig',
-//            compact('listeVille')
-//        );
-//    }
+    #[Route('/supprimerville', name: 'supprimerville')]
+    public function supprimerville(Request                $request,
+                                   EntityManagerInterface $em
+
+    ) : Response
+
+    {
+        $id = $request->request->get('id');
+        $ville = $em -> getRepository(Ville::class)->find($id);
+
+        $em -> remove($ville);
+        $em ->flush();
+
+        return $this->redirectToRoute('admin/gestionville.html.twig'
+        );
+    }
 
     #[Route('/gestionsite', name: 'gestionsite')]
     public function gestionsite(

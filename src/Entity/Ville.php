@@ -19,6 +19,13 @@ class Ville
     private ?string $nom;
 
     #[ORM\Column(type: 'string', length: 5)]
+    /**
+     * @Assert\Regex(
+     *     pattern="^\d{5}$",
+     *     match=true,
+     *     message="Doit uniquement comporter 5 chiffres"
+     * )
+     */
     private ?string $CodePostal;
 
     #[ORM\OneToMany(mappedBy: 'idVille', targetEntity: Lieu::class)]

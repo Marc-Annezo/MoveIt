@@ -26,12 +26,6 @@ class FormVilleType extends AbstractType
             ])
             ->add('CodePostal', TextType::class, [
                 'label' => ' ',
-            'constraints' => [new Length([
-                'min' => 5,
-                'minMessage' => 'Doit comporter 5 chiffres',
-                'max' => 5,
-                'maxMessage' => 'Doit comporter 5 chiffres'])
-            ],
                 'required' => true
             ])
         ;
