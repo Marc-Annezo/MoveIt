@@ -44,8 +44,8 @@
                             <div class="col-lg">
                                 <select class="form-control" name="selection_du_site">
                                     {% for site in sites %}
-                                    <option value="ok"></option>
-                                    <option value="{{ site }}">{{ site }}</option>
+                                        <option value="ok"></option>
+                                        <option value="{{ site }}">{{ site }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -104,14 +104,14 @@
     {% endblock %}
 
     {% block table %}
-{# Début du tableau en BULMA#}
+        {# Début du tableau en BULMA #}
         <div class="table-container">
             <table class="table is-fullwidth is-hoverable mx-3">
                 <thead>
                 <th>Nom de la sortie</th>
                 <th>Date de la sortie</th>
                 <th>Clôture</th>
-                <th >inscrits/places</th>
+                <th>inscrits/places</th>
                 <th>Etat</th>
                 <th>Inscrit</th>
                 <th>Organisateur</th>
@@ -129,7 +129,7 @@
                     <td>{{ sortie.etat }}</td>
 
                     {% if participant in sortie.inscrits %}
-                    <td>Oui</td>
+                        <td>Oui</td>
                     {% endif %}
                     {% if not (participant in sortie.inscrits) %}
                         <td>Non</td>
@@ -138,72 +138,79 @@
                     <td>{{ sortie.organisateur }}</td>
 
                     <td>
-                        <button class="button is-small button is-link js-modal-trigger" data-target="modal-js-example{{ sortie.id }}">Detail</button>
+                        <button class="button is-small button is-link js-modal-trigger"
+                                data-target="modal-js-example{{ sortie.id }}">Detail
+                        </button>
 
-                            {#       MODAL    START             #}
+                        {#                 MODAL--------START             #}
 
-                     <div id="modal-js-example{{ sortie.id }}" class="modal ">
+                        <div id="modal-js-example{{ sortie.id }}" class="modal ">
                             <div class="modal-background"></div>
                             <div class="modal-content">
                                 <div class="box">
 
-
+                                    {# ####    FAIRE DU JOLIE ICI   ##### #}
 
                                     <h3>{{ sortie.nom }} au {{ sortie.lieu }}</h3>
-                                    <p> {{ sortie.dateHeureDebut|date("d/m/Y H:i") }} - {{ sortie.dateHeureFin|date("d/m/Y H:i")}}</p>
-                                    <p>Date limite d'inscription fixée au {{ sortie.dateLimiteInscription|date("d/m/Y H:i") }}</p>
+                                    <p> {{ sortie.dateHeureDebut|date("d/m/Y H:i") }}
+                                        - {{ sortie.dateHeureFin|date("d/m/Y H:i") }}</p>
+                                    <p>Date limite d'inscription fixée
+                                        au {{ sortie.dateLimiteInscription|date("d/m/Y H:i") }}</p>
                                     <p>Nombre maximum de participant limité à {{ sortie.nbInscriptionsMax }}</p>
                                     <p>Sortie organisée par {{ sortie.organisateur }} du site {{ sortie.site }}</p>
                                     <p>{{ sortie.InfosSortie }}</p>
 
                                     {% for joiner in sortie.inscrits %}
-                                       <p> <a href=" ">{{ joiner.nom }}</a></p>
+                                        <p><a href=" ">{{ joiner.nom }}</a></p>
                                     {% endfor %}
+
+
+                                    {# #####            JUSQU'A LA          ##### #}
 
                                 </div>
                             </div>
                             <button class="modal-close is-large" aria-label="close"></button>
-        </div>
+                        </div>
 
 
-
-                            {#             MODAL       END           #}
+                        {#                     MODAL-------END           #}
 
 
 
                         {% if (sortie.etat.libelle is not same as 'Annulee') %}
-                        {% if sortie in listeSortiesParticipant %}
+                            {% if sortie in listeSortiesParticipant %}
 
-                            <a href="{{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- Se désister</a>
+                                <a class="button is-link is-rounded button is-small" href="{{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">Se désister</a>
+                            {% endif %}
+                            {% if not (sortie in listeSortiesParticipant  ) %}
+                                {% if (sortie.etat.libelle is not same as 'creee' ) %}
+                                    <a class="button is-link is-rounded button is-small" href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}"> S'inscrire</a>
+                                {% endif %}
+                            {% endif %}
+                            {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' %}
+                                <a class="button is-link is-rounded button is-small" href=" {{ path('sortieannulee', {'id':sortie.id}) }}">Annuler</a>
+                            {% endif %}
+
+
+
+                            {% if (sortie.organisateur is same as participant) %}
+                                {% if (sortie.etat.libelle is same as 'Ouverte' or sortie.etat.libelle is same as 'creee') %}
+                                    <a class="button is-link is-rounded button is-small" href="">Modifier</a>
+                                {% endif %}
+
+                                {% if (sortie.etat.libelle is same as 'creee') %}
+                                    <a class="button is-link is-rounded button is-small" href="{{ path('sortieSuppr', {'id':sortie.id}) }}">Supprimer</a>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if (sortie.etat.libelle is same as 'creee' and sortie.organisateur is same as participant) %}
+
+                                <a class="button is-link is-rounded button is-small" href="{{ path('publiersortie', {'id':sortie.id}) }}">Publier</a>
+                            {% endif %}
+
+
                         {% endif %}
-                        {% if not (sortie in listeSortiesParticipant  ) %}
-                            {% if (sortie.etat.libelle is not same as 'creee' )%}
-                        <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire</a>
-                        {% endif %}
-                        {% endif %}
-                        {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' %}
-                            <a href=" {{ path('sortieannulee', {'id':sortie.id}) }}">Annuler</a>
-                        {% endif %}
 
-
-
-                        {%  if (sortie.organisateur is same as participant) %}
-                            {%  if (sortie.etat.libelle is same as 'Ouverte' or sortie.etat.libelle is same as 'creee') %}
-                            <a href="">- Modifier</a>
-                            {% endif%}
-
-                            {%  if (sortie.etat.libelle is same as 'creee') %}
-                                <a href="{{ path('sortieSuppr', {'id':sortie.id}) }}">Supprimer</a>
-                            {% endif%}
-                        {% endif%}
-
-                        {%  if (sortie.etat.libelle is same as 'creee' and sortie.organisateur is same as participant) %}
-
-                        <a href="{{ path('publiersortie', {'id':sortie.id}) }}">Publier</a>
-                        {% endif%}
-
-
-                        {% endif %}
                         {% if (sortie.etat.libelle is same as 'Annulee') %}
                             <small>Sortie Annulée</small>
                         {% endif %}
