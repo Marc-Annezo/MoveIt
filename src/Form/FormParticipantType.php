@@ -63,8 +63,9 @@ class FormParticipantType extends AbstractType
             )
             ->add('my_file', FileType::class, [
                 'mapped'=>false,
-                    'label'=>'Mon avatar',
-                    'required'=>false
+                    'label'=>false,
+                    'required'=>false,
+                    "attr" => ['class' => "file-input"]
                 ]
 
             )

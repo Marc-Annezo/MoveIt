@@ -96,15 +96,27 @@
                             </div>
 
                             <div class="block has-text-white">
-                                {{ form_label(monProfilFormParticipant.my_file) }}
-                                {{ form_widget(monProfilFormParticipant.my_file) }}
-                                {{ form_errors(monProfilFormParticipant.my_file) }}
+                                <div id="file-js-example" class="file has-name file is-warning">
+                                    <label class="file-label">
+                                        {{ form_widget(monProfilFormParticipant.my_file) }}
+                                        {{ form_errors(monProfilFormParticipant.my_file) }}
+                                        <span class="file-cta">
+                                      <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                      </span>
+                                      <span class="file-label">
+                                        Choisir Image
+                                      </span>
+                                    </span>
+                                    <span class="file-name">
+                                      No file uploaded
+                                    </span>
+                                    </label>
+                                </div>
+
                             </div>
-
-
-                            <div class="block has-text-white"><a class="has-text-white"
-                                                                 href="{{ path('modifiermdp') }}"> Modifier mon mot de
-                                    passe </a></div>
+                            <div class=" block has-text-white "><a class="has-text-white"
+                                                                                            href="{{ path('modifiermdp') }}"> modfier mot de passe </a></div>
 
                             <div class="field is-grouped is-grouped-centered">
 
@@ -167,9 +179,16 @@
     {#    {{ form_end(monProfilFormParticipant) }} #}
 
 
+    <script>
+        const fileInput = document.querySelector('#file-js-example input[type=file]');
+        fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+                const fileName = document.querySelector('#file-js-example .file-name');
+                fileName.textContent = fileInput.files[0].name;
+            }
+        }
+    </script>
 
-    <a href="{{ path('home') }}">
-        <button type="button">Annuler</button>
-    </a>
 
 {% endblock %}
+

@@ -2,11 +2,69 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
 
-    <button type="submit"> Enregistrer les modifications </button>
-    {{ form_end(form) }}
+
+    <div class="block has-text-centered"><h2> Modifier votre profil </h2></div>
+
+
+    <div class="box m-6">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="columns is-vcentered">
+                    <div class="column is-2 is-offset-1">
+
+                    </div>
+
+
+                    <div class="column is-4 is-offset-1 has-text-left has-input-right">
+
+                        <div class="colum column is-2 is-offset-1">
+
+                        </div>
+
+                        <div class="column column is-2 is-offset-1">
+
+                        </div>
+
+                        {{ form_start(form) }}
+                        <div class="box is-link has-background-info">
+                            <div class="block has-text-white">
+
+                                {{ form_widget(form) }}
+                                <br>
+                            <div class="block has-text-centered">
+                                <button class="button is-link is-light" type="submit"> Enregistrer les modifications </button>
+                                <br><br>
+                                <button class="button is-link is-light"> Retour à l'accueil</button>
+
+                            </div>
+                                {{ form_end(form) }}
+                            </div>
+
+                            </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 {% endblock %}
