@@ -4,6 +4,7 @@
 
 
 {% block body %}
+
     <br>
     <br>
     <br>
@@ -23,97 +24,44 @@
 
             {{ form_start(creerSortie, {'attr': {'id': 'formulaire', 'class': 'box p-6'}}) }}
 
-            {{ form_row(creerSortie.nom, {
-                'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
-                    'placeholder':'Quelle sortie ?',
-                    'type':'text',
-                    'aria-describedby':"inputGroup-sizing-sm"
-                },
-            }) }}
+            {{ form_row(creerSortie.nom) }}
             <br>
-            {{ form_row(creerSortie.dateHeureDebut, {
-                'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
-                    'placeholder':'',
-                    'type':'date',
-                    'aria-describedby':"inputGroup-sizing-sm"
-                },
-            }) }}
+            {{ form_row(creerSortie.dateHeureDebut) }}
             <br>
-            {{ form_row(creerSortie.dateHeureFin, {
-                'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
-                    'placeholder':'',
-                    'type':'date',
-                    'aria-describedby':"inputGroup-sizing-sm"
-                },
-            }) }}
+            {{ form_row(creerSortie.dateHeureFin) }}
             <br>
-            {{ form_row(creerSortie.dateLimiteInscription, {
-                'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
-                    'placeholder':'',
-                    'type':'date',
-                    'aria-describedby':"inputGroup-sizing-sm"
-                },
-            }) }}
+            {{ form_row(creerSortie.dateLimiteInscription) }}
             <br>
-            {{ form_row(creerSortie.nbInscriptionsMax, {
-                'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
-                    'placeholder':'Nombre max de personnes',
-                    'type':'text',
-                    'aria-describedby':"inputGroup-sizing-sm"
-                },
-            }) }}
+            {{ form_row(creerSortie.nbInscriptionsMax) }}
             <br>
-            {{ form_row(creerSortie.InfosSortie, {
-                'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
-                    'placeholder':'Les details de la sortie',
-                    'type':'text',
-                    'aria-describedby':"inputGroup-sizing-sm"
-                },
-            }) }}
+            {{ form_row(creerSortie.InfosSortie) }}
             <br>
 
-            <div class="block">
+            <div id="divSelectVille" class="block">
+
                 <label for="" class="text-primary"> Ville </label>
-                <select class="input is-link" name="selectVille" id="selectVille" onchange="getLieu(this.value)">
+                <select class="input is-link" name="selectVille" id="selectVille" onchange="getLieu(this.value);">
                     {% for ville in listeVille %}
-                        <option value="{{ ville.id }}" name="{{ ville.nom }}"> {{ ville.nom }} </option>
+                        <option value="{{ ville.id }}" name="{{ ville.nom }}"> {{ ville.nom }}</option>
                     {% endfor %}
                 </select>
             </div>
 
+            <div id="divSelectLieu" class="block">
 
-            {{ form_row(creerSortie.lieu, {
-                'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
-                    'placeholder':'Lieu',
-                    'type':'text',
-                    'id':'listeLieux',
-                    'aria-describedby':"inputGroup-sizing-sm"
-                },
-            }) }}
+            </div>
 
+
+{#            {{ form_row(creerSortie.lieu) }}#}
+            <br>
 
             <div class="field is-grouped  is-grouped-centered">
                 <div class="control">
-                    {{ form_row(creerSortie.creer, {
-                        'attr' : {'class': 'button is-block is-info is-normal is-fullwidth'
-                        },
-                    }) }}
+                    {{ form_row(creerSortie.creer) }}
                 </div>
 
                 <div class="control">
-                    {{ form_row(creerSortie.publier, {
-
-                        'attr' : {
-                            'class': 'button is-block is-info is-normal is-fullwidth'
-                        },
-                    }) }}
+                    {{ form_row(creerSortie.publier) }}
                 </div>
 
                 <div class="control">
@@ -123,32 +71,16 @@
                 </div>
             </div>
 
-
-
-
-
             {{ form_end(creerSortie) }}
 
 
         </div>
     </div>
+
+
     </div>
 
-    <script>
 
-        function getLieux(val){
-            $.ajax({
-                type: "POST",
-                url: "/listeLieuVille/{id}"
-                data:'id_ville='+val,
-                success: function(data){
-                    $("#selectVille").html(data);
-                }
-            });
-        }
-
-
-    </script>
 
 
 
@@ -179,7 +111,71 @@
     {#        {{ form_label(creerSortie.site) }} #}
     {#        {{ form_widget(creerSortie.site) }} #}
     {#        {{ form_errors(creerSortie.site) }} #}
+{% endblock %}
 
 
+{% block javascripts %}
+    <script>
 
+        function addSelectLieu(){
+            // Création du label avec affectation de valeur
+            let labelLieu = document.createElement("label")
+            labelLieu.setAttribute("class", "text-primary")
+            labelLieu.innerHTML = "Lieu"
+
+            // Création du Select avec affectation de valeur
+            let selectLieu = document.createElement("select")
+            selectLieu.setAttribute("name", "idLieu")
+            selectLieu.setAttribute("id","selectLieu")
+            selectLieu.setAttribute("class", "input is-link")
+
+            // Ajout des éléments dans la div
+            document.getElementById("divSelectLieu").appendChild(labelLieu)
+            document.getElementById("divSelectLieu").append(selectLieu)
+
+
+        }
+
+        function getLieu(value) {
+            $.get("/listeLieuVille/" + value,
+                data => {
+
+                // Transformation des dataJSON en format objet.
+                var lieux = JSON.parse(data);
+
+                // Vérifications de conditions pour éviter les doublons : si le SelectLieu existe déjà, remove l'ancien. Sinon, en créer un.
+                    if(document.getElementById("selectLieu")){
+
+                        // Suppression de l'ancien Select Lieu en cas de changement de ville.
+                        document.getElementById("selectLieu").remove()
+
+                        // Création de l'environnement
+                        addSelectLieu()
+
+                        // Exploration du JSON et affectation des value dans chacune des options
+                        for (let i = 0; i < lieux.length; i++) {
+                            let nvOption = document.createElement("option");
+                            nvOption.value = lieux[i].id;
+                            nvOption.text = lieux[i].nom;
+                            selectLieu.add(nvOption);
+                        }
+
+                        } else {
+
+                        // Création de l'environnement
+                        addSelectLieu()
+
+                        // Exploration du JSON et affectation des value dans chacune des options
+                        for (let i = 0; i < lieux.length; i++) {
+                                let nvOption = document.createElement("option");
+                                nvOption.value = lieux[i].id;
+                                nvOption.text = lieux[i].nom;
+                                selectLieu.add(nvOption);
+                            }
+                    }
+                }
+                );
+        }
+
+    </script>
 {% endblock %}

@@ -9,16 +9,22 @@ use App\Form\AjoutLieuType;
 use App\Form\CreerSortieType;
 use App\Form\FormLieuType;
 use App\Repository\EtatRepository;
-use App\Repository\SiteRepository;
-use App\Repository\SortieRepository;
+use App\Repository\LieuRepository;
 use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\MakerBundle\Maker\MakeSerializerEncoder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Constraints\Json;
+
 
 class SortieController extends AbstractController
 {
@@ -29,6 +35,7 @@ class SortieController extends AbstractController
         UtilisateurRepository  $repoUser,
         EtatRepository         $repoEtat,
         VilleRepository        $repoVille,
+        LieuRepository         $repoLieu,
     ): Response
     {
 
@@ -59,7 +66,11 @@ class SortieController extends AbstractController
         $creerSortie = $this->createForm(CreerSortieType::class, $nouvelleSortie);
         $creerSortie->handleRequest($request);
 
-        // On vérifie si on a une requête AJAX
+        // Ajout du Lieu généré par JS
+        $objetLieu = filter_input(INPUT_POST, 'idLieu', FILTER_SANITIZE_STRING);
+        $objetLieu = $repoLieu->findOneBy(['id'=> strval($objetLieu)]);
+        $nouvelleSortie->setLieu($objetLieu);
+
 
         // Récupération des données
         if ($creerSortie->isSubmitted() && $creerSortie->isValid()) {
@@ -88,6 +99,7 @@ class SortieController extends AbstractController
     public function ajouterlieu(
 Request $request,
         EntityManagerInterface $em,
+        LieuRepository $lieuRepo,
     ): Response
 
     {
@@ -110,16 +122,17 @@ Request $request,
     }
 
 
-
     #[Route('/listeLieuVille/{id}', name: 'listeLieuVille')]
     public function listeLieuVille(
-        Request $request,
-        EntityManagerInterface $em,
-        $id
+        LieuRepository $lieuRepository,
+                       SerializerInterface $serializer,
+                       $id
     ): Response
     {
-        $test = $request->request->get('_route_params');
-        dd($test);
+        $lieu = $lieuRepository->lieuParIdVille($id);
+        $lieu = $serializer->serialize($lieu, 'json');
 
-        return $this->render('home/index.html.twig');
-    }}
+        return $this->json($lieu);
+    }
+
+}

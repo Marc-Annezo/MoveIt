@@ -114,7 +114,6 @@ class HomeController extends AbstractController
 
             } catch (Exception $e) {
 
-
             }
 
         } else {

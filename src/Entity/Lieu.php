@@ -6,6 +6,7 @@ use App\Repository\LieuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
@@ -27,10 +28,12 @@ class Lieu
     #[ORM\Column(type: 'float', nullable: true)]
     private $longitude;
 
+    #[Ignore]
     #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'Lieux')]
     #[ORM\JoinColumn(nullable: false)]
     private $idVille;
 
+    #[Ignore]
     #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]
     private $sorties;
 
