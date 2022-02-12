@@ -33,32 +33,34 @@ class CreerSortieType extends AbstractType
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
                 'label_attr' => ['class' => 'text-primary'],
+                'widget'=>'single_text',
+                'data' => new \DateTime(),
                 'attr' => [
                     'class' => 'input is-link',
-                    'placeholder' => '',
-                    'type' => 'text',
-                    'aria-describedby' => "inputGroup-sizing-sm"
+                    'type'=>'date',
                 ]
+
+
             ])
 
 
             ->add('dateHeureFin', DateTimeType::class, [
                 'label_attr' => ['class' => 'text-primary'],
+                'widget'=>'single_text',
+                'data' => new \DateTime(),
                 'attr' => [
                     'class' => 'input is-link',
-                    'placeholder' => '',
-                    'type' => 'text',
-                    'aria-describedby' => "inputGroup-sizing-sm"
+                    'type'=>'date',
                 ]
             ])
 
             ->add('dateLimiteInscription',DateTimeType::class, [
                 'label_attr' => ['class' => 'text-primary'],
+                'widget'=>'single_text',
+                'data' => new \DateTime(),
                 'attr' => [
                     'class' => 'input is-link',
-                    'placeholder' => '',
-                    'type' => 'text',
-                    'aria-describedby' => "inputGroup-sizing-sm"
+                    'type'=>'date',
                 ]
             ])
 

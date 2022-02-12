@@ -2,7 +2,7 @@
 
 {% block title %}Hello SortieController!{% endblock %}
 
-
+{% block link  %}<link href="~bulma-calendar/dist/css/bulma-calendar.min.css" rel="stylesheet">{% endblock %}
 {% block body %}
 
     <br>
@@ -115,7 +115,11 @@
 
 
 {% block javascripts %}
+
+    <script src="~bulma-calendar/dist/js/bulma-calendar.min.js"></script>
+
     <script>
+
 
         function addSelectLieu(){
             // Création du label avec affectation de valeur

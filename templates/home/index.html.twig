@@ -142,7 +142,7 @@
                                 data-target="modal-js-example{{ sortie.id }}">Detail
                         </button>
 
-                        {#                 MODAL--------START             #}
+                        {#                 MODAL DETAIL--------START             #}
 
                         <div id="modal-js-example{{ sortie.id }}" class="modal ">
                             <div class="modal-background"></div>
@@ -187,9 +187,45 @@
                                     <a class="button is-link is-rounded button is-small" href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}"> S'inscrire</a>
                                 {% endif %}
                             {% endif %}
+
+
+
                             {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' %}
-                                <a class="button is-link is-rounded button is-small" href=" {{ path('sortieannulee', {'id':sortie.id}) }}">Annuler</a>
+
+                                <button class="button is-link is-rounded button is-small js-modal-trigger"
+                                        data-target="modal-js-annuler{{ sortie.id }}">Anuller
+                                </button>
+
+
                             {% endif %}
+
+
+
+                            {#                 MODAL ANNULER--------START             #}
+
+                            <div id="modal-js-annuler{{ sortie.id }}" class="ml-5 my-5 modal ">
+                                <div class=" modal-background "></div>
+                                <div class="  modal-content">
+                                    <div class=" box">
+
+                                        {# ####    FAIRE DU JOLIE ICI   ##### #}
+
+
+
+                                        <a class="button is-link is-rounded button is-small"
+                                           href=" {{ path('sortieannulee', {'id':sortie.id}) }}">Annuler
+                                        </a>
+
+
+                                        {# #####            JUSQU'A LA          ##### #}
+
+                                    </div>
+                                </div>
+                                <button class="modal-close is-large" aria-label="close"></button>
+                            </div>
+
+
+                            {#                     MODAL-------END           #}
 
 
 
