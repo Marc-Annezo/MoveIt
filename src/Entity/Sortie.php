@@ -55,6 +55,9 @@ class Sortie
     #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'sorties_participant')]
     private $inscrits;
 
+    #[ORM\Column(type: 'string', length: 500, nullable: true)]
+    private $motifAnnulation;
+
     public function __construct()
     {
         $this->inscrits = new ArrayCollection();
@@ -221,5 +224,17 @@ class Sortie
     public function __toString(): string
     {
         return $this->getOrganisateur();
+    }
+
+    public function getMotifAnnulation(): ?string
+    {
+        return $this->motifAnnulation;
+    }
+
+    public function setMotifAnnulation(?string $motifAnnulation): self
+    {
+        $this->motifAnnulation = $motifAnnulation;
+
+        return $this;
     }
 }

@@ -240,6 +240,11 @@ class HomeController extends AbstractController
 
         $sortie = $sortieRepository->findOneBy(['id'=>$id]);
         $etat = $etatRepository->findOneBy(['libelle'=>'Annulee']);
+
+        $motif = filter_input(INPUT_POST, 'motif', FILTER_SANITIZE_STRING);
+
+        $sortie->setMotifAnnulation($motif);
+
         $sortie->setEtat($etat);
         $em->persist($sortie);
         $em->flush();

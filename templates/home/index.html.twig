@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block link %}
-    <script type="text/javascript" src="{{ asset('js/accueil.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/accueil.js') }}" xmlns="http://www.w3.org/1999/html"></script>
 {% endblock %}
 
 {% block body %}
@@ -146,7 +146,7 @@
 
                         <div id="modal-js-example{{ sortie.id }}" class="modal ">
                             <div class="modal-background"></div>
-                            <div class="modal-content">
+                            <div class="modal-content ">
                                 <div class="box">
 
                                     {# ####    FAIRE DU JOLIE ICI   ##### #}
@@ -192,8 +192,11 @@
 
                             {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' %}
 
+
+
+
                                 <button class="button is-link is-rounded button is-small js-modal-trigger"
-                                        data-target="modal-js-annuler{{ sortie.id }}">Anuller
+                                        data-target="modal-js-annuler{{ sortie.id }}">Annuler
                                 </button>
 
 
@@ -203,20 +206,35 @@
 
                             {#                 MODAL ANNULER--------START             #}
 
-                            <div id="modal-js-annuler{{ sortie.id }}" class="ml-5 my-5 modal ">
+                            <div id="modal-js-annuler{{ sortie.id }}" class="modal ">
                                 <div class=" modal-background "></div>
-                                <div class="  modal-content">
+                                <div class=" modal-content modal-lg">
                                     <div class=" box">
 
                                         {# ####    FAIRE DU JOLIE ICI   ##### #}
 
+                                        <H1>Vous Sur le point d'Annuler la sortie : <span class="">{{ sortie.nom }}</span></H1>
+                                    <div class="has-text-centered">
+                                        <form action="{{ path('sortieannulee', {'id':sortie.id}) }}" method="post" class="">
+                                            <div class="form-example">
+                                                <label for="name">Saisir le motif</label>
+                                                <br>
+                                                <textarea name="motif" class="textarea" placeholder="saisir le message : 500 caractère maximum"></textarea>
+                                            </div>
 
 
-                                        <a class="button is-link is-rounded button is-small"
-                                           href=" {{ path('sortieannulee', {'id':sortie.id}) }}">Annuler
-                                        </a>
+                                        <p class="has-text-centered">Voulez-vous vraiment annuler cette sortie ? </p>
+                                        <div class=" buttons are-medium  is-justify-content-center">
+                                            <button class="button is-link is-rounded " type="submit">OUI
 
+                                            </button>
 
+                                            <a class="button is-link is-rounded "
+                                               href=" {{ path('home') }}">NON
+                                            </a>
+                                        </div>
+                                        </form>
+                                    </div>
                                         {# #####            JUSQU'A LA          ##### #}
 
                                     </div>
