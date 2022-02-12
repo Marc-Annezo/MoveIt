@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block link %}
+    <script type="text/javascript" src="{{ asset('js/accueil.js') }}"></script>
+{% endblock %}
+
 {% block body %}
 
     {% block espace %}
@@ -134,16 +138,48 @@
                     <td>{{ sortie.organisateur }}</td>
 
                     <td>
-                        <button class="js-modal-trigger" data-target="modal-js-example">
-                            <a href={{ path('details', {'id': sortie.id}) }}">Détail</a>
-                        </button>
+                        <button class="button is-small button is-link js-modal-trigger" data-target="modal-js-example{{ sortie.id }}">Detail</button>
+
+                            {#       MODAL    START             #}
+
+                     <div id="modal-js-example{{ sortie.id }}" class="modal ">
+                            <div class="modal-background"></div>
+                            <div class="modal-content">
+                                <div class="box">
+
+
+
+                                    <h3>{{ sortie.nom }} au {{ sortie.lieu }}</h3>
+                                    <p> {{ sortie.dateHeureDebut|date("d/m/Y H:i") }} - {{ sortie.dateHeureFin|date("d/m/Y H:i")}}</p>
+                                    <p>Date limite d'inscription fixée au {{ sortie.dateLimiteInscription|date("d/m/Y H:i") }}</p>
+                                    <p>Nombre maximum de participant limité à {{ sortie.nbInscriptionsMax }}</p>
+                                    <p>Sortie organisée par {{ sortie.organisateur }} du site {{ sortie.site }}</p>
+                                    <p>{{ sortie.InfosSortie }}</p>
+
+                                    {% for joiner in sortie.inscrits %}
+                                       <p> <a href=" ">{{ joiner.nom }}</a></p>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+
+
+
+                            {#             MODAL       END           #}
+
+
+
                         {% if (sortie.etat.libelle is not same as 'Annulee') %}
                         {% if sortie in listeSortiesParticipant %}
 
                             <a href="{{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- Se désister</a>
                         {% endif %}
-                        {% if not (sortie in listeSortiesParticipant) %}
+                        {% if not (sortie in listeSortiesParticipant  ) %}
+                            {% if (sortie.etat.libelle is not same as 'creee' )%}
                         <a href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">- S'inscrire</a>
+                        {% endif %}
                         {% endif %}
                         {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' %}
                             <a href=" {{ path('sortieannulee', {'id':sortie.id}) }}">Annuler</a>
@@ -182,76 +218,13 @@
             </table>
         </div>
 
-        <-- Script pour le js du modal d'affichage detail des sorties -->
-        <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                // Functions to open and close a modal
-                function openModal($el) {
-                $el.classList.add('is-active');
-                }
 
-                function closeModal($el) {
-                $el.classList.remove('is-active');
-                }
 
-                function closeAllModals() {
-                (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-                closeModal($modal);
-                });
-                }
-
-                // Add a click event on buttons to open a specific modal
-                (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-                const modal = $trigger.dataset.target;
-                const $target = document.getElementById(modal);
-                console.log($target);
-
-                $trigger.addEventListener('click', () => {
-                openModal($target);
-                });
-                });
-
-                // Add a click event on various child elements to close the parent modal
-                (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-                const $target = $close.closest('.modal');
-
-                $close.addEventListener('click', () => {
-                closeModal($target);
-                });
-                });
-
-                // Add a keyboard event to close all modals
-                document.addEventListener('keydown', (event) => {
-                const e = event || window.event;
-
-                if (e.keyCode === 27) { // Escape key
-                closeAllModals();
-                }
-                });
-                });
-        </script>
 
     {% endblock %}
 
-{#    Block du modal d'affichage #}
 
-{#    <div id="modal-js-example" class="modal">#}
-{#        <div class="modal-background"></div>#}
-{#        <div class="modal-content">#}
-{#            <div class="box">#}
-{#        {% for sortie in detailssortie %}#}
 
-{#                    <h3>{{ sortie.nom }} au {{ sortie.lieu }}</h3>#}
-{#                    <p> {{ sortie.dateHeureDebut|date("d/m/Y H:i") }} - {{ sortie.dateHeureFin|date("d/m/Y H:i")}}</p>#}
-{#                    <p>Date limite d'inscription fixée au {{ sortie.dateLimiteInscription|date("d/m/Y H:i") }}</p>#}
-{#                    <p>Nombre maximum de participant limité à {{ sortie.nbInscriptionsMax }}</p>#}
-{#                    <p>Sortie organisée par {{ sortie.organisateur }} du site {{ sortie.site }}</p>#}
-{#                    <p>{{ sortie.InfosSortie }}</p>#}
 
-{#        {% endfor %}#}
-{#            </div>#}
-{#        </div>#}
-{#        <button class="modal-close is-large" aria-label="close"></button>#}
-{#    </div>#}
 
 {% endblock %}

@@ -88,7 +88,7 @@ class UtilisateurController extends AbstractController
 
             // Récupération du participant correspond à l'id utilisateur
             $participant = $user->getIdParticipant();
-            dd($participant->getSite());
+
             $entityManager->persist($participant);
             $entityManager->flush();
 
