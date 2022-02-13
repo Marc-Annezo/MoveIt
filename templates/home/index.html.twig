@@ -39,17 +39,22 @@
                 <div class="row">
 
                     <div class="col-lg-4 ml-3">
+
+
                         <div class="form-group row">
-                            <label for="selection_du_site" class="col-lg col-form-label">Site : </label>
-                            <div class="col-lg">
-                                <select class="form-control" name="selection_du_site">
-                                    {% for site in sites %}
+                            <label class="label col-lg col-form-label ">Site</label>
+                            <div class="control col-lg">
+                                <div class="select" name="selection_du_site">
+                                    <select>
                                         <option value="ok"></option>
-                                        <option value="{{ site }}">{{ site }}</option>
-                                    {% endfor %}
-                                </select>
+                                        {% for site in sites %}
+                                            <option value="{{ site }}">{{ site }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="barre_recherche" class="col-lg col-form-label">Le nom de la sortie contient
                                 : </label>

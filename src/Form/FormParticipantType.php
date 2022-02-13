@@ -57,7 +57,7 @@ class FormParticipantType extends AbstractType
             ->add('site', EntityType::class, [
                 'class' =>'App\Entity\Site',
                 'label' => 'Site de rattachement :',
-                "attr" => ['class' => "checkbox"]
+                "attr" => ['class' => "select"]
             ]
 
             )
