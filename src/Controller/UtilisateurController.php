@@ -11,6 +11,7 @@ use App\Repository\ParticipantRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -41,8 +42,18 @@ class UtilisateurController extends AbstractController
         if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
 
             if(file_exists($request->files->get('form_participant')['my_file'])) {
-                $file = $request->files->get('form_participant')['my_file'];
                 $uploads_directory = $this->getParameter('uploads_directory');
+
+                if ($participant->getImage() !== null){
+
+                    $filename=$participant->getImage();
+                    $filesystem = new Filesystem();
+                    $filesystem->remove($uploads_directory,$filename);
+
+                }
+
+                $file = $request->files->get('form_participant')['my_file'];
+
                 $filename = md5(uniqid()) . '.' . $file->guessExtension();
 
                 $file->move(
