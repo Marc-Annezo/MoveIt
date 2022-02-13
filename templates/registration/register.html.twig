@@ -29,38 +29,49 @@
             {{ form_row(registrationForm.email, {
                 'label_attr': {'class': ' text-primary'},
                 'attr' : {'class':'form-control ',
-                    'placeholder':'Email du Compte a creer',
+                    'placeholder':'Email du Compte à créer',
                     'type':'text',
                     'aria-describedby':"inputGroup-sizing-sm"
                 },
-            }) }}
 
+            }) }}
+            <div class="has-text-danger">
+            {{ form_errors(registrationForm.email) }}
+            </div>
             <br>
             {{ form_row(registrationForm.plainPassword, {
                 'label_attr': {'class': ' text-primary'},
                 'label':'Mot de passe utilisateur',
                 'attr' : {'class':'form-control ',
-                    'placeholder':'Mot de passe de l\'utilisateur',
+                    'placeholder':'Mot de passe de l\'utilisateur à créer',
                     'type':'password',
                     'aria-describedby':"inputGroup-sizing-sm"
                 },
-            }) }}
-            <br>
 
-                <div id="file-js-example" class="file has-name file is-warning">
+            }) }}
+            <div class="has-text-danger">
+            {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+            <br>
+            <br>
+            <h6 class="text-primary">Voulez-Vous enregistré des comptes à partir d'un fichier ? </h6>
+                <div id="file-js-example" class=" has-text-centered file has-name file is-warning">
                     <label class="file-label">
                         {{ form_widget(registrationForm.my_csv) }}
-                        {{ form_errors(registrationForm.my_csv) }}
+                        <div class="has-text-danger">
+                            {{ form_errors(registrationForm.my_csv) }}
+                        </div>
+
                         <span class="file-cta">
                                       <span class="file-icon">
                                         <i class="fas fa-upload"></i>
                                       </span>
                                       <span class="file-label">
-                                        Choisir CSV
+                                        Choisir un fichier CSV
                                       </span>
                                     </span>
                         <span class="file-name">
-                                      No file uploaded
+                                      Aucun Fichier Sélectionné
                                     </span>
                     </label>
                 </div>
