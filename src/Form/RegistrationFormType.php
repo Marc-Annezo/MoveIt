@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,6 +42,19 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+
+            ->add('my_csv', FileType::class, [
+                    'mapped'=>false,
+                    'label'=>false,
+                    'required'=>false,
+                    "attr" => ['class' => "file-input",
+                        'type'=>'file'
+
+                    ],
+
+                ]
+
+            )
         ;
 
     }
