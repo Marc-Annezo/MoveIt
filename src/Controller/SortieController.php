@@ -135,4 +135,17 @@ Request $request,
         return $this->json($lieu);
     }
 
+    #[Route('/detailLieu/{id}', name: 'detailLieu')]
+    public function detailLieu(
+        LieuRepository $lieuRepository,
+        SerializerInterface $serializer,
+        $id
+    ): Response
+    {
+        $detailLieu = $lieuRepository->findOneBy(['id' => $id]);
+        $detailLieu = $serializer->serialize($detailLieu, 'json');
+
+        return $this->json($detailLieu);
+    }
+
 }

@@ -29,6 +29,8 @@
                 },
             }) }}
             <br>
+
+            <div id="notif" onclick="info()">
             {{ form_row(formAjoutLieu.latitude, {
                 'label_attr': {'class': ' text-primary'},
                 'attr' : {'class':'input is-link',
@@ -37,6 +39,7 @@
                     'aria-describedby':"inputGroup-sizing-sm"
                 },
             }) }}
+            </div>
             <br>
             {{ form_row(formAjoutLieu.longitude, {
                 'label_attr': {'class': ' text-primary'},
@@ -62,10 +65,30 @@
 
         {{ form_end(formAjoutLieu) }}
 
+    </div>
+    </div>
+    </div>
 
-    </div>
-    </div>
-    </div>
+    <script type="text/javascript">
+            function info() {
+
+            if(document.getElementById('test') == null || document.getElementById('test') === 'undefined') {
+            let p = document.getElementById('notif')
+            let ajout = document.createElement("div")
+            ajout.className = "notification is-link is-size-7"
+            ajout.setAttribute('id', 'test')
+            let text = "Rdv sur https://www.latlong.net pour inscrire les coordonnées";
+            ajout.innerText = text
+
+            p.appendChild(ajout)
+
+        }
+        }
+    </script>
+
+
+
+    </script>
 
 {% endblock %}
 

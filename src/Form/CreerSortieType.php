@@ -24,7 +24,7 @@ class CreerSortieType extends AbstractType
             ->add('nom', TextType::class, [
                 'label_attr' => ['class' => 'text-primary'],
                 'attr' => [
-                    'class' => 'input is-link',
+                    'class' => 'input is-link is-rounded',
                     'placeholder' => 'Quelle sortie ?',
                     'type' => 'text',
                     'aria-describedby' => "inputGroup-sizing-sm"
@@ -36,7 +36,7 @@ class CreerSortieType extends AbstractType
                 'widget'=>'single_text',
                 'data' => new \DateTime(),
                 'attr' => [
-                    'class' => 'input is-link',
+                    'class' => 'input is-link is-rounded',
                     'type'=>'date',
                 ]
 
@@ -49,7 +49,7 @@ class CreerSortieType extends AbstractType
                 'widget'=>'single_text',
                 'data' => new \DateTime(),
                 'attr' => [
-                    'class' => 'input is-link',
+                    'class' => 'input is-link is-rounded',
                     'type'=>'date',
                 ]
             ])
@@ -59,7 +59,7 @@ class CreerSortieType extends AbstractType
                 'widget'=>'single_text',
                 'data' => new \DateTime(),
                 'attr' => [
-                    'class' => 'input is-link',
+                    'class' => 'input is-link is-rounded',
                     'type'=>'date',
                 ]
             ])
@@ -67,7 +67,7 @@ class CreerSortieType extends AbstractType
             ->add('nbInscriptionsMax',NumberType::class, [
                 'label_attr' => ['class' => 'text-primary'],
                 'attr' => [
-                    'class' => 'input is-link',
+                    'class' => 'input is-link is-rounded',
                     'placeholder' => '',
                     'type' => 'text',
                     'aria-describedby' => "inputGroup-sizing-sm"
@@ -76,7 +76,7 @@ class CreerSortieType extends AbstractType
             ->add('InfosSortie', TextType::class, [
                 'label_attr' => ['class' => 'text-primary'],
                 'attr' => [
-                    'class' => 'input is-link',
+                    'class' => 'input is-link is-rounded',
                     'placeholder' => 'Quelle sortie ?',
                     'type' => 'text',
                     'aria-describedby' => "inputGroup-sizing-sm"

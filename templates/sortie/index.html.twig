@@ -2,7 +2,7 @@
 
 {% block title %}Hello SortieController!{% endblock %}
 
-{% block link  %}<link href="~bulma-calendar/dist/css/bulma-calendar.min.css" rel="stylesheet">{% endblock %}
+{% block link  %}{% endblock %}
 {% block body %}
 
     <br>
@@ -20,58 +20,100 @@
             <p class="is-size-3"> Bienvenue {{ app.user.idParticipant.prenom }}</p>
             <label for=""> Lieu de rattachement </label>
             <p> {{ app.user.idParticipant.site }} </p>
+            <div class="columns">
+                <div class="column is-one-fifth">
+
+                </div>
 
 
-            {{ form_start(creerSortie, {'attr': {'id': 'formulaire', 'class': 'box p-6'}}) }}
+                <div class="column is-three-fifths">
+                    {{ form_start(creerSortie, {'attr': {'id': 'formulaire', 'class': 'box p-6'}}) }}
 
-            {{ form_row(creerSortie.nom) }}
-            <br>
-            {{ form_row(creerSortie.dateHeureDebut) }}
-            <br>
-            {{ form_row(creerSortie.dateHeureFin) }}
-            <br>
-            {{ form_row(creerSortie.dateLimiteInscription) }}
-            <br>
-            {{ form_row(creerSortie.nbInscriptionsMax) }}
-            <br>
-            {{ form_row(creerSortie.InfosSortie) }}
-            <br>
+                    {{ form_row(creerSortie.nom) }}
+                    <br>
+                    {{ form_row(creerSortie.dateHeureDebut) }}
+                    <br>
+                    {{ form_row(creerSortie.dateHeureFin) }}
+                    <br>
+                    {{ form_row(creerSortie.dateLimiteInscription) }}
+                    <br>
+                    {{ form_row(creerSortie.nbInscriptionsMax) }}
+                    <br>
+                    {{ form_row(creerSortie.InfosSortie) }}
+                    <br>
 
-            <div id="divSelectVille" class="block">
+                    <div id="divSelectVille" class="block">
 
-                <label for="" class="text-primary"> Ville </label>
-                <select class="input is-link" name="selectVille" id="selectVille" onchange="getLieu(this.value);">
-                    {% for ville in listeVille %}
-                        <option value="{{ ville.id }}" name="{{ ville.nom }}"> {{ ville.nom }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                        <label for="" class="text-primary"> Ville </label>
+                        <select class="input is-link is-rounded" name="selectVille" id="selectVille" onchange="getLieu(this.value);">
+                            <option value=""> Choisissez la ville </option>
+                            {% for ville in listeVille %}
+                                <option value="{{ ville.id }}" name="{{ ville.nom }}"> {{ ville.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <div id="divSelectLieu" class="block">
+                    <div id="divSelectLieu" class="block">
 
-            </div>
+                    </div>
+
+                    <br>
+
+
+
+                    <div class="block">
+                        <span hidden id="detail" class="tag is-rounded is-info is-light is-medium"> Detail </span>
+                    </div>
+
+                    <div id="detailLieu" class="columns">
+                        <div class="column">
+
+                            <div class="columns is-mobile">
+                                <div class="column" id="colonne1">
+
+                                </div>
+                                <div class="column" id="colonne2">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped  is-grouped-centered">
+                        <div class="control">
+                            {{ form_row(creerSortie.creer) }}
+                        </div>
+
+                        <div class="control">
+                            {{ form_row(creerSortie.publier) }}
+                        </div>
+
+                        <div class="control">
+                            <button class="button is-block is-info is-normal is-fullwidth" value="Ajouter un lieu">
+                                <a id="btn_href" class="has-text-white" href="{{ path('ajouterlieu') }}"> Ajouter un lieu </a>
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(creerSortie) }}
+
+                </div>
+
+                <div class="column is-one-fifth">
+
+                </div>
+
+
+
+
+
+
+
+
+
 
 
 {#            {{ form_row(creerSortie.lieu) }}#}
-            <br>
 
-            <div class="field is-grouped  is-grouped-centered">
-                <div class="control">
-                    {{ form_row(creerSortie.creer) }}
-                </div>
-
-                <div class="control">
-                    {{ form_row(creerSortie.publier) }}
-                </div>
-
-                <div class="control">
-                    <button class="button is-block is-info is-normal is-fullwidth" value="Ajouter un lieu">
-                        <a id="btn_href" class="has-text-white" href="{{ path('ajouterlieu') }}"> Ajouter un lieu </a>
-                    </button>
-                </div>
-            </div>
-
-            {{ form_end(creerSortie) }}
 
 
         </div>
@@ -115,23 +157,28 @@
 
 
 {% block javascripts %}
-
-    <script src="~bulma-calendar/dist/js/bulma-calendar.min.js"></script>
-
     <script>
 
 
         function addSelectLieu(){
+            let divSelectLieu = document.getElementById("divSelectLieu")
+
             // Création du label avec affectation de valeur
             let labelLieu = document.createElement("label")
             labelLieu.setAttribute("class", "text-primary")
-            labelLieu.innerHTML = "Lieu"
+            labelLieu.setAttribute("id", "labelLieu")
+
+            if(!document.getElementById("labelLieu")) {
+                labelLieu.innerHTML = "Lieu"
+                divSelectLieu.append(labelLieu)
+            }
 
             // Création du Select avec affectation de valeur
             let selectLieu = document.createElement("select")
             selectLieu.setAttribute("name", "idLieu")
             selectLieu.setAttribute("id","selectLieu")
             selectLieu.setAttribute("class", "input is-link")
+            selectLieu.setAttribute("onchange", "detailLieu(this.value)")
 
             // Ajout des éléments dans la div
             document.getElementById("divSelectLieu").appendChild(labelLieu)
@@ -157,6 +204,10 @@
                         addSelectLieu()
 
                         // Exploration du JSON et affectation des value dans chacune des options
+                        let blankOption = document.createElement("option")
+                        blankOption.textContent= "Choisissez le lieu"
+                        selectLieu.append(blankOption)
+
                         for (let i = 0; i < lieux.length; i++) {
                             let nvOption = document.createElement("option");
                             nvOption.value = lieux[i].id;
@@ -169,6 +220,10 @@
                         // Création de l'environnement
                         addSelectLieu()
 
+                        let blankOption = document.createElement("option")
+                        blankOption.textContent = "Choisissez le lieu"
+                        selectLieu.append(blankOption)
+
                         // Exploration du JSON et affectation des value dans chacune des options
                         for (let i = 0; i < lieux.length; i++) {
                                 let nvOption = document.createElement("option");
@@ -180,6 +235,79 @@
                 }
                 );
         }
+
+        function detailLieu(value){
+            $.get("/detailLieu/" + value,
+                data => {
+
+               document.getElementById("detail").hidden = false
+
+                    let detail = JSON.parse(data)
+                    let colonne1 = document.getElementById("colonne1")
+                    let colonne2 = document.getElementById("colonne2")
+
+                    let labelRue = document.createElement("label")
+                    labelRue.setAttribute("class", "text-primary")
+                    labelRue.setAttribute("id", "labelRue")
+
+                    let contenuRue = document.createElement("p")
+                    contenuRue.setAttribute("class", "subtitle is-5")
+                    contenuRue.setAttribute("id", "contenuRue")
+                    contenuRue.innerHTML = detail.rue
+
+
+                    if(document.getElementById("labelRue")) {
+                        document.getElementById("contenuRue").remove()
+                        document.getElementById("labelRue").remove()
+                        labelRue.innerHTML = "Adresse"
+                        colonne1.append(labelRue)
+                        colonne1.append(contenuRue)
+                    } else {
+                        labelRue.innerHTML = "Adresse"
+                        colonne1.append(labelRue)
+                        colonne1.append(contenuRue)
+                    }
+
+                    // ---------------------- CREATION COLONNE 2 AVEC L'IMAGE--------------------
+
+                    let divBox = document.createElement("div")
+                    let span = document.createElement("span")
+                    span.textContent = "Localisation : "
+                    divBox.setAttribute("class", "box")
+                    divBox.setAttribute("id", "divBox")
+                    divBox.append(span)
+
+                    if(document.getElementById("imgMap")){
+                        document.getElementById("imgMap").remove()
+                        document.getElementById("divBox").remove()
+                        let imgMap = document.createElement("img")
+                        imgMap.setAttribute("id", "imgMap")
+                        imgMap.setAttribute("width", "600")
+                        imgMap.setAttribute("height", "600")
+                        imgMap.setAttribute("src", "https://maps.geoapify.com/v1/staticmap?style=osm-bright-smooth&width=600&height=400&center=lonlat%3A"+ detail.longitude + "%2C" + detail.latitude + "&zoom=14.3497&marker=lonlat%3A" + detail.longitude + "%2C" + detail.latitude + "%3Btype%3Aawesome%3Bcolor%3A%23bb3f73%3Bsize%3Ax-large%3Bicon%3Aglass-martini%7Clonlat%3A-122.29282631194182%2C47.549609195001494%3Btype%3Amaterial%3Bcolor%3A%234c905a%3Bicon%3Atree%3Bicontype%3Aawesome%7Clonlat%3A-122.28726954893025%2C47.541766557545884%3Btype%3Amaterial%3Bcolor%3A%234c905a%3Bicon%3Atree%3Bicontype%3Aawesome&apiKey=3f8da9d0064e4ad7b3cde871f0549055")
+                        colonne2.append(divBox)
+                        divBox.append(imgMap)
+                    } else {
+                        let imgMap = document.createElement("img")
+                        imgMap.setAttribute("id", "imgMap")
+                        imgMap.setAttribute("width", "600")
+                        imgMap.setAttribute("height", "600")
+                        imgMap.setAttribute("src", "https://maps.geoapify.com/v1/staticmap?style=osm-bright-smooth&width=600&height=400&center=lonlat%3A"+ detail.longitude + "%2C" + detail.latitude + "&zoom=14.3497&marker=lonlat%3A" + detail.longitude + "%2C" + detail.latitude + "%3Btype%3Aawesome%3Bcolor%3A%23bb3f73%3Bsize%3Ax-large%3Bicon%3Aglass-martini%7Clonlat%3A-122.29282631194182%2C47.549609195001494%3Btype%3Amaterial%3Bcolor%3A%234c905a%3Bicon%3Atree%3Bicontype%3Aawesome%7Clonlat%3A-122.28726954893025%2C47.541766557545884%3Btype%3Amaterial%3Bcolor%3A%234c905a%3Bicon%3Atree%3Bicontype%3Aawesome&apiKey=3f8da9d0064e4ad7b3cde871f0549055")
+                        colonne2.append(divBox)
+                        divBox.append(imgMap)
+                    }
+
+
+                    // let lienversMaps = document.createElement("a")
+                    // lienversMaps.setAttribute('href', 'https://www.google.com/maps/search/?api=1&query=' + detail.latitude + '%2C' + detail.longitude)
+                    // lienversMaps.innerHTML = "lien"
+                    // colonne2.append(lienversMaps)
+                    // console.log(data)
+                })
+        }
+
+
+
 
     </script>
 {% endblock %}
