@@ -33,6 +33,7 @@ class Participant
     private $telephone;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[Assert\Regex("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", message: "Votre email n'est pas valide")]
     private $email;
 
     #[ORM\Column(type: 'boolean')]
