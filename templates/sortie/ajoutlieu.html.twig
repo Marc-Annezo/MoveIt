@@ -13,7 +13,7 @@
 
             {{ form_row(formAjoutLieu.nom, {
                 'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
+                'attr' : {'class':'input is-link is-rounded',
                     'placeholder':'Que voulez vous faire ?',
                     'type':'text',
                     'aria-describedby':"inputGroup-sizing-sm"
@@ -22,7 +22,7 @@
             <br>
             {{ form_row(formAjoutLieu.rue, {
                 'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
+                'attr' : {'class':'input is-link is-rounded',
                     'placeholder':'',
                     'type':'date',
                     'aria-describedby':"inputGroup-sizing-sm"
@@ -33,7 +33,7 @@
             <div id="notif" onclick="info()">
             {{ form_row(formAjoutLieu.latitude, {
                 'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
+                'attr' : {'class':'input is-link is-rounded',
                     'placeholder':'',
                     'type':'date',
                     'aria-describedby':"inputGroup-sizing-sm"
@@ -43,23 +43,19 @@
             <br>
             {{ form_row(formAjoutLieu.longitude, {
                 'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
+                'attr' : {'class':'input is-link is-rounded',
                     'placeholder':'',
                     'type':'date',
                     'aria-describedby':"inputGroup-sizing-sm"
                 },
             }) }}
             <br>
-            {{ form_row(formAjoutLieu.idVille, {
-                'label': 'Ville',
-                'label_attr': {'class': ' text-primary'},
-                'attr' : {'class':'input is-link',
-                    'placeholder':'',
-                    'type':'date',
-                    'aria-describedby':"inputGroup-sizing-sm"
-                },
-            }) }}
-
+            {{ form_row(formAjoutLieu.idVille)}}
+            <br>
+            <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                    {{ form_row(formAjoutLieu.valider)}}
+                </div>
         </div>
 
 
