@@ -124,6 +124,7 @@
                 <tbody>
                 <tr>
                     {% for sortie in listeSorties %}
+                    {% if (((sortie.etat.libelle is not same as 'creee') and (participant is not same as sortie.organisateur))or (participant is same as sortie.organisateur)) %}
                 <tr>
                     <td>{{ sortie.nom }}</td>
                     <td>{{ sortie.dateHeureDebut|date("d/m/Y H:i") }}</td>
@@ -282,6 +283,7 @@
                 </tr>
                 </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
                 </tr>
 
