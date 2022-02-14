@@ -106,6 +106,12 @@
         </div>
     {% endblock %}
 
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% block table %}
         {# Début du tableau en BULMA #}
         <div class="table-container">
@@ -186,9 +192,8 @@
 
 
                         {% if (sortie.etat.libelle is not same as 'Annulee') %}
+                            {% if (sortie.dateLimiteInscription|date('Y-m-d H:i:s') > 'now'|date('Y-m-d H:i:s')) %}
                             {% if sortie in listeSortiesParticipant %}
-
-
 
                                     <a class="button is-link is-rounded button is-small"
                                        href="{{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">Se désister</a>
@@ -198,6 +203,7 @@
                                         <a class="button is-link is-rounded button is-small"
                                            href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">
                                             S'inscrire</a>
+                                    {% endif %}
                                     {% endif %}
 
                             {% endif %}
