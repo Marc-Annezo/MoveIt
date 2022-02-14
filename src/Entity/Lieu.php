@@ -24,7 +24,7 @@ class Lieu
     private $nom;
 
     #[Assert\Type("String")]
-    #[Assert\Regex('^[a-z0-9_-]{3,15}$', message: 'Les caractères spéciaux ne sont pas reconnus')]
+    #[Assert\Regex('^[a-z0-9_-]{3,15}$^', message: 'Les caractères spéciaux ne sont pas reconnus')]
     #[ORM\Column(type: 'string', length: 255)]
     private $rue;
 
