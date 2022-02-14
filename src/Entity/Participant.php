@@ -6,6 +6,8 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use http\Message;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 class Participant
@@ -15,16 +17,23 @@ class Participant
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Assert\Length(max: 50, maxMessage: "Ton nom est trop long.")]
+    #[Assert\Regex('^[a-z0-9_-]{3,15}$', message: 'Les caractères spéciaux ne sont pas reconnus')]
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $nom;
 
+    #[Assert\Length(max: 50, maxMessage: "Ton prénom est trop long.")]
+    #[Assert\Regex('^[a-z0-9_-]{3,15}$', message: 'Les caractères spéciaux ne sont pas reconnus')]
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $prenom;
 
+    #[Assert\Length(max: 15, maxMessage: "Numero de téléphone non valide en France")]
+    #[Assert\Regex('^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$^', message: "Merci d'entrer un numero valide.")]
     #[ORM\Column(type: 'string', length: 15, nullable: true)]
     private $telephone;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[Assert\Regex('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+', message: "Adresse mail non valide")]
     private $email;
 
     #[ORM\Column(type: 'boolean')]

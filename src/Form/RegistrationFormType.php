@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Utilisateur;
+use phpDocumentor\Reflection\Types\True_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,9 +20,18 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'attr' => ['autocomplete' => 'email'],
+                'required'=>true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your email',
+                    ]),
+                ],
+            ])
+
             ->add('admin', CheckboxType::class, [
-                'label'    => 'admin',
+                'label'  => 'admin',
                 'mapped' => false,
                 'required'=>false,
             ])
@@ -38,7 +49,7 @@ class RegistrationFormType extends AbstractType
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
-                        'max' => 4096,
+                        'max' => 999999,
                     ]),
                 ],
             ])

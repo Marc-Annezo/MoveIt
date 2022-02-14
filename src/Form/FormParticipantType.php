@@ -9,9 +9,11 @@ use ContainerN9gqLe0\getUtilisateurAuthenticatorService;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,10 +43,10 @@ class FormParticipantType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('telephone', TextType::class, [
+            ->add('telephone', TelType::class, [
                 'label' => 'Téléphone :'])
 
-            ->add('email', TextType::class, [
+            ->add('email', EmailType::class, [
                 'label' => 'Email personnel :',
                 'constraints' => [new Length([
                     'min' => 3,

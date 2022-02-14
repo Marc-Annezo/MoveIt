@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
@@ -16,9 +17,14 @@ class Lieu
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(max: 50, maxMessage: "Ton nom de lieu est trop long.")]
+    #[Assert\NotBlank]
+    #[Assert\Type("String")]
+    #[ORM\Column(type: 'string', length: 50)]
     private $nom;
 
+    #[Assert\Type("String")]
+    #[Assert\Regex('^[a-z0-9_-]{3,15}$', message: 'Les caractères spéciaux ne sont pas reconnus')]
     #[ORM\Column(type: 'string', length: 255)]
     private $rue;
 

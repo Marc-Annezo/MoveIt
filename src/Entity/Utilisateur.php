@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @UniqueEntity(fields={"email"}, message="Il y a déja un compte à ce nom !")
@@ -20,6 +21,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\Regex('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+', message: "Adresse mail non valide")]
     private $email;
 
     #[ORM\Column(type: 'json')]

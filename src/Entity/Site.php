@@ -6,6 +6,7 @@ use App\Repository\SiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SiteRepository::class)]
 class Site
@@ -16,6 +17,7 @@ class Site
     private $id;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\Regex('^[a-z0-9_-]{3,15}$', message: 'Les caractères spéciaux ne sont pas reconnus')]
     private $nom;
 
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: Participant::class)]
