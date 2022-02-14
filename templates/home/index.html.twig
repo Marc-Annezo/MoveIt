@@ -164,21 +164,27 @@
                                 <div class="box">
 
                                     {# ####    FAIRE DU JOLIE ICI   ##### #}
-
-                                    <h3>{{ sortie.nom }} au {{ sortie.lieu }}</h3>
-                                    <p> {{ sortie.dateHeureDebut|date("d/m/Y H:i") }}
+                                <div class="has-text-centered">
+                                    <h3>Nom de la sortie : {{ sortie.nom }} </h3>
+                                        <h3>Adresse : {{ sortie.lieu }}</h3>
+                                    <p>  entre le: {{ sortie.dateHeureDebut|date("d/m/Y H:i") }}
                                         - {{ sortie.dateHeureFin|date("d/m/Y H:i") }}</p>
                                     <p>Date limite d'inscription fixée
                                         au {{ sortie.dateLimiteInscription|date("d/m/Y H:i") }}</p>
                                     <p>Nombre maximum de participant limité à {{ sortie.nbInscriptionsMax }}</p>
-                                    <p>Sortie organisée par {{ sortie.organisateur }} du site {{ sortie.site }}</p>
-                                    <p>{{ sortie.InfosSortie }}</p>
+                                    <p>info sortie : {{ sortie.InfosSortie }}</p>
+                                    <p>Sortie organisée par </p>
+                                    <a href="{{ path('afficherprofil', {'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }}</a>
 
+
+
+
+                                    <p>participants : </p>
                                     {% for joiner in sortie.inscrits %}
                                         <p><a href="{{ path('afficherprofil', {'id':joiner.id}) }}">{{ joiner.nom }}</a></p>
                                     {% endfor %}
 
-
+                                </div>
                                     {# #####            JUSQU'A LA          ##### #}
 
                                 </div>
