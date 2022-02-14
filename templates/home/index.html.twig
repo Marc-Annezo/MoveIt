@@ -187,7 +187,9 @@
 
                         {% if (sortie.etat.libelle is not same as 'Annulee') %}
                             {% if sortie in listeSortiesParticipant %}
-                                {% if(sortie.dateLimiteInscription | date) <= ('now' | date) %}
+
+
+
                                     <a class="button is-link is-rounded button is-small"
                                        href="{{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">Se désister</a>
                                 {% endif %}
@@ -197,7 +199,7 @@
                                            href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">
                                             S'inscrire</a>
                                     {% endif %}
-                                {% endif %}
+
                             {% endif %}
 
 
