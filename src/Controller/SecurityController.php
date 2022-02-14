@@ -20,25 +20,29 @@ class SecurityController extends AbstractController
     {
          if ($this->getUser()) {
 
+
+
              return $this->redirectToRoute('home');
          }
 
-        // Récupérer l'userIdentifier de session
-        $valeurChamp = $request->request->get('email');
-        $checkbox = $request->request->get('_remember_me');
-
-        if($checkbox!=null) {
-
-            setcookie('authMail', $valeurChamp, time() + 604800);
-        }
-
-         // get the login error if there is one
+        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        // Récupérer l'userIdentifier de session
+      if(isset($_COOKIE['authMail'])) {
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+          $cookie = $_COOKIE['authMail'];
+
+
+          return $this->render('security/login.html.twig', ['cookie'=>$cookie,'last_username' => $lastUsername, 'error' => $error]);
+      }
+else{
+
+    return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+}
+
     }
 
     /**

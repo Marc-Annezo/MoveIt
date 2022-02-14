@@ -36,7 +36,13 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
+        unset($_COOKIE['authMail']);
+        $checkbox = $request->request->get('_remember_me');
 
+        if($checkbox!=null) {
+
+            setcookie('authMail', $email, time() + 604800);
+        }
 
         return new Passport(
             new UserBadge($email),
