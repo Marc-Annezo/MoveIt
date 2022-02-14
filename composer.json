@@ -30,7 +30,7 @@
         "symfony/twig-bundle": "6.0.*",
         "symfony/validator": "6.0.*",
         "symfony/yaml": "6.0.*",
-        "twig/twig": "^3.3"
+        "twig/twig": "^3.3",
     },
     "config": {
         "allow-plugins": {

@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
+use App\Form\CreerSortieType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
+use App\Repository\VilleRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
-use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
@@ -303,6 +306,60 @@ class HomeController extends AbstractController
         $detailssortie = $sortieRepository->findById($id);
         return $this->render('sortie/details.html.twig',
             compact('detailssortie'));
+    }
+
+
+    #[Route('/sortie/modifier/{id}', name: 'sortieModif')]
+    public function modifierSortie(
+        SortieRepository $sortieRepository,
+        $id,
+        Request $request,
+        VilleRepository $repoVille,
+        EtatRepository $repoEtat,
+        EntityManagerInterface $em,
+        UtilisateurRepository $repoUser,
+    ): Response
+
+    {
+       // $messageErreur = 'Vous ne pouvez modifier que les sorties dont vous êtes organisateur';
+
+        // Récupération de l'ID de la personne qui veut modifier
+        $Demandant = $repoUser->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+        $Demandant = $Demandant->getIdParticipant()->getId();
+
+        // Récupération de l'id de l'organisateur de la sortie
+        $sortie = $sortieRepository->findOneBy(['id' => $id]);
+        $idOrganisateur = $sortie->getOrganisateur()->getId();
+
+        // Création de la liste ville pour le formulaire
+        $listeVille = $repoVille->findAll();
+
+        // Création du formulaire
+        $formModifSortie = $this->createForm(CreerSortieType::class, $sortie);
+        $formModifSortie->handleRequest($request);
+
+
+        if ($Demandant != $idOrganisateur) {
+            return $this->redirectToRoute('home');
+        } else {
+            if ($formModifSortie->isSubmitted() && $formModifSortie->isValid()) {
+                $boutonclique = $formModifSortie->getClickedButton()->getName();
+                if ($boutonclique == "creer") {
+                    $etat = $repoEtat->findOneBy(['id' => 1]);
+                    $sortie > setEtat($etat);
+                } elseif ($boutonclique == "publier") {
+                    $etat = $repoEtat->findOneBy(['id' => 2]);
+                    $sortie->setEtat($etat);
+                }
+
+                $em->persist($formModifSortie);
+                $em->flush();
+            }
+
+
+        }
+        return $this->renderForm('sortie/modifSortie.html.twig',
+            compact('sortie', 'formModifSortie', 'listeVille'));
     }
 
 }
