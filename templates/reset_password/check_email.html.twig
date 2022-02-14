@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body %}
+
+    <br>
+    <br>
+    <br>
+
+    <div class="box m-5">
+    <div class="columns">
+        <div class="column is-fifth">
+
+        </div>
+
+        <div class="column">
+
+            <p>
+                Si le mail correspond, vous allez recevoir un lien blablablablablabla
+
+            </p>
+            <p> Si vous ne recevez pas le mail, vous pouvez cliquer sur le lien suivant : <a href="{{ path('app_forgot_password_request') }}"> Reessayer </a>.</p>
+           </div>
+
+
+        <div class="column is-fifth">
+
+        </div>
+
+
+    </div>
+    </div>
+
+{% endblock %}
