@@ -249,21 +249,31 @@ class HomeController extends AbstractController
                                     SortieRepository $sortieRepository,
                                     EtatRepository $etatRepository,
                                     EntityManagerInterface $em,
+        UtilisateurRepository $repoUser
     ): Response
 
     {
-
+        $utilisateur = $this->getUser()->getUserIdentifier();
+        $user = $repoUser->findOneBy(["email" => $utilisateur]);
+        $participant = $user->getIdParticipant();
         $sortie = $sortieRepository->findOneBy(['id'=>$id]);
-        $etat = $etatRepository->findOneBy(['libelle'=>'Annulee']);
+        if($participant==$sortie->getOrganisateur()) {
 
-        $motif = filter_input(INPUT_POST, 'motif', FILTER_DEFAULT);
 
-        $sortie->setMotifAnnulation($motif);
+            $etat = $etatRepository->findOneBy(['libelle' => 'Annulee']);
 
-        $sortie->setEtat($etat);
-        $em->persist($sortie);
-        $em->flush();
+            $motif = filter_input(INPUT_POST, 'motif', FILTER_DEFAULT);
 
+            $sortie->setMotifAnnulation($motif);
+
+            $sortie->setEtat($etat);
+            $em->persist($sortie);
+            $em->flush();
+        }
+        else{
+
+            $this->addFlash('error', 'Vous ne pouvez pas faire cela');
+        }
 
         return $this->redirectToRoute('home');
     }
@@ -273,16 +283,23 @@ class HomeController extends AbstractController
         $id,
         SortieRepository $sortieRepository,
         EntityManagerInterface $em,
+        UtilisateurRepository $repoUser
     ): Response
 
     {
-
+        $utilisateur = $this->getUser()->getUserIdentifier();
+        $user = $repoUser->findOneBy(["email" => $utilisateur]);
+        $participant = $user->getIdParticipant();
         $sortie = $sortieRepository->findOneBy(['id'=>$id]);
-
-        if($sortie->getEtat()->getLibelle() == 'creee') {
-                $em->remove($sortie);
-                $em->flush();
-        }
+            if ($participant == $sortie->getOrganisateur()) {
+                if ($sortie->getEtat()->getLibelle() == 'creee') {
+                    $em->remove($sortie);
+                    $em->flush();
+                }
+            }
+            else{
+                $this->addFlash('error', 'Vous ne pouvez pas faire cela');
+            }
         return $this->redirectToRoute('home');
     }
     #[Route('/sortie/publier/{id}', name: 'publiersortie')]
