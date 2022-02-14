@@ -40,12 +40,11 @@
 
                     <div class="col-lg-4 ml-3">
 
-
                         <div class="form-group row">
                             <label class="label col-lg col-form-label ">Site</label>
                             <div class="control col-lg">
-                                <div class="select" name="selection_du_site">
-                                    <select>
+                                <div class="select" >
+                                    <select name="selection_du_site">
                                         <option value="ok"></option>
                                         {% for site in sites %}
                                             <option value="{{ site }}">{{ site }}</option>
