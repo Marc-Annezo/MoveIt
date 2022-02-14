@@ -36,12 +36,6 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-        $valeurChamp = $request->request->get('email');
-        $checkbox = $request->request->get('_remember_me');
-
-        if($checkbox!=null) {
-            setcookie('authMail', $valeurChamp, time() + 604800);
-        }
 
 
         return new Passport(

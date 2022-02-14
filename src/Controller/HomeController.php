@@ -85,6 +85,7 @@ class HomeController extends AbstractController
 
     {
 
+
         // Obtenir le participant
         $userSession = $this->getUser()->getUserIdentifier();
         $utilisateur = $repoUser->findOneBy(["email" => $userSession]);
@@ -93,38 +94,49 @@ class HomeController extends AbstractController
         //trouver la sortie dans la base de donnée
         $sortie = $sortieRepository->findOneBy(['id' => $idsortie]);
 
-        //ajouter l'utilisateur a la sortie
-        //ou le supprimer
-        $nbinscrit = count($sortie->getInscrits());
-        $date_du_jour = new DateTime('now');
 
+        // Autoriser l'inscription uniquement quand la sortie est état 2
 
-        // verifier que le nombre max d'inscrit n'est pas dépassé
-        // verifier que la date du jour est inferieur a la date de fin d'inscription
+        if ($sortie->getEtat()->getLibelle() != "Ouverte") {
 
-        if (($nbinscrit < $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription())
-            or ($nbinscrit <=$sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription() and in_array($participant, $sortie->getInscrits(), TRUE))
-
-        ) {
-
-            try {
-
-
-                $sortie->addInscritOuSuppression($participant);
-                $entityManager->persist($participant);
-                $entityManager->flush();
-                $this->addFlash('success', 'félicitation vous êtes inscrit');
-
-            } catch (Exception $e) {
-
-            }
+            return $this->redirectToRoute('home');
 
         } else {
 
-            $this->addFlash('error', 'Vous ne pouvez pas vous inscrire');
-        }
 
-        return $this->redirectToRoute('home');
+            //ajouter l'utilisateur a la sortie
+            //ou le supprimer
+            $nbinscrit = count($sortie->getInscrits());
+            $date_du_jour = new DateTime('now');
+
+
+            // verifier que le nombre max d'inscrit n'est pas dépassé
+            // verifier que la date du jour est inferieur a la date de fin d'inscription
+
+            if (($nbinscrit < $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription())
+                or ($nbinscrit <= $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription() and in_array($participant, $sortie->getInscrits(), TRUE))
+
+            ) {
+
+                try {
+
+
+                    $sortie->addInscritOuSuppression($participant);
+                    $entityManager->persist($participant);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'félicitation vous êtes inscrit');
+
+                } catch (Exception $e) {
+
+                }
+
+            } else {
+
+                $this->addFlash('error', 'Vous ne pouvez pas vous inscrire');
+            }
+
+            return $this->redirectToRoute('home');
+        }
     }
 
     #[Route('/home/filtres', name: 'filtres')]

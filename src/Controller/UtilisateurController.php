@@ -18,8 +18,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+
 class UtilisateurController extends AbstractController
 {
+    // Première connexion avec renvoi vers le première création du profil participant
     #[Route('utilisateur/profil', name: 'MonProfil')]
     public function utilisateur(Request                $request,
                                 EntityManagerInterface $entityManager,
@@ -79,6 +81,7 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    // Modificaton du mot de passe d'un utilisateur connecté
     #[Route('/modifiermdp', name: 'modifiermdp')]
     public function modifiermdp(
         EntityManagerInterface      $entityManager,
@@ -130,6 +133,7 @@ class UtilisateurController extends AbstractController
     }
 
 
+    // Modification du profil d'un participant connecté
     #[Route('utilisateur/profil/{id}', name: 'modifierProfil')]
     public function modifierProfil(Request $request,
                                 EntityManagerInterface $entityManager,
@@ -159,4 +163,24 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-}
+    // Afficher le profil d'un participant dont l'id est envoyé en paramètre
+    #[Route('utilisateur/profil/afficher/{id}', name: 'afficherprofil')]
+    public function afficherprofil(Request $request,
+                                   EntityManagerInterface $entityManager,
+                                   ParticipantRepository $participantRepository,
+        $id,
+    ): Response
+    {
+
+        // Ce que la page nous envoi (informations du click)
+        $idDuParticipantSurLequelOnaClique = $id;
+
+        // Ce qu'il veut voir afficher en envoyant l'ID
+        $InformationsDuParticipantSurLequelOnAClique = $participantRepository->findOneBy(['id' => $idDuParticipantSurLequelOnaClique]);
+
+        // Retour vers le vue qui s'appelle :
+        return $this->render('utilisateur/profil/afficher.html.twig',
+            // C'est les données envoyées
+            compact('InformationsDuParticipantSurLequelOnAClique')
+        );
+    }}

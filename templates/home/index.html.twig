@@ -121,9 +121,11 @@
                 <th>Actions</th>
                 </thead>
 
+
                 <tbody>
                 <tr>
                     {% for sortie in listeSorties %}
+
                     {% if (((sortie.etat.libelle is not same as 'creee') and (participant is not same as sortie.organisateur))or (participant is same as sortie.organisateur)) %}
                 <tr>
                     <td>{{ sortie.nom }}</td>
@@ -139,7 +141,9 @@
                         <td>Non</td>
                     {% endif %}
 
-                    <td>{{ sortie.organisateur }}</td>
+                        <td>
+                        <a href="{{ path('afficherprofil', {'id':sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
+                        </td>
 
                     <td>
                         <button class="button is-small button is-link js-modal-trigger"
@@ -165,7 +169,7 @@
                                     <p>{{ sortie.InfosSortie }}</p>
 
                                     {% for joiner in sortie.inscrits %}
-                                        <p><a href=" ">{{ joiner.nom }}</a></p>
+                                        <p><a href="{{ path('afficherprofil', {'id':joiner.id}) }}">{{ joiner.nom }}</a></p>
                                     {% endfor %}
 
 

@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Lieu;
+use App\Entity\Ville;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -49,7 +51,8 @@ class AjoutLieuType extends AbstractType
                         'aria-describedby'=>"inputGroup-sizing-sm"]
             ])
 
-            ->add('idVille', TextType::class, [
+            ->add('idVille', EntityType::class, [
+                'class' => Ville::class,
                 'label' => 'Ville',
                 'label_attr'=> ['class'=> ' text-primary'],
                 'attr' => ['class'=>'input is-link is-rounded',
