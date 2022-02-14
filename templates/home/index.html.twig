@@ -183,7 +183,7 @@
 
                         {% if (sortie.etat.libelle is not same as 'Annulee') %}
                             {% if sortie in listeSortiesParticipant %}
-
+                        {% if(sortie.dateLimiteInscription | date) <= ('now' | date) %}
                                 <a class="button is-link is-rounded button is-small" href="{{ path('inscriptionsortie', {'idsortie':sortie.id}) }}">Se désister</a>
                             {% endif %}
                             {% if not (sortie in listeSortiesParticipant  ) %}
@@ -191,13 +191,11 @@
                                     <a class="button is-link is-rounded button is-small" href=" {{ path('inscriptionsortie', {'idsortie':sortie.id}) }}"> S'inscrire</a>
                                 {% endif %}
                             {% endif %}
+                            {% endif %}
 
 
 
-                            {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' %}
-
-
-
+                            {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' and sortie.etat.libelle is not same as 'creee'   %}
 
                                 <button class="button is-link is-rounded button is-small js-modal-trigger"
                                         data-target="modal-js-annuler{{ sortie.id }}">Annuler
@@ -252,7 +250,7 @@
 
 
                             {% if (sortie.organisateur is same as participant) %}
-                                {% if (sortie.etat.libelle is same as 'Ouverte' or sortie.etat.libelle is same as 'creee') %}
+                                {% if (sortie.etat.libelle is same as 'creee') %}
                                     <a class="button is-link is-rounded button is-small" href="">Modifier</a>
                                 {% endif %}
 
