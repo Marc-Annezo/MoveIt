@@ -114,7 +114,7 @@ class HomeController extends AbstractController
             // verifier que la date du jour est inferieur a la date de fin d'inscription
 
             if (($nbinscrit < $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription())
-                or ($nbinscrit <= $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription() and in_array($participant, $sortie->getInscrits(), TRUE))
+                or ($nbinscrit <= $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription() and $sortie->getInscrits()->contains($participant) )
 
             ) {
 
@@ -391,6 +391,10 @@ class HomeController extends AbstractController
             compact('sortie', 'formModifSortie', 'listeVille'));
     }
 
+
+
 }
+
+
 
 
