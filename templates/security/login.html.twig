@@ -29,7 +29,9 @@
 
                             <div class="field">
                                 <div class="control">
-                                    <input value="{{ cookie }}" name="email" id="inputEmail" class="input is-normal" type="email" placeholder="Email" autofocus="">
+                                    <input value="
+                                    {% if(cookie) %}    {{ cookie }}  {% endif %}
+                                        " name="email" id="inputEmail" class="input is-normal" type="email" placeholder="Email" autofocus="">
                                 </div>
                             </div>
 

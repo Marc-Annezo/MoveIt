@@ -39,6 +39,7 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
         unset($_COOKIE['authMail']);
         $checkbox = $request->request->get('_remember_me');
 
+
         if($checkbox!=null) {
 
             setcookie('authMail', $email, time() + 604800);

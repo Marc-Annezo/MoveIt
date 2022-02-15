@@ -85,7 +85,6 @@ class HomeController extends AbstractController
 
     {
 
-
         // Obtenir le participant
         $userSession = $this->getUser()->getUserIdentifier();
         $utilisateur = $repoUser->findOneBy(["email" => $userSession]);

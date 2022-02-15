@@ -40,7 +40,10 @@ class SecurityController extends AbstractController
       }
 else{
 
-    return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    $cookie = '';
+
+
+    return $this->render('security/login.html.twig', ['cookie'=>$cookie,'last_username' => $lastUsername, 'error' => $error]);
 }
 
     }
