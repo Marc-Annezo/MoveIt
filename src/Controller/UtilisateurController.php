@@ -9,6 +9,7 @@ use App\Form\ModifierMdpType;
 use App\Form\RegistrationFormType;
 use App\Repository\ParticipantRepository;
 use App\Repository\UtilisateurRepository;
+use App\Services\Censurator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -26,7 +27,8 @@ class UtilisateurController extends AbstractController
     public function utilisateur(Request                $request,
                                 EntityManagerInterface $entityManager,
                                 ParticipantRepository  $participantRepository,
-                                UtilisateurRepository  $utilisateurRepository
+                                UtilisateurRepository  $utilisateurRepository,
+                                Censurator             $censurator
     ): Response
     {
         // Récupération de l'utilisateur
@@ -36,12 +38,12 @@ class UtilisateurController extends AbstractController
         // Création du formulaire 'première connexion' du participant
         $participant = $utilisateur->getIdParticipant();
 
-
         $formParticipant = $this->createForm(FormParticipantType::class, $participant);
         $formParticipant->handleRequest($request);
 
 
         if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
+
 
             if(file_exists($request->files->get('form_participant')['my_file'])) {
                 $uploads_directory = $this->getParameter('uploads_directory');

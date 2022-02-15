@@ -24,7 +24,7 @@ class Ville
     #[ORM\Column(type: 'string', length: 5)]
     /**
      * @Assert\Regex(
-     *     pattern="^\d{5}$",
+     *     pattern="^\d{5}$^",
      *     match=true,
      *     message="Doit uniquement comporter 5 chiffres"
      * )
