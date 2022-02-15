@@ -51,25 +51,13 @@
 
                             <a class="navbar-item" href="{{ path('admin_gestionville') }}">Gérer villes</a>
                             <a class="navbar-item" href="{{ path('admin_gestionsite') }}">Gérer les sites</a>
+                            <a class="navbar-item" href="{{ path('app_register') }}">Gérer les users</a>
 
 
                     </div>
                 </div>
               {% endif %}
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        Sorties
-                    </a>
-
-                    <div class="navbar-dropdown">
-
-                        <a class="navbar-item" href="{{ path('sortie') }}"> Organiser une sortie </a>
-                        <a class="navbar-item" href=""> Publier mes sorties </a>
-
-
-                    </div>
-                </div>
-            </div>
+            <a class="navbar-item" href="{{ path('sortie') }}">Sortie </a>
 
             <a class="navbar-item" href={{ path('home') }}>Accueil</a>
 
