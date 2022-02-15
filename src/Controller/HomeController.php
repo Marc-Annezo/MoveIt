@@ -391,7 +391,11 @@ class HomeController extends AbstractController
             compact('sortie', 'formModifSortie', 'listeVille'));
     }
 
-
+    #[Route('/aide', name: 'aide')]
+    public function aide(): Response
+    {
+        return $this->render('home/aide.html.twig');
+    }
 
 }
 

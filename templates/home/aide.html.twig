@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
 {% block NavBar %}
 
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
@@ -105,60 +103,37 @@
 {% endblock %}
 
 {% block body %}
-
     <body>
     <section class="hero is-fullheight">
         <div class="hero-body">
             <div class="container has-text-centered">
                 <div class="column is-4 is-offset-4">
-                    <h3 class="title has-text-black"> Connexion </h3>
+                    <h3 class="title has-text-black">Bienvenue sur notre FAQ</h3>
                     <hr class="login-hr">
-                    <p class="subtitle has-text-black"> Vous devez vous connecter pour continuer </p>
+                    <p class="subtitle has-text-black">Groupe ENI - Ecole Informatique</p>
                     <div class="box">
                         <figure class="avatar has-text-centered">
                             <img class="is-rounded image is-128x128 is-inline-block" src="{{ asset('img/logotest.png') }}">
                         </figure>
-                        <form method="post">
-                            {% if error %}
-                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                            {% endif %}
-
-                            {% if app.user %}
-                                <div class="mb-3">
-                                    Vous êtes connectés en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                                </div>
-                            {% endif %}
-
                             <div class="field">
                                 <div class="control">
-                                    <input value="
-                                    {% if(cookie) %}    {{ cookie }}  {% endif %}
-                                        " name="email" id="inputEmail" class="input is-normal" type="email" placeholder="Email" autofocus="">
+
+                                    Notre site est exclusivement reservée aux étudiants et alumnis du groupe ENI - Ecole Informatique. <br>
+                                    Les comptes sont activés lors de votre arrivée au sein de notre école ou, en tant qu'alumni, si vous en faite la demande auprès de l'administration à l'adresse suivante :
+                                    <A href="mailto:accueil@eni.fr">Accueil</A>
                                 </div>
                             </div>
-
                             <div class="field">
                                 <div class="control">
-                                    <input type="password" name="password" id="inputPassword" class="form-control input is-normal" autocomplete="current-password" required>
+
+                                    Si vous n'avez pas reçu vos identifiants de connexion, merci de contacter votre référent de formation qui vous fera suivre.
                                 </div>
                             </div>
-
-                            <input type="hidden" name="_csrf_token"
-                                   value="{{ csrf_token('authenticate') }}"
-                            >
-
                             <div class="field">
-                                <label class="checkbox" >
-                                    <input type="checkbox" name="_remember_me">
-                                    Se souvenir de moi
-                                </label>
                             </div>
-                            <button class="button is-block is-info is-large is-fullwidth" type="submit"> Se connecter <i class="fa fa-sign-in" aria-hidden="true"></i></button>
-                        </form>
                     </div>
                     <p class="has-text-grey">
-                        <a href="{{ path('app_forgot_password_request') }}"> Mot de passe oublié </a> &nbsp;·&nbsp;
-                        <a href="{{ path('aide') }}"> Besoin d'aide </a>
+                        <a href="{{ path('app_login') }}">Retourner à l'accueil</a>
                     </p>
                 </div>
             </div>
@@ -166,43 +141,4 @@
     </section>
     <script async type="text/javascript" src="../js/bulma.js"></script>
     </body>
-
-
-
-{#<form method="post">#}
-{#    {% if error %}#}
-{#        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#    {% endif %}#}
-
-{#    {% if app.user %}#}
-{#        <div class="mb-3">#}
-{#            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>#}
-{#        </div>#}
-{#    {% endif %}#}
-
-{#    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>#}
-{#    <label for="inputEmail">Email</label>#}
-{#    <input type="email" value="{{ app.request.cookies.get('authMail') }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>#}
-{#    <label for="inputPassword">Password</label>#}
-{#    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>#}
-
-{#    <input type="hidden" name="_csrf_token"#}
-{#           value="{{ csrf_token('authenticate') }}"#}
-{#    >#}
-
-
-{#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.#}
-{#        See https://symfony.com/doc/current/security/remember_me.html#}
-
-{#        <div class="checkbox mb-3">#}
-{#            <label>#}
-{#                <input type="checkbox" name="_remember_me"> Remember me#}
-{#            </label>#}
-{#        </div>#}
-
-
-{#    <button class="btn btn-lg btn-primary" type="submit">#}
-{#        Sign in#}
-{#    </button>#}
-{#</form>#}
 {% endblock %}

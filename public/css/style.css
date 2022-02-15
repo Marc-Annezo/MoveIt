@@ -1,14 +1,18 @@
+.titre-logo {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.6em;
+    text-decoration: none;
+    color: black;
+}
+
+
 table{
     position: absolute;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.titrelogo {
-    font-family: 'Architects Daughter', cursive;
-    font-size: 2.6em;
-    color: black;
-}
+
 
 .box{
     padding-top: 5px;

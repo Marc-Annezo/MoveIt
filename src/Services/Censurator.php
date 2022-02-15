@@ -4,7 +4,7 @@ namespace App\Services;
 
 class Censurator
 {
-    const MOTS_INTERDITS = ["putain", "foutre", "merde", "chier","con ", "pute", "bordel","enfoiré","salope", "salaud", "pétasse","pouffiasse", "casse-couille"];
+    const MOTS_INTERDITS = ["putain", "foutre", "merde", "chier","con", "pute", "bordel","enfoiré","salope", "salaud", "pétasse","pouffiasse", "casse-couille"];
 
     /**
      * Purify
