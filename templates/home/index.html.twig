@@ -176,7 +176,9 @@
                                     <p>Sortie organisée par </p>
                                     <a href="{{ path('afficherprofil', {'id':sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }}</a>
 
-
+                                    {% if(sortie.motifAnnulation) %}
+                                       <p>motif annulation : {{ sortie.motifAnnulation }}</p>
+                                    {% endif %}
 
 
                                     <p>participants : </p>
@@ -295,7 +297,7 @@
                         {% endif %}
 
                         {% if (sortie.etat.libelle is same as 'Annulee') %}
-                            <small>Sortie Annulée : {{ sortie.motifAnnulation }}</small>
+                            <small>Annulée</small>
                         {% endif %}
                     </td>
                 </tr>

@@ -211,7 +211,8 @@ class HomeController extends AbstractController
             //sortie déja terminée
             $sortie_qui_sont_terminees = filter_input(INPUT_POST, 'termine', FILTER_SANITIZE_STRING);
             if($sortie_qui_sont_terminees){
-                $sortie_qui_sont_terminees= $etatRepository->findOneBy(['libelle'=>'Annulee']);
+
+                $sortie_qui_sont_terminees= $etatRepository->findOneBy(['libelle'=>'passee']);
             }
 
             $listeSorties = $sortieRepository->filtres(
