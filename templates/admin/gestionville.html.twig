@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
-
+{% block link %}
+    <script type="text/javascript" src="{{ asset('js/accueil.js') }}" xmlns="http://www.w3.org/1999/html"></script
+{% endblock %}
 {% block body %}
+
+
     <br>
     <br>
     <br>
@@ -34,9 +38,54 @@
 
                             {% for ville in listeVille %}
                                 <tr>
-                                    <td>{{ ville.nom}}</td>
+                                    <td>{{ ville.nom }}</td>
                                     <td> {{ ville.CodePostal }}</td>
-                                    <td><a href="{{ path('admin_modifierville', {'id':ville.id}) }}"> Modifier</a> - <a href="{{ path('admin_supprimerville', {'id':ville.id}) }}"> Supprimer</a></td>
+                                    <td><a href=""></a>
+                                        {#                 MODAL DETAIL--------START             #}
+                                        <button class="button is-small button is-link js-modal-trigger"
+                                                data-target="modal-js-example{{ ville.id }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+
+                                        <div id="modal-js-example{{ ville.id }}" class="modal ">
+                                            <div class="modal-background"></div>
+                                            <div class="modal-content modal-lg ">
+                                                <div class="box">
+
+                                                    {# ####    FAIRE DU JOLIE ICI   ##### #}
+                                                    <div class="has-text-centered">
+
+                                                        <form action="{{ path('admin_modifierville', {'id': ville.id}) }}" method="POST">
+                                                            <span> Modifier la ville </span>
+                                                            <br>
+                                                            <label for="nom">Nom</label>
+                                                            <input class="input is-link" type="text"
+                                                                   value="{{ ville.nom }}" name="nom">
+
+                                                            <label for="codePostal">Code Postal</label>
+                                                            <input class="input is-link" type="text"
+                                                                   value="{{ ville.codePostal }}" name="codePostal">
+
+                                                            <br>
+                                                            <br>
+
+                                                            <button name="modifiertype" type="submit" class="button is-link"> Modifier </button>
+
+                                                        </form>
+                                                    </div>
+                                                    {# #####            JUSQU'A LA          ##### #}
+
+                                                </div>
+                                            </div>
+                                            <button class="modal-close is-large" aria-label="close"></button>
+                                        </div>
+
+
+                                        {#                     MODAL-------END           #}
+
+                                        <a class="button is-small button is-danger"> <i class="fa-solid fa-trash"></i> </a>
+
+{#                                        <a href="{{ path('admin_supprimerville', {'id':ville.id}) }}">  <i class="fa-solid fa-trash"></i> </a></td>#}
                                 </tr>
                             {% endfor %}
 
@@ -45,7 +94,9 @@
                                 {{ form_start(ajoutVille) }}
                                 <td>{{ form_row(ajoutVille.nom) }}</td>
                                 <td>{{ form_row(ajoutVille.CodePostal) }}</td>
-                                <td><button type="submit"> Ajouter </button></td>
+                                <td>
+                                    <button class="button is-small button is-success" type="submit"><i class="fa-solid fa-plus"></i></button>
+                                </td>
                                 {{ form_end(ajoutVille) }}
                             </tr>
 

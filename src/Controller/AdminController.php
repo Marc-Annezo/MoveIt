@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Site;
+
 use App\Entity\Ville;
 use App\Form\FormVilleType;
 use App\Repository\SiteRepository;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin', name: 'admin_')]
 class AdminController extends AbstractController
 {
-    #[Route('/gestionville', name: 'gestionville')]
+    #[Route('/ajouterville', name: 'ajouterville')]
     public function gestionville(Request $request,
                                  EntityManagerInterface $em,
                                  VilleRepository $villeRepo,
@@ -41,7 +41,7 @@ class AdminController extends AbstractController
             $em->flush();
 
         // redirection vers la page de gestionnaire des villes
-            return $this->redirectToRoute('admin_gestionville');
+            return $this->redirectToRoute('admin_ajouterville');
         }
 
         return $this->renderForm('admin/gestionville.html.twig',
@@ -49,51 +49,54 @@ class AdminController extends AbstractController
         );
     }
 
-    #[Route('/modifierville', name: 'modifierville')]
-    public function modifierville(Request $request,
-                                  EntityManagerInterface $em
+    #[Route('/modifierville/{id}', name: 'modifierville')]
+    public function modifierville(
+        Request $request,
+        EntityManagerInterface $em,
+        VilleRepository $villeRepository,
+        $id
 
     ) : Response
 
     {
-        $id = $request->request->get('id');
-        $ville = $em->getRepository(Ville::class)->find($id);
 
-        // création du formulaire de modification de la ville
-        $modifVille = $this->createForm(FormVilleType ::class, $ville);
-        $modifVille->handleRequest($request);
+        if (isset($_POST['modifiertype'])) {
 
-        // validation du formulaire et envoi à la DB
-        if ($modifVille->isSubmitted() && $modifVille->isValid()
-        ) {
-            return $this->redirectToRoute('admin_gestionville');
-        }
+            $villeAModif = $villeRepository->findOneBy(['id' => $id]);
 
-        $ville -> setNom('nom');
-        $ville -> setCodePostal('CodePostal');
 
-        $em -> persist ($ville);
-        $em -> flush();
+        $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
+        $codePostal = filter_input(INPUT_POST, 'codePostal', FILTER_SANITIZE_STRING);
 
-        return $this->render('admin/modifierville.html.twig',
-            ['listeVille'=>$modifVille]
-        );
+
+        $villeAModif->setNom($nom);
+        $villeAModif->setCodePostal($codePostal);
+
+        $em->persist($villeAModif);
+        $em->flush();
+
+    }
+        return $this->redirectToRoute('admin_ajouterville');
     }
 
-    #[Route('/supprimerville', name: 'supprimerville')]
-    public function supprimerville(Request                $request,
-                                   EntityManagerInterface $em
+
+
+    #[Route('/supprimerville/{id}', name: 'supprimerville')]
+    public function supprimerville(
+        Request $request,
+        EntityManagerInterface $em,
+        VilleRepository $villeRepository,
+        $id
 
     ) : Response
 
     {
-        $id = $request->request->get('id');
-        $ville = $em -> getRepository(Ville::class)->find($id);
+       $villeASuppr = $villeRepository->findOneBy(['id' => $id]);
 
-        $em -> remove($ville);
-        $em ->flush();
+       $em->remove($villeASuppr);
+       $em->flush();
 
-        return $this->redirectToRoute('admin/gestionville.html.twig'
+        return $this->redirectToRoute('home'
         );
     }
 

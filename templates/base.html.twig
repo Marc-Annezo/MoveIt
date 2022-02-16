@@ -20,6 +20,11 @@
 
 <body>
 
+{% if app.user %}
+
+{% endif %}
+
+
 {% block NavBar %}
 
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
@@ -49,7 +54,7 @@
 
                     <div class="navbar-dropdown">
 
-                            <a class="navbar-item" href="{{ path('admin_gestionville') }}">Gérer villes</a>
+                            <a class="navbar-item" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
                             <a class="navbar-item" href="{{ path('admin_gestionsite') }}">Gérer les sites</a>
                             <a class="navbar-item" href="{{ path('app_register') }}">Gérer les users</a>
 
@@ -78,7 +83,9 @@
                 </div>
             </div>
         </div>
+        </div>
     </nav>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js">
         document.addEventListener('DOMContentLoaded', () => {

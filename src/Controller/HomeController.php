@@ -4,15 +4,14 @@ namespace App\Controller;
 
 use App\Form\CreerSortieType;
 use App\Repository\EtatRepository;
-use App\Repository\LieuRepository;
-use App\Repository\ParticipantRepository;
+
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
+use App\Services\AutoUpdateStatut;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +27,7 @@ class HomeController extends AbstractController
         UtilisateurRepository $repoUser,
         SiteRepository $siteRepository,
         EtatRepository $etatRepository,
+        AutoUpdateStatut $autoUpdateStatut,
 
     ): Response
 
@@ -35,14 +35,14 @@ class HomeController extends AbstractController
 
         $sites= $siteRepository->findAll();
 
-
-
         $listeSorties = $sortieRepository->findAll();
         $userSession = $this->getUser()->getUserIdentifier();
         $utilisateur = $repoUser->findOneBy(["email" => $userSession]);
         $participant = $utilisateur->getIdParticipant();
         $listeSortiesParticipant = $participant ->getSortiesParticipant();
      //   $etat = $etatRepository->findAll();
+
+        $autoUpdateStatut->miseAJour($listeSorties);
 
 
         return $this->render('home/index.html.twig',
@@ -144,6 +144,7 @@ class HomeController extends AbstractController
         UtilisateurRepository $repoUser,
         SortieRepository $sortieRepository,
         EtatRepository $etatRepository,
+        AutoUpdateStatut $autoUpdateStatut,
 
 
     ): Response
@@ -228,6 +229,8 @@ class HomeController extends AbstractController
 
 
             );
+            $autoUpdateStatut->miseAJour($listeSorties);
+
             $sites= $siteRepository->findAll();
             $listeSortiesParticipant = $participant ->getSortiesParticipant();
 
@@ -371,17 +374,20 @@ class HomeController extends AbstractController
         if ($Demandant != $idOrganisateur) {
             return $this->redirectToRoute('home');
         } else {
-            if ($formModifSortie->isSubmitted() && $formModifSortie->isValid()) {
+            if ($formModifSortie->isSubmitted() && $formModifSortie->isValid())
+            {
+
                 $boutonclique = $formModifSortie->getClickedButton()->getName();
+
                 if ($boutonclique == "creer") {
                     $etat = $repoEtat->findOneBy(['id' => 1]);
-                    $sortie > setEtat($etat);
+                    $sortie-> setEtat($etat);
                 } elseif ($boutonclique == "publier") {
                     $etat = $repoEtat->findOneBy(['id' => 2]);
                     $sortie->setEtat($etat);
                 }
 
-                $em->persist($formModifSortie);
+                $em->persist($sortie);
                 $em->flush();
             }
 

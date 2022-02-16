@@ -13,6 +13,7 @@
                 let ajout = document.createElement("div")
                 ajout.className = "notification is-link is-size-7"
                 ajout.setAttribute('id', 'test')
+                ajout.setAttribute('class', 'block')
                 let text = "Ce champ vous permet de modifier votre mail pour recevoir les notifications. Il ne modifie pas votre mail de connexion (@campus-eni.fr)";
                 ajout.innerText = text
 
@@ -42,7 +43,6 @@
                             {% else  %}
                                 {{ asset('img/profil2.jpg') }}" alt="image">
                             {% endif %}
-
                         </figure>
                     </div>
 
@@ -60,9 +60,9 @@
                         {{ form_start(monProfilFormParticipant) }}
                         <div class="box is-link has-background-info">
                             <div class="block has-text-white">
-                                {{ form_label(monProfilFormParticipant.prenom) }}
-                                {{ form_widget(monProfilFormParticipant.prenom) }}
-                                {{ form_errors(monProfilFormParticipant.prenom) }}
+                                {{ form_row(monProfilFormParticipant.prenom) }}
+
+
                             </div>
 
                             <div class="block has-text-white">
