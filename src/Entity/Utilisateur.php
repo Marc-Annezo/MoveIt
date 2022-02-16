@@ -21,7 +21,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[Assert\Regex('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+', message: "Adresse mail non valide")]
+   /* #[Assert\Regex('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]', message: "Adresse mail non valide")]*/
     private $email;
 
     #[ORM\Column(type: 'json')]

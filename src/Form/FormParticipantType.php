@@ -32,7 +32,6 @@ class FormParticipantType extends AbstractType
                         'min' => 3,
                         'minMessage' => 'Doit comporter au moins 2 caractères'])
                 ],
-                'required' => false,
             ])
 
             ->add('nom', TextType::class, [
@@ -42,11 +41,11 @@ class FormParticipantType extends AbstractType
                     'min' => 3,
                     'minMessage' => 'Doit comporter au moins 2 caractères'])
                 ],
-                'required' => false,
             ])
 
             ->add('telephone', TelType::class, [
                 'attr' => ['class' => 'input is-link'],
+                'required' => false,
                 'label' => 'Téléphone :'])
 
             ->add('email', EmailType::class, [

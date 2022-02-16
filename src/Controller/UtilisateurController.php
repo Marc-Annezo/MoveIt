@@ -27,7 +27,7 @@ class UtilisateurController extends AbstractController
 
     #[Route('utilisateur/profil', name: 'MonProfil')]
     /**
-     * @IsGranted("ROLE_PARTICIPANT")
+     * @IsGranted("ROLE_USER")
      */
     public function utilisateur(Request                $request,
                                 EntityManagerInterface $entityManager,
@@ -52,6 +52,7 @@ class UtilisateurController extends AbstractController
 
         if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
 
+            $utilisateur->setRoles(['ROLE_PARTICIPANT']);
 
             if(file_exists($request->files->get('form_participant')['my_file'])) {
                 $uploads_directory = $this->getParameter('uploads_directory');
