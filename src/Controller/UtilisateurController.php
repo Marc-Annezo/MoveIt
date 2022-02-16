@@ -51,7 +51,9 @@ class UtilisateurController extends AbstractController
         }
 
         if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
-            if (in_array(['ROLE_ADMIN'], $this->getUser()->getRoles())){
+
+
+            if (! in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
                 $utilisateur->setRoles(['ROLE_PARTICIPANT']);
             }
             if(file_exists($request->files->get('form_participant')['my_file'])) {
