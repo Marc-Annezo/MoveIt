@@ -122,7 +122,7 @@
     {% block table %}
         {# Début du tableau en BULMA #}
         <div class="table-container">
-            <table class="table is-fullwidth is-hoverable mx-3">
+            <table class="table is-fullwidth is-hoverable mx-3 is-hidden-touch">
                 <thead>
                 <th>Nom de la sortie</th>
                 <th>Date de la sortie</th>
@@ -318,13 +318,7 @@
                 </tbody>
             </table>
         </div>
-
-
-
+        {# Début des Cards Bulma pour le responsive #}
     {% endblock %}
-
-
-
-
 
 {% endblock %}

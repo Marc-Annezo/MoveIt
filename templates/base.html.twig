@@ -45,19 +45,19 @@
         </div>
 
 
-        <div id="navbarBasicExample" class="navbar-menu">
+        <div id="navbarBasicExample" class="navbar-menu has-background-info">
             <div class="navbar-end">
                 {% if 'ROLE_ADMIN' in app.user.roles %}
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <div class="navbar-link">
+                <div class="navbar-item has-dropdown is-hoverable ">
+                    <div class="navbar-link has-text-primary-light has-background-info">
                         Administrer
                     </div>
 
-                    <div class="navbar-dropdown">
+                    <div class="navbar-dropdown has-background-info">
 
-                        <a class="navbar-item" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
-                        <a class="navbar-item" href="{{ path('admin_gestionsite') }}">Gérer les sites</a>
-                        <a class="navbar-item" href="{{ path('app_register') }}">Gérer les utilisateurs</a>
+                        <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
+                        <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('admin_gestionsite') }}">Gérer les sites</a>
+                        <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('app_register') }}">Gérer les utilisateurs</a>
 
                     </div>
                 </div>
@@ -65,11 +65,11 @@
 
                 {% endif %}
 
-                <a class="navbar-item" href="{{ path('sortie') }}">Sortie </a>
+                <a class="navbar-item has-text-primary-light has-background-info" href={{ path('sortie') }}>Sortie </a>
 
-                <a class="navbar-item" href={{ path('home') }}>Accueil</a>
+                <a class="navbar-item has-text-primary-light has-background-info" href={{ path('home') }}>Accueil</a>
 
-                <a class="navbar-item" href={{ path('MonProfil') }}>Mon profil</a>
+                <a class="navbar-item has-text-primary-light has-background-info" href={{ path('MonProfil') }}>Mon profil</a>
 
             {% endif %}
 
