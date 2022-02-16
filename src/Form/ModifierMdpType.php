@@ -17,11 +17,11 @@ class ModifierMdpType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email',EmailType::class,[
+            ->add('pseudo',TextType::class,[
                 'attr' =>['class'=>'input is-link'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter your email',
+                        'message' => 'Entrez votre pseudo',
                     ]),
                 ]
             ])
@@ -38,7 +38,7 @@ class ModifierMdpType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Entrez votre mot de passe',
                     ]),
                     new Length([
                         'min' => 6,

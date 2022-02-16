@@ -25,7 +25,7 @@ class RegistrationFormType extends AbstractType
                 'required'=>true,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter your email',
+                        'message' => 'Please enter an email',
                     ]),
                 ],
             ])
