@@ -27,6 +27,7 @@ class FormParticipantType extends AbstractType
 
             ->add('prenom', TextType::class, [
                 'label' => 'Prénom :',
+                'attr' => ['class' => 'input is-link'],
                 'constraints' => [new Length([
                         'min' => 3,
                         'minMessage' => 'Doit comporter au moins 2 caractères'])
@@ -36,6 +37,7 @@ class FormParticipantType extends AbstractType
 
             ->add('nom', TextType::class, [
                 'label' => 'Nom :',
+                'attr' => ['class' => 'input is-link'],
                 'constraints' => [new Length([
                     'min' => 3,
                     'minMessage' => 'Doit comporter au moins 2 caractères'])
@@ -44,10 +46,12 @@ class FormParticipantType extends AbstractType
             ])
 
             ->add('telephone', TelType::class, [
+                'attr' => ['class' => 'input is-link'],
                 'label' => 'Téléphone :'])
 
             ->add('email', EmailType::class, [
                 'label' => 'Email personnel :',
+                'attr' => ['class' => 'input is-link'],
                 'constraints' => [new Length([
                     'min' => 3,
                     'minMessage' => 'Doit comporter au moins 2 caractères'])
@@ -59,7 +63,7 @@ class FormParticipantType extends AbstractType
             ->add('site', EntityType::class, [
                 'class' =>'App\Entity\Site',
                 'label' => 'Site de rattachement :',
-                "attr" => ['class' => "select"]
+                "attr" => ['class' => "select is-link"]
             ]
 
             )
