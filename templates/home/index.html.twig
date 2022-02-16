@@ -276,7 +276,7 @@
 
 
                             {% if (sortie.organisateur is same as participant) %}
-                                {% if (sortie.etat.libelle is same as 'creee') %}
+                                {% if (sortie.etat.libelle is same as 'creee' or sortie.etat.libelle is same as 'Ouverte') %}
                                     <a class="button is-link is-rounded button is-small"
                                        href="{{ path('sortieModif', {'id':sortie.id}) }}">Modifier</a>
                                 {% endif %}
