@@ -112,6 +112,12 @@
         </div>
     {% endfor %}
 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% block table %}
         {# Début du tableau en BULMA #}
         <div class="table-container">

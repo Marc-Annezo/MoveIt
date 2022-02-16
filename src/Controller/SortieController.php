@@ -94,6 +94,8 @@ class SortieController extends AbstractController
             // Insertion en BDD
             $em->persist($nouvelleSortie);
             $em->flush();
+
+
         }
 
         return $this->renderForm('sortie/index.html.twig',

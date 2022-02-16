@@ -128,7 +128,7 @@ class HomeController extends AbstractController
                     $sortie->addInscritOuSuppression($participant);
                     $entityManager->persist($participant);
                     $entityManager->flush();
-                    $this->addFlash('success', 'félicitation vous êtes inscrit');
+                    $this->addFlash('success', 'félicitation vous êtes inscrit/désinscrit');
 
                 } catch (Exception $e) {
 
@@ -283,6 +283,7 @@ class HomeController extends AbstractController
             $sortie->setEtat($etat);
             $em->persist($sortie);
             $em->flush();
+            $this->addFlash('success', 'Sortie Annulée');
         }
         else{
 
@@ -312,6 +313,7 @@ class HomeController extends AbstractController
                 if ($sortie->getEtat()->getLibelle() == 'creee') {
                     $em->remove($sortie);
                     $em->flush();
+                    $this->addFlash('success', 'sortie supprimée');
                 }
             }
             else{
@@ -329,16 +331,28 @@ class HomeController extends AbstractController
         SortieRepository $sortieRepository,
         EntityManagerInterface $em,
         EtatRepository $etatRepository,
+        UtilisateurRepository $repoUser
     ): Response
 
     {
 
+        $utilisateur = $this->getUser()->getUserIdentifier();
+        $user = $repoUser->findOneBy(["email" => $utilisateur]);
+        $participant = $user->getIdParticipant();
+
+
         $sortie = $sortieRepository->findOneBy(['id'=>$id]);
+
+        if ($sortie->getOrganisateur() === $participant){
         $etat = $etatRepository->findOneBy(['libelle'=>'Ouverte']);
         $sortie->setEtat($etat);
         $em->persist($sortie);
         $em->flush();
-
+        $this->addFlash('success', 'Votre sortie est publiée');
+        }
+        else{
+            $this->addFlash('error', 'Vous ne pouvez pas faire cela');
+        }
         return $this->redirectToRoute('home');
     }
 

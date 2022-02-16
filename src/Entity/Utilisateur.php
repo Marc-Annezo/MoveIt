@@ -34,6 +34,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private $idParticipant;
 
+    #[ORM\Column(type: 'string', length: 30, nullable: true)]
+    private $pseudo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -112,6 +115,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIdParticipant(Participant $idParticipant): self
     {
         $this->idParticipant = $idParticipant;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

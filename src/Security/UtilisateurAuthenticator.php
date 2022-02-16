@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Repository\UtilisateurRepository;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+
 class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -30,9 +32,13 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function authenticate(Request $request): Passport
+
+    public function authenticate(Request $request, ): Passport
     {
+
+
         $email = $request->request->get('email', '');
+
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
