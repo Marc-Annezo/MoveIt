@@ -77,7 +77,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_PARTICIPANT")
+     * @IsGranted("ROLE_PARTICIPANT","ROLE_ADMIN")
      */
     #[Route('/inscrire/{idsortie}', name: 'inscriptionsortie')]
     public function inscriptionSortie(
@@ -267,11 +267,13 @@ class HomeController extends AbstractController
     ): Response
 
     {
+       $roleadmin = "ROLE_ADMIN";
         $utilisateur = $this->getUser()->getUserIdentifier();
         $user = $repoUser->findOneBy(["email" => $utilisateur]);
         $participant = $user->getIdParticipant();
         $sortie = $sortieRepository->findOneBy(['id'=>$id]);
-        if($participant==$sortie->getOrganisateur()) {
+
+        if(($participant==$sortie->getOrganisateur()) or (in_array($roleadmin, $user->getRoles()))) {
 
 
             $etat = $etatRepository->findOneBy(['libelle' => 'Annulee']);

@@ -6,8 +6,9 @@
 
 {% block body %}
 
-    {% block espace %}
 
+
+    {% block espace %}
 
        <div class="columns">
             <div class="column">
@@ -224,14 +225,15 @@
 
 
 
-                            {% if sortie.organisateur is same as participant and sortie.etat.libelle is not same as 'Annulee' and sortie.etat.libelle is not same as 'creee' %}
+                            {% if (sortie.organisateur is same as participant) or ("ROLE_ADMIN" in app.user.roles) and (sortie.etat.libelle is not same as 'Annulee') and (sortie.etat.libelle is not same as 'creee') %}
 
                                 <button class="button is-link is-rounded button is-small js-modal-trigger"
                                         data-target="modal-js-annuler{{ sortie.id }}">Annuler
                                 </button>
 
-
                             {% endif %}
+
+
 
 
 
