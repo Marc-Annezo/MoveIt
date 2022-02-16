@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Profil de {{ InformationsDuParticipantSurLequelOnAClique.prenom }}{% endblock %}
+
 {% block body %}
 
-    <p> {{ InformationsDuParticipantSurLequelOnAClique.nom}} </p>
-    <p> {{ InformationsDuParticipantSurLequelOnAClique.prenom}} </p>
-    <p> {{ InformationsDuParticipantSurLequelOnAClique.telephone}} </p>
-    <p> {{ InformationsDuParticipantSurLequelOnAClique.email}} </p>
-    <p> {{ InformationsDuParticipantSurLequelOnAClique.site.nom}} </p>
+    <br>
+    <br>
+
+    <div class="block has-text-centered"><h2> Profil de {{ InformationsDuParticipantSurLequelOnAClique.nom }} </h2></div>
 
     <img src="
     {%if InformationsDuParticipantSurLequelOnAClique.image  %}
@@ -15,5 +16,47 @@
         {{ asset('img/profil2.jpg') }}" alt="image">
     {% endif %}
 
+<div class="box m-auto">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <figure class="image">
+                        <img class="is-rounded" src="
+                        {%if InformationsDuParticipantSurLequelOnAClique.image  %}{{ asset('/uploads/' ~ InformationsDuParticipantSurLequelOnAClique.image ) }}" alt="{{ 'img/profil2.jpg'}}">
+                        {% else  %}{{ asset('img/profil2.jpg') }}" alt="image">
+                        {% endif %}
+                     </figure>
+                </div>
+                <div class="column is-one-quarter">
+                </div>
+                <div class="column is-one-quarter">
+                    <div class="is-hidden-mobile">
+                    <p>Prénom : </p>
+                    <p>Nom : </p>
+                    <p>téléphone : </p>
+                    <p>Email : </p>
+                    <p>Ville de rattachement : </p>
+                    </div>
+                </div>
+                <div class="column is-one-quarter is-centered">
+                    <h5>{{ InformationsDuParticipantSurLequelOnAClique.prenom }} </h5>
+                    <br>
+                    <h5>{{ InformationsDuParticipantSurLequelOnAClique.nom }} </h5>
+                    <br>
+                    <h6>{{ InformationsDuParticipantSurLequelOnAClique.telephone }} </h6>
+                    <br>
+                    <h6>{{ InformationsDuParticipantSurLequelOnAClique.email }} </h6>
+                    <br>
+                    <h6>{{ InformationsDuParticipantSurLequelOnAClique.site.nom }} </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="has-text-centered">
+        <button class="mt-2 button is-link is-info" name="return" value="Retour"><a href="{{ path('home') }}" style="color:white;text-decoration:none">Retour à l'accueil</a></button>
+    </div>
 
 {% endblock %}

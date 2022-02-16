@@ -40,7 +40,14 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/participant, roles: ROLE_PARTICIPANT }
+        # - { path: ^/visiteur, roles: ROLE_VISITEUR }
         # - { path: ^/profile, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_VISITEUR: ROLE_USER
+        ROLE_PARTICIPANT: ROLE_VISITEUR
+        ROLE_ADMIN: ROLE_PARTICIPANT
 
 when@test:
     security:

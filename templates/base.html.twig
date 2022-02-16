@@ -35,33 +35,46 @@
                 <img src="{{ asset('img/logo.png') }}">
                 <h1 class="titre-logo"> Move It !</h1>
             </a>
-
-            <a role="button" class="navbar-burger is-active" aria-label="menu" aria-expanded="false"
-               data-target="navbarBasicExample">
-                <span aria-hidden="false"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
         </div>
         {% if app.user %}
-        <div id="navbarBasicExample" class="navbar-menu is-active">
+        <div class="navbar-burger burger" id="burger" onclick="toggleBurger()">
+        <a role="button" class="navbar-end navbar-burger" id="burger" data-targer="navMenu">
+            <a role="button"></a>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+        </a>
+        </div>
+        <script>
+                const toggleBurger = () => {
+                let burgerIcon = document.getElementById('burger');
+                let dropMenu = document.getElementById('teamList');
+                burgerIcon.classList.toggle('is-active');
+                dropMenu.classList.toggle('is-active');
+                };
+        </script>
+
+
+
+        <div class="navbar-menu" id="navMenu">
             <div class="navbar-end">
                 {% if 'ROLE_ADMIN' in app.user.roles %}
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
+                    <div class="navbar-link">
                         Administrer
-                    </a>
+                    </div>
 
                     <div class="navbar-dropdown">
 
                             <a class="navbar-item" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
                             <a class="navbar-item" href="{{ path('admin_gestionsite') }}">Gérer les sites</a>
-                            <a class="navbar-item" href="{{ path('app_register') }}">Gérer les users</a>
-
+                            <a class="navbar-item" href="{{ path('app_register') }}">Gérer les utilisateurs</a>
 
                     </div>
                 </div>
-              {% endif %}
+
+                {% endif %}
+
             <a class="navbar-item" href="{{ path('sortie') }}">Sortie </a>
 
             <a class="navbar-item" href={{ path('home') }}>Accueil</a>
@@ -78,7 +91,6 @@
                         {% else %}
                             <a id="boutonDECO" class="button is-link" href="{{ path('app_login') }}">Se connecter </a>
                         {% endif %}
-
                     </div>
                 </div>
             </div>

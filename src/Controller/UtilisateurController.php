@@ -11,6 +11,7 @@ use App\Repository\ParticipantRepository;
 use App\Repository\UtilisateurRepository;
 use App\Services\Censurator;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class UtilisateurController extends AbstractController
 {
     // Première connexion avec renvoi vers le première création du profil participant
+
     #[Route('utilisateur/profil', name: 'MonProfil')]
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     public function utilisateur(Request                $request,
                                 EntityManagerInterface $entityManager,
                                 ParticipantRepository  $participantRepository,
@@ -41,6 +46,9 @@ class UtilisateurController extends AbstractController
         $formParticipant = $this->createForm(FormParticipantType::class, $participant);
         $formParticipant->handleRequest($request);
 
+        if( $request->get('return') == 'Retour' ) {
+            return $this->redirectToRoute('home');
+        }
 
         if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
 
@@ -84,7 +92,11 @@ class UtilisateurController extends AbstractController
     }
 
     // Modificaton du mot de passe d'un utilisateur connecté
+
     #[Route('/modifiermdp', name: 'modifiermdp')]
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     public function modifiermdp(
         EntityManagerInterface      $entityManager,
         Request                     $request,
@@ -136,7 +148,11 @@ class UtilisateurController extends AbstractController
 
 
     // Modification du profil d'un participant connecté
+
     #[Route('utilisateur/profil/{id}', name: 'modifierProfil')]
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     public function modifierProfil(Request $request,
                                 EntityManagerInterface $entityManager,
                                 ParticipantRepository $participantRepository,
@@ -166,14 +182,20 @@ class UtilisateurController extends AbstractController
     }
 
     // Afficher le profil d'un participant dont l'id est envoyé en paramètre
+
     #[Route('utilisateur/profil/afficher/{id}', name: 'afficherprofil')]
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     public function afficherprofil(Request $request,
                                    EntityManagerInterface $entityManager,
                                    ParticipantRepository $participantRepository,
         $id,
     ): Response
     {
-
+        if( $request->get('return') == 'Retour' ) {
+            return $this->redirectToRoute('home');
+        }
         // Ce que la page nous envoi (informations du click)
         $idDuParticipantSurLequelOnaClique = $id;
 
@@ -185,4 +207,5 @@ class UtilisateurController extends AbstractController
             // C'est les données envoyées
             compact('InformationsDuParticipantSurLequelOnAClique')
         );
+
     }}

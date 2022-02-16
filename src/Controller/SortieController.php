@@ -13,6 +13,7 @@ use App\Repository\LieuRepository;
 use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\MakerBundle\Maker\MakeSerializerEncoder;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +29,12 @@ use Symfony\Component\Validator\Constraints\Json;
 
 class SortieController extends AbstractController
 {
+
+
     #[Route('/sortie/', name: 'sortie')]
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     public function creerSortie(
         Request                $request,
         EntityManagerInterface $em,
@@ -95,11 +101,16 @@ class SortieController extends AbstractController
         );
     }
 
+
     #[Route('/ajouterLieu', name: 'ajouterlieu')]
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     public function ajouterlieu(
 Request $request,
         EntityManagerInterface $em,
-        LieuRepository $lieuRepo,
+        LieuRepository $lieuRepo
+
     ): Response
 
     {
@@ -123,6 +134,9 @@ Request $request,
 
 
     #[Route('/listeLieuVille/{id}', name: 'listeLieuVille')]
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     public function listeLieuVille(
         LieuRepository $lieuRepository,
                        SerializerInterface $serializer,
@@ -136,6 +150,9 @@ Request $request,
     }
 
     #[Route('/detailLieu/{id}', name: 'detailLieu')]
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     public function detailLieu(
         LieuRepository $lieuRepository,
         SerializerInterface $serializer,

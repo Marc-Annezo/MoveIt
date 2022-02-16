@@ -8,14 +8,22 @@ use App\Form\FormVilleType;
 use App\Repository\SiteRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @IsGranted("ROLE_PADMIN")
+ */
 #[Route('/admin', name: 'admin_')]
 class AdminController extends AbstractController
 {
+
+    /**
+     * @IsGranted("ROLE_PADMIN")
+     */
     #[Route('/ajouterville', name: 'ajouterville')]
     public function gestionville(Request $request,
                                  EntityManagerInterface $em,
@@ -49,6 +57,9 @@ class AdminController extends AbstractController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_PADMIN")
+     */
     #[Route('/modifierville/{id}', name: 'modifierville')]
     public function modifierville(
         Request $request,
@@ -79,8 +90,9 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_ajouterville');
     }
 
-
-
+    /**
+     * @IsGranted("ROLE_PADMIN")
+     */
     #[Route('/supprimerville/{id}', name: 'supprimerville')]
     public function supprimerville(
         Request $request,
@@ -100,6 +112,9 @@ class AdminController extends AbstractController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_PADMIN")
+     */
     #[Route('/gestionsite', name: 'gestionsite')]
     public function gestionsite(
         SiteRepository $siteRepo,

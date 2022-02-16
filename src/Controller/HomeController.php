@@ -12,6 +12,7 @@ use App\Repository\VilleRepository;
 use App\Services\AutoUpdateStatut;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,8 +20,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
-
-
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/home', name: 'home')]
     public function accueil(
         SortieRepository $sortieRepository,
@@ -74,6 +76,9 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/inscrire/{idsortie}', name: 'inscriptionsortie')]
     public function inscriptionSortie(
         $idsortie,
@@ -138,6 +143,9 @@ class HomeController extends AbstractController
         }
     }
 
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/home/filtres', name: 'filtres')]
     public function filtres(
         SiteRepository $siteRepository,
@@ -246,6 +254,9 @@ class HomeController extends AbstractController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/sortie/annule/{id}', name: 'sortieannulee')]
     public function annulationSortie(
                                     $id,
@@ -281,6 +292,9 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/sortie/supprimer/{id}', name: 'sortieSuppr')]
     public function suppressionSortie(
         $id,
@@ -305,6 +319,10 @@ class HomeController extends AbstractController
             }
         return $this->redirectToRoute('home');
     }
+
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/sortie/publier/{id}', name: 'publiersortie')]
     public function publierSortie(
         $id,
@@ -324,6 +342,9 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/sortie/details/{id}', name: 'details')]
     public function details(
         SiteRepository $siteRepository,
@@ -340,7 +361,9 @@ class HomeController extends AbstractController
             compact('detailssortie'));
     }
 
-
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/sortie/modifier/{id}', name: 'sortieModif')]
     public function modifierSortie(
         SortieRepository $sortieRepository,
@@ -397,6 +420,9 @@ class HomeController extends AbstractController
             compact('sortie', 'formModifSortie', 'listeVille'));
     }
 
+    /**
+     * @IsGranted("ROLE_PARTICIPANT")
+     */
     #[Route('/aide', name: 'aide')]
     public function aide(): Response
     {

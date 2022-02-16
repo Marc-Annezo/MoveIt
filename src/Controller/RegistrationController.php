@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\Reader;
 
 use phpDocumentor\Reflection\Types\This;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,10 @@ use Symfony\Component\Serializer\Serializer;
 
 class RegistrationController extends AbstractController
 {
+
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     #[Route('admin/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,UtilisateurRepository $utilisateurRepository): Response
     {
@@ -50,7 +55,7 @@ class RegistrationController extends AbstractController
 
                 $user->setRoles(["ROLE_ADMIN"]);
             }else{
-                $user->setRoles(["ROLE_VISITOR"]);
+                $user->setRoles(["ROLE_VISITEUR"]);
             }
             $entityManager->persist($user);
             $entityManager->flush();
@@ -101,7 +106,7 @@ class RegistrationController extends AbstractController
                                      $utilisateur,
                                      $row['password'])
                              )
-                         ->setRoles(["ROLE_VISITOR"]);
+                         ->setRoles(["ROLE_VISITEUR"]);
 
                          $utilisateur->setIdParticipant($participant);
                          $entityManager->persist($utilisateur);
