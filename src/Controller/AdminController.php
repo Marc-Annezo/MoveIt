@@ -5,7 +5,10 @@ namespace App\Controller;
 
 use App\Entity\Ville;
 use App\Form\FormVilleType;
+use App\Repository\LieuRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SiteRepository;
+use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -98,18 +101,55 @@ class AdminController extends AbstractController
         Request $request,
         EntityManagerInterface $em,
         VilleRepository $villeRepository,
+        LieuRepository $lieuRepository,
+        SortieRepository $sortieRepo,
+        ParticipantRepository $participantRepository,
+        SiteRepository $siteRepository,
         $id
 
     ) : Response
 
     {
-       $villeASuppr = $villeRepository->findOneBy(['id' => $id]);
+        $listeVille = $villeRepository->findAll();
+        // Récupération de la ville à supprimer
+        $villeASuppr = $villeRepository->findOneBy(['id' => $id]);
 
-       $em->remove($villeASuppr);
-       $em->flush();
+        // Récuperation des lieux relatifs à cette sortie (FK)
+        $lieuxASuppri = $lieuRepository->lieuParIdVille($villeASuppr);
+        $objetLieux = $lieuRepository->findOneBy(['idVille' => $villeASuppr]);
 
-        return $this->redirectToRoute('home'
-        );
+        // Récupération des sorties liées aux lieux (FK)
+        $sortiesASupprm = $sortieRepo->findByLieu($lieuxASuppri);
+        $objetsortie = $sortieRepo->findOneBy(['id' => $sortiesASupprm]);
+
+
+
+
+        // Récupération de la liste de participant inscrits et
+        if($objetsortie != null) {
+            $listeParticipant = $objetsortie->getInscrits();
+            if (!empty($listeParticipant)) {
+                foreach ($listeParticipant as $participant) {
+                    $objetsortie->removeInscrit($participant);
+                }
+            }
+
+            $em->persist($objetsortie);
+            $em->remove($objetsortie);
+            $em->flush();
+        }
+
+
+        if($objetLieux != null) {
+            $em->remove($objetLieux);
+            $em->flush();
+        }
+
+        $em->remove($villeASuppr);
+        $em->flush();
+
+
+        return $this->redirectToRoute('admin_ajouterville');
     }
 
     /**

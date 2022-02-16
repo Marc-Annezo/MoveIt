@@ -49,6 +49,7 @@ class Participant
     private $site;
 
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private $sorties_orga;
 
     #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'inscrits')]

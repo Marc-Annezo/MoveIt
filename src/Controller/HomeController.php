@@ -67,7 +67,7 @@ class HomeController extends AbstractController
         $user = $repoUser->findOneBy(["email"=>$utilisateur]);
         $participant = $user->getIdParticipant();
 
-        if($participant->getNom() == null or $participant->getPrenom() == null or $participant->getTelephone() == null or $participant->getSite() == null){
+        if($participant->getNom() == null or $participant->getPrenom() == null or $participant->getSite() == null){
             return $this->redirectToRoute('MonProfil');
         } else {
             return $this->redirectToRoute('home');

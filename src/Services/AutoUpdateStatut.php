@@ -43,7 +43,7 @@ class AutoUpdateStatut
 
             // Protection des statuts creee et Annulee
 
-                if($etatId >= 2 and $etatId <= 5){
+            if($etatId >= 2 and $etatId <= 5){
 
                 // Passage en statut 3 si dépassement du nombre d'inscrit max ou dépassement de la date limite d'inscription
                 if((count($sortie->getInscrits()) >= $sortie->getnbInscriptionsMax()) or ($now >= $sortie->getdateLimiteInscription())){
@@ -68,7 +68,8 @@ class AutoUpdateStatut
                 }
             }
 
-
+                $this->entityManager->persist($sortie);
+                $this->entityManager->flush();
             }
         }
 
