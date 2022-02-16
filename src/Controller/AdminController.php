@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Site;
 use App\Entity\Ville;
+use App\Form\FormSiteType;
 use App\Form\FormVilleType;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
@@ -155,34 +157,69 @@ class AdminController extends AbstractController
     /**
      * @IsGranted("ROLE_ADMIN")
      */
-    #[Route('/gestionsite', name: 'gestionsite')]
-    public function gestionsite(
-        SiteRepository $siteRepo,
+    #[Route('/ajoutersite', name: 'ajoutersite')]
+    public function gestionsite(Request $request,
+                                SiteRepository $siteRepo,
+                                EntityManagerInterface $em
     ): Response
 
     {
+        // récupère la liste des sites
         $listeSite = $siteRepo->findAll();
 
+        // Ajout d'une nouvelle ville
+        // instancie une nouvelle ville
+        $nvSite = new Site();
+
+        // créer le formulaire d'ajout de site
+        $ajoutSite = $this->createForm(FormSiteType::class, $nvSite);
+        $ajoutSite->handleRequest($request);
+
+        // validation du formulaire et envoi à la DB
+        if($ajoutSite->isSubmitted() && $ajoutSite->isValid()){
+            $em->persist($nvSite);
+            $em->flush();
+
+        // redirection vers la page de gestionnaire de sites
+            return $this->redirectToRoute('admin_ajoutersite');
+        }
+
         return $this->render('admin/gestionsite.html.twig',
-            compact('listeSite')
+            compact('listeSite', 'ajoutSite')
         );
     }
 
-//    #[Route('/ajoutersite', name: 'ajoutersite')]
-//    public function ajoutersite(
-//        SiteRepository $siteRepo,
-//        EntityManagerInterface $em,
-//        Request $request,
-//    ): Response
-//
-//    {
-//        $nvSite = new Site();
-//        dd($request);
-//
-//        $listeSite = $siteRepo->findAll();
-//
-//        return $this->render('admin/gestionsite.html.twig',
-//            compact('listeSite')
-//        );
-//    }
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
+    #[Route('/modifiersite/{id}', name: 'modifiersite')]
+    public function modifierSite(   Request $request,
+                                    SiteRepository $siteRepo,
+                                    EntityManagerInterface $em,
+                                    $id
+    ): Response
+
+    {
+        if (isset($_POST['modifiertype'])) {
+
+            $siteAModifier = $siteRepo->findBy(['id' => $id]);
+
+            $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
+
+        $siteAModifier->setNom($nom);
+        $em->persist((object)$siteAModifier);
+        $em->flush();
+        }
+
+        return $this->redirectToRoute('admin_ajoutersite');
+
+    }
+
+
+
+
+
+
+
+
 }

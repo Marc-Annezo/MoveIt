@@ -22,7 +22,8 @@ class ParticipantRepository extends ServiceEntityRepository
     // /**
     //  * @return Participant[] Returns an array of Participant objects
     //  */
-    /*
+
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('p')
@@ -34,7 +35,7 @@ class ParticipantRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Participant

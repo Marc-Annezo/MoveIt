@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <br>
-    <br>
-    <br>
-    <br>
-    <h3 class="has-text-centered is-size-3"> Gestionnaire de sites </h3>
+{% block link %}
+    <script type="text/javascript" src="{{ asset('js/accueil.js') }}" xmlns="http://www.w3.org/1999/html"></script
+{% endblock %}
+    {% block body %}
 
 
-    <form class="box m-6">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3 class="has-text-centered is-size-3"> Gestionnaire des campus </h3>
+
+
+    <div class="box m-6">
         <p class="has-text-centered"> Filtrer les sites </p>
         <div class="field">
             <label class="label"> Le nom contient : </label>
@@ -32,17 +37,46 @@
                                 <th> Action</th>
                             </tr>
 
-{#                            {% for site in listeSite %}#}
-{#                                <tr>#}
-{#                                    <td> {{ site.nom }}</td>#}
-{#                                    <td> Modifier - Supprimer</td>#}
-{#                                </tr>#}
-{#                            {% endfor %}#}
+                            {% for site in listeSite %}
+                            <tr>
+                                <td>{{ site.nom }}</td>
+                                <td><a href=""></a>
+                                    {#                 MODAL DETAIL--------START             #}
+                                    <button class="button is-small button is-link js-modal-trigger"
+                                            data-target="modal-js-example{{ site.id }}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
 
-{#                            <tr>#}
-{#                                <td><input type="text"></td>#}
-{#                                <td><a href={{ path('admin_ajoutersite') }}> Ajouter</a></td>#}
-{#                            </tr>#}
+                                    <div id="modal-js-example{{ site.id }}" class="modal ">
+                                        <div class="modal-background"></div>
+                                        <div class="modal-content modal-lg ">
+                                            <div class="box">
+
+                                                {# ####    FAIRE DU JOLIE ICI   ##### #}
+                                                <div class="has-text-centered">
+
+                                                    <form action="{{ path('admin_modifiersite', {'id': site.id}) }}" method="POST">
+                                                        <span> Modifier le site </span>
+                                                        <br>
+                                                        <label for="nom">Nom</label>
+                                                        <input class="input is-link" type="text"
+                                                               value="{{ site.nom }}" name="nom">
+
+                                                        <br>
+                                                        <br>
+
+                                                        <button name="modifiertype" type="submit" class="button is-link"> Modifier </button>
+
+                                                    </form>
+                                                </div>
+                                                {# #####            JUSQU'A LA          ##### #}
+
+                                            </div>
+                                        </div>
+                                        <button class="modal-close is-large" aria-label="close"></button>
+                                    </div>
+                                    {% endfor %}
+
                         </table>
 
                     </div>
@@ -51,15 +85,11 @@
                 <div class="column">
 
                 </div>
-
-
             </div>
-            </div>
-    </form>
-
+        </div>
+    </div>
 
 {% endblock %}
-
 {% block title %}
 
 {% endblock %}

@@ -18,3 +18,7 @@ table{
     text-decoration: none;
     color: white;
 }
+
+body > footer {
+    margin-top: auto;
+}
