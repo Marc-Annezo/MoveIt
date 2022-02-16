@@ -34,7 +34,7 @@ class CreerSortieType extends AbstractType
             ->add('dateHeureDebut', DateTimeType::class, [
                 'label_attr' => ['class' => 'text-primary'],
                 'widget'=>'single_text',
-                'data' => new \DateTime(),
+                'data' => new \DateTime('now + 1 day'),
                 'attr' => [
                     'class' => 'input is-link is-rounded',
                     'type'=>'date',
@@ -47,7 +47,7 @@ class CreerSortieType extends AbstractType
             ->add('dateHeureFin', DateTimeType::class, [
                 'label_attr' => ['class' => 'text-primary'],
                 'widget'=>'single_text',
-                'data' => new \DateTime(),
+                'data' => new \DateTime('now + 2 day'),
                 'attr' => [
                     'class' => 'input is-link is-rounded',
                     'type'=>'date',
@@ -57,7 +57,7 @@ class CreerSortieType extends AbstractType
             ->add('dateLimiteInscription',DateTimeType::class, [
                 'label_attr' => ['class' => 'text-primary'],
                 'widget'=>'single_text',
-                'data' => new \DateTime(),
+                'data' => new \DateTime('now'),
                 'attr' => [
                     'class' => 'input is-link is-rounded',
                     'type'=>'date',
