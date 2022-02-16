@@ -1,8 +1,7 @@
-.titre-logo {
+.titrelogo {
     font-family: 'Permanent Marker', cursive;
     font-size: 2.6em;
     text-decoration: none;
-    color: black;
 }
 
 table{
@@ -17,4 +16,5 @@ table{
 
 #btn_href, #boutonCO, #boutonDECO{
     text-decoration: none;
+    color: white;
 }

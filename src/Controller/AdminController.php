@@ -15,14 +15,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @IsGranted("ROLE_PADMIN")
+ * @IsGranted("ROLE_ADMIN")
  */
 #[Route('/admin', name: 'admin_')]
 class AdminController extends AbstractController
 {
 
     /**
-     * @IsGranted("ROLE_PADMIN")
+     * @IsGranted("ROLE_ADMIN")
      */
     #[Route('/ajouterville', name: 'ajouterville')]
     public function gestionville(Request $request,
@@ -58,7 +58,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_PADMIN")
+     * @IsGranted("ROLE_ADMIN")
      */
     #[Route('/modifierville/{id}', name: 'modifierville')]
     public function modifierville(
@@ -91,7 +91,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_PADMIN")
+     * @IsGranted("ROLE_ADMIN")
      */
     #[Route('/supprimerville/{id}', name: 'supprimerville')]
     public function supprimerville(
@@ -113,7 +113,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_PADMIN")
+     * @IsGranted("ROLE_ADMIN")
      */
     #[Route('/gestionsite', name: 'gestionsite')]
     public function gestionsite(

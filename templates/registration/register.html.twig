@@ -21,15 +21,15 @@
 
         <div class="box m-6">
             <p class="is-size-3"> Bienvenue {{ app.user.idParticipant.prenom }}</p>
-            <label for=""> Lieu de rattachement </label>
-            <p> {{ app.user.idParticipant.site }} </p>
+            <label for=""> Lieu de rattachement : {{ app.user.idParticipant.site }} </label>
+            <p> </p>
 
 
             {{ form_start(registrationForm) }}
             {{ form_row(registrationForm.email, {
                 'label_attr': {'class': ' text-primary'},
                 'attr' : {'class':'form-control ',
-                    'placeholder':'Email du Compte à créer',
+                    'placeholder':'Saisir le mail du compte',
                     'type':'text',
                     'aria-describedby':"inputGroup-sizing-sm"
                 },
@@ -43,7 +43,7 @@
                 'label_attr': {'class': ' text-primary'},
                 'label':'Mot de passe utilisateur',
                 'attr' : {'class':'form-control ',
-                    'placeholder':'Mot de passe de l\'utilisateur à créer',
+                    'placeholder':'Mot de passe provisoire de l\'utilisateur à créer',
                     'type':'password',
                     'aria-describedby':"inputGroup-sizing-sm"
                 },
@@ -54,7 +54,7 @@
             </div>
             <br>
             <br>
-            <h6 class="text-primary">Voulez-Vous enregistré des comptes à partir d'un fichier ? </h6>
+            <h6 class="text-primary">Voulez-vous enregistrer des comptes à partir d'un fichier CSV ? </h6>
                 <div id="file-js-example" class=" has-text-centered file has-name file is-warning">
                     <label class="file-label">
                         {{ form_widget(registrationForm.my_csv) }}
@@ -101,7 +101,7 @@
                     </div>
             <br>
 
-            <button type="submit" class="button is-info">Register</button>
+            <button type="submit" class="button is-info">Créer</button>
             <button class="button is-link is-info" name="return" value="Retour"><a href="{{ path('home') }}" style="color:white;text-decoration:none">Retour à l'accueil</a></button>
             {{ form_end(registrationForm) }}
 

@@ -420,9 +420,6 @@ class HomeController extends AbstractController
             compact('sortie', 'formModifSortie', 'listeVille'));
     }
 
-    /**
-     * @IsGranted("ROLE_PARTICIPANT")
-     */
     #[Route('/aide', name: 'aide')]
     public function aide(): Response
     {
