@@ -9,13 +9,6 @@
 
     <div class="block has-text-centered"><h2> Profil de {{ InformationsDuParticipantSurLequelOnAClique.nom }} </h2></div>
 
-    <img src="
-    {%if InformationsDuParticipantSurLequelOnAClique.image  %}
-        {{ asset('/uploads/' ~ InformationsDuParticipantSurLequelOnAClique.image ) }}" alt="{{ 'img/profil2.jpg'}}">
-    {% else  %}
-        {{ asset('img/profil2.jpg') }}" alt="image">
-    {% endif %}
-
 <div class="box m-auto">
     <div class="hero-body">
         <div class="container">
@@ -56,7 +49,7 @@
 </div>
 
     <div class="has-text-centered">
-        <button class="mt-2 button is-link is-info" name="return" value="Retour"><a href="{{ path('home') }}" style="color:white;text-decoration:none">Retour à l'accueil</a></button>
+        <button class="mt-2 mb-2 button is-link is-info" name="return" value="Retour"><a href="{{ path('home') }}" style="color:white;text-decoration:none">Retour à l'accueil</a></button>
     </div>
 
 {% endblock %}

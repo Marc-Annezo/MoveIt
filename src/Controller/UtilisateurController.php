@@ -96,7 +96,7 @@ class UtilisateurController extends AbstractController
 
     #[Route('/modifiermdp', name: 'modifiermdp')]
     /**
-     * @IsGranted("ROLE_PARTICIPANT")
+     * @IsGranted("ROLE_VISITEUR")
      */
     public function modifiermdp(
         EntityManagerInterface      $entityManager,

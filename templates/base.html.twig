@@ -29,32 +29,23 @@
 {% block NavBar %}
 
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ path('home') }}">
                 <img src="{{ asset('img/logo.png') }}">
                 <h1 class="titrelogo"> Move It !</h1>
             </a>
-        </div>
-        {% if app.user %}
-        <div class="navbar-burger burger" id="burger" onclick="toggleBurger()">
-        <a role="button" class="navbar-end navbar-burger" id="burger" data-targer="navMenu">
-            <a role="button"></a>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-        </a>
-        </div>
-        <script>
-                const toggleBurger = () => {
-                let burgerIcon = document.getElementById('burger');
-                let dropMenu = document.getElementById('teamList');
-                burgerIcon.classList.toggle('is-active');
-                dropMenu.classList.toggle('is-active');
-                };
-        </script>
 
-        <div class="navbar-menu" id="navMenu">
+            {% if app.user %}
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+
+        <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-end">
                 {% if 'ROLE_ADMIN' in app.user.roles %}
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -64,24 +55,25 @@
 
                     <div class="navbar-dropdown">
 
-                            <a class="navbar-item" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
-                            <a class="navbar-item" href="{{ path('admin_gestionsite') }}">Gérer les sites</a>
-                            <a class="navbar-item" href="{{ path('app_register') }}">Gérer les utilisateurs</a>
+                        <a class="navbar-item" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
+                        <a class="navbar-item" href="{{ path('admin_gestionsite') }}">Gérer les sites</a>
+                        <a class="navbar-item" href="{{ path('app_register') }}">Gérer les utilisateurs</a>
 
                     </div>
                 </div>
+            </div>
 
                 {% endif %}
 
-            <a class="navbar-item" href="{{ path('sortie') }}">Sortie </a>
+                <a class="navbar-item" href="{{ path('sortie') }}">Sortie </a>
 
-            <a class="navbar-item" href={{ path('home') }}>Accueil</a>
+                <a class="navbar-item" href={{ path('home') }}>Accueil</a>
 
-            <a class="navbar-item" href={{ path('MonProfil') }}>Mon profil</a>
+                <a class="navbar-item" href={{ path('MonProfil') }}>Mon profil</a>
 
             {% endif %}
 
-            <div>
+            <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
                         {% if app.user %}
@@ -93,37 +85,10 @@
                 </div>
             </div>
         </div>
-        </div>
     </nav>
 
+    <script src="{{ asset('js/burger.js') }}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js">
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // Get all "navbar-burger" elements
-            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-            // Check if there are any navbar burgers
-            if ($navbarBurgers.length > 0) {
-
-                // Add a click event on each of them
-                $navbarBurgers.forEach( el => {
-                    el.addEventListener('click', () => {
-
-                        // Get the target from the "data-target" attribute
-                        const target = el.dataset.target;
-                        const $target = document.getElementById(target);
-
-                        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                        el.classList.toggle('is-active');
-                        $target.classList.toggle('is-active');
-
-                    });
-                });
-            }
-
-        });
-    </script>
 
 {% endblock %}
 
