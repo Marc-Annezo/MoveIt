@@ -179,7 +179,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_ajoutersite');
         }
 
-        return $this->render('admin/gestionsite.html.twig',
+        return $this->renderForm('admin/gestionsite.html.twig',
             compact('listeSite', 'ajoutSite')
         );
     }
@@ -197,7 +197,7 @@ class AdminController extends AbstractController
     {
         if (isset($_POST['modifiertype'])) {
 
-            $siteAModifier = $siteRepo->findBy(['id' => $id]);
+            $siteAModifier = $siteRepo->findOneBy(['id' => $id]);
 
             $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
 

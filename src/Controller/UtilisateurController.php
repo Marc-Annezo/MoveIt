@@ -143,10 +143,6 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/resetmdp.html.twig', [
             'form' => $form->createView(),
         ]);
-
-        return $this->render('utilisateur/resetmdp.html.twig',
-
-        );
     }
 
 

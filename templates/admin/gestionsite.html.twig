@@ -77,6 +77,14 @@
                                     </div>
                                     {% endfor %}
 
+                                    <tr>
+                                        {{ form_start(ajoutSite) }}
+                                            <td>{{ form_row(ajoutSite.nom) }}</td>
+                                            <td>
+                                                <button class="button is-small button is-success" type="submit"><i class="fa-solid fa-plus"></i></button>
+                                            </td>
+                                        {{ form_end(ajoutSite) }}
+                                    </tr>
                         </table>
 
                     </div>
