@@ -94,7 +94,7 @@ class SortieController extends AbstractController
             // Insertion en BDD
             $em->persist($nouvelleSortie);
             $em->flush();
-
+            $this->addFlash('success', 'félicitation votre sortie a été créée');
 
         }
 
