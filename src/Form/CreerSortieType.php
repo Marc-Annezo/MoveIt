@@ -38,6 +38,7 @@ class CreerSortieType extends AbstractType
                 'attr' => [
                     'class' => 'input is-link is-rounded',
                     'type'=>'date',
+                    'max'=>"2117-04-30"
                 ]
 
 
@@ -51,6 +52,7 @@ class CreerSortieType extends AbstractType
                 'attr' => [
                     'class' => 'input is-link is-rounded',
                     'type'=>'date',
+                    'max'=>"2117-04-30"
                 ]
             ])
 
@@ -61,6 +63,7 @@ class CreerSortieType extends AbstractType
                 'attr' => [
                     'class' => 'input is-link is-rounded',
                     'type'=>'date',
+                    'max'=>"2117-04-30"
                 ]
             ])
 
