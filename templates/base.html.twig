@@ -43,15 +43,15 @@
         </div>
 
 
-        <div id="navbarBasicExample" class="navbar-menu has-background-info">
+        <div id="navbarBasicExample" class="navbar-menu has-background-info navbar-end">
 
             {% if 'ROLE_ADMIN' in app.user.roles %}
-                <div class="navbar-item has-dropdown is-hoverable navbar-end">
-                    <div class="navbar-link has-text-primary-light has-background-info navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link has-text-primary-light has-background-info">
                         Administrer
                     </div>
 
-                    <div class="navbar-dropdown has-background-info navbar-end">
+                    <div class="navbar-dropdown has-background-info">
 
                         <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
                         <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('admin_ajoutersite') }}">Gérer les sites</a>
