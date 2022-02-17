@@ -3,7 +3,6 @@
 {% block body %}
     <div class="box has-text-centered m-6 has-background-info">
 
-        <div class="box m-6">
             <p class="is-size-3"> Ajouter un Lieu </p>
             <label for=""> Lieu de rattachement </label>
             <p> {{ app.user.idParticipant.site }} </p>
@@ -14,7 +13,7 @@
             {{ form_row(formAjoutLieu.nom, {
                 'label_attr': {'class': ' text-primary'},
                 'attr' : {'class':'input is-link is-rounded',
-                    'placeholder':'Que voulez vous faire ?',
+                    'placeholder':'Nom du lieu',
                     'type':'text',
                     'aria-describedby':"inputGroup-sizing-sm"
                 },
@@ -56,7 +55,7 @@
                 <div class="control">
                     {{ form_row(formAjoutLieu.valider)}}
                 </div>
-        </div>
+
 
 
         {{ form_end(formAjoutLieu) }}

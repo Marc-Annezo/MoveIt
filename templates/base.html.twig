@@ -28,14 +28,14 @@
 
 {% block NavBar %}
 
-    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand is-active">
+    <nav class="navbar is-info is-block-touch" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
             <a class="navbar-item" href="{{ path('home') }}">
                 <img src="{{ asset('img/logo.png') }}" alt="logo Move It">
                 <h1 class="titrelogo"> Move It !</h1>
             </a>
             {% if app.user %}
-            <a role="button" class="navbar-burger burger navbar-end" aria-expanded="false" data-target="navbarBasicExample">
+            <a role="button" class="navbar-burger burger" aria-expanded="false" data-target="navbarBasicExample">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -43,15 +43,15 @@
         </div>
 
 
-        <div id="navbarBasicExample" class="navbar-menu has-background-info">
+        <div id="navbarBasicExample" class="navbar-menu has-background-info navbar-end">
 
-                {% if 'ROLE_ADMIN' in app.user.roles %}
-                <div class="navbar-item has-dropdown is-hoverable navbar-end">
+            {% if 'ROLE_ADMIN' in app.user.roles %}
+                <div class="navbar-item has-dropdown is-hoverable">
                     <div class="navbar-link has-text-primary-light has-background-info">
                         Administrer
                     </div>
 
-                    <div class="navbar-dropdown has-background-info navbar-end">
+                    <div class="navbar-dropdown has-background-info">
 
                         <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
                         <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('admin_ajoutersite') }}">Gérer les sites</a>
@@ -61,25 +61,25 @@
                 </div>
 
 
-                {% endif %}
+            {% endif %}
 
-                <a class="navbar-item has-text-primary-light has-background-info" href={{ path('sortie') }}>Sortie </a>
+            <a class="navbar-item has-text-primary-light has-background-info" href={{ path('sortie') }}>Sortie </a>
 
-                <a class="navbar-item has-text-primary-light has-background-info" href={{ path('home') }}>Accueil</a>
+            <a class="navbar-item has-text-primary-light has-background-info" href={{ path('home') }}>Accueil</a>
 
-                <a class="navbar-item has-text-primary-light has-background-info" href={{ path('MonProfil') }}>Mon profil</a>
+            <a class="navbar-item has-text-primary-light has-background-info" href={{ path('MonProfil') }}>Mon profil</a>
 
             {% endif %}
 
-                <div class="navbar-item">
-                    <div class="buttons">
-                        {% if app.user %}
-                            <a id="boutonCO" class="button is-link" href="{{ path('app_logout') }}">Se déconnecter</a>
-                        {% else %}
-                            <a id="boutonDECO" class="button is-link" href="{{ path('app_login') }}">Se connecter </a>
-                        {% endif %}
-                    </div>
+            <div class="navbar-item">
+                <div class="buttons">
+                    {% if app.user %}
+                        <a id="boutonCO" class="button is-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    {% else %}
+                        <a id="boutonDECO" class="button is-link" href="{{ path('app_login') }}">Se connecter </a>
+                    {% endif %}
                 </div>
+            </div>
         </div>
     </nav>
 
@@ -92,7 +92,7 @@
 
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js">
-    <script src="{{ asset('js/creationsortie.js') }}"></script>
+        <script src="{{ asset('js/creationsortie.js') }}"></script>
 
 {% endblock %}
 
