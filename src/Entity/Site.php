@@ -16,8 +16,9 @@ class Site
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Assert\NotBlank]
+    #[Assert\Regex('/^[^@&"()!_$*€£`+=\/;?#]+$/', message: 'Les caractères spéciaux ne sont pas reconnus')]
     #[ORM\Column(type: 'string', length: 100)]
-    #[Assert\Regex('^[a-z0-9_-]{3,15}$', message: 'Les caractères spéciaux ne sont pas reconnus')]
     private $nom;
 
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: Participant::class)]

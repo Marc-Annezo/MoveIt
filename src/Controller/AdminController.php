@@ -30,9 +30,9 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      */
     #[Route('/ajouterville', name: 'ajouterville')]
-    public function gestionville(Request $request,
+    public function gestionville(Request                $request,
                                  EntityManagerInterface $em,
-                                 VilleRepository $villeRepo,
+                                 VilleRepository        $villeRepo,
 
     ): Response
 
@@ -49,11 +49,11 @@ class AdminController extends AbstractController
         $ajoutVille->handleRequest($request);
 
         // validation du formulaire et envoi à la DB
-        if ($ajoutVille->isSubmitted() && $ajoutVille->isValid()){
+        if ($ajoutVille->isSubmitted() && $ajoutVille->isValid()) {
             $em->persist($nvVille);
             $em->flush();
 
-        // redirection vers la page de gestionnaire des villes
+            // redirection vers la page de gestionnaire des villes
             return $this->redirectToRoute('admin_ajouterville');
         }
 
@@ -67,12 +67,12 @@ class AdminController extends AbstractController
      */
     #[Route('/modifierville/{id}', name: 'modifierville')]
     public function modifierville(
-        Request $request,
+        Request                $request,
         EntityManagerInterface $em,
-        VilleRepository $villeRepository,
-        $id
+        VilleRepository        $villeRepository,
+                               $id
 
-    ) : Response
+    ): Response
 
     {
 
@@ -81,17 +81,17 @@ class AdminController extends AbstractController
             $villeAModif = $villeRepository->findOneBy(['id' => $id]);
 
 
-        $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
-        $codePostal = filter_input(INPUT_POST, 'codePostal', FILTER_SANITIZE_STRING);
+            $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
+            $codePostal = filter_input(INPUT_POST, 'codePostal', FILTER_SANITIZE_STRING);
 
 
-        $villeAModif->setNom($nom);
-        $villeAModif->setCodePostal($codePostal);
+            $villeAModif->setNom($nom);
+            $villeAModif->setCodePostal($codePostal);
 
-        $em->persist($villeAModif);
-        $em->flush();
+            $em->persist($villeAModif);
+            $em->flush();
 
-    }
+        }
         return $this->redirectToRoute('admin_ajouterville');
     }
 
@@ -100,56 +100,50 @@ class AdminController extends AbstractController
      */
     #[Route('/supprimerville/{id}', name: 'supprimerville')]
     public function supprimerville(
-        Request $request,
+        Request                $request,
         EntityManagerInterface $em,
-        VilleRepository $villeRepository,
-        LieuRepository $lieuRepository,
-        SortieRepository $sortieRepo,
-        ParticipantRepository $participantRepository,
-        SiteRepository $siteRepository,
-        $id
+        VilleRepository        $villeRepository,
+        LieuRepository         $lieuRepository,
+        SortieRepository       $sortieRepo,
+        ParticipantRepository  $participantRepository,
+        SiteRepository         $siteRepository,
+                               $id
 
-    ) : Response
+    ): Response
 
     {
-        $listeVille = $villeRepository->findAll();
+
         // Récupération de la ville à supprimer
         $villeASuppr = $villeRepository->findOneBy(['id' => $id]);
 
         // Récuperation des lieux relatifs à cette sortie (FK)
-        $lieuxASuppri = $lieuRepository->lieuParIdVille($villeASuppr);
-        $objetLieux = $lieuRepository->findOneBy(['idVille' => $villeASuppr]);
+        $lieuxASuppri = $villeASuppr->getLieux();
 
-        // Récupération des sorties liées aux lieux (FK)
-        $sortiesASupprm = $sortieRepo->findByLieu($lieuxASuppri);
-        $objetsortie = $sortieRepo->findOneBy(['id' => $sortiesASupprm]);
+        // Récupération des sorties liées aux lieux
 
+        if ($lieuxASuppri != null) {
+            foreach ($lieuxASuppri as $lieu) {
 
+                if (!empty($lieu)) {
+                    foreach ($lieu->getSorties() as $sortie) {
 
+                        $listeInscrit = $sortie->getInscrits();
 
-        // Récupération de la liste de participant inscrits et
-        if($objetsortie != null) {
-            $listeParticipant = $objetsortie->getInscrits();
-            if (!empty($listeParticipant)) {
-                foreach ($listeParticipant as $participant) {
-                    $objetsortie->removeInscrit($participant);
+                        if (!empty($listeInscrit)) {
+                            foreach ($listeInscrit as $inscrit) {
+                                $sortie->removeInscrit($inscrit);
+                            }
+                        }
+                        $em->remove($sortie);
+                        $em->flush();
+                    }
                 }
+                $em->remove($lieu);
+                $em->flush();
             }
-
-            $em->persist($objetsortie);
-            $em->remove($objetsortie);
-            $em->flush();
         }
-
-
-        if($objetLieux != null) {
-            $em->remove($objetLieux);
-            $em->flush();
-        }
-
         $em->remove($villeASuppr);
         $em->flush();
-
 
         return $this->redirectToRoute('admin_ajouterville');
     }
@@ -157,9 +151,10 @@ class AdminController extends AbstractController
     /**
      * @IsGranted("ROLE_ADMIN")
      */
-    #[Route('/ajoutersite', name: 'ajoutersite')]
-    public function gestionsite(Request $request,
-                                SiteRepository $siteRepo,
+    #[
+        Route('/ajoutersite', name: 'ajoutersite')]
+    public function gestionsite(Request                $request,
+                                SiteRepository         $siteRepo,
                                 EntityManagerInterface $em
     ): Response
 
@@ -176,15 +171,15 @@ class AdminController extends AbstractController
         $ajoutSite->handleRequest($request);
 
         // validation du formulaire et envoi à la DB
-        if($ajoutSite->isSubmitted() && $ajoutSite->isValid()){
+        if ($ajoutSite->isSubmitted() && $ajoutSite->isValid()) {
             $em->persist($nvSite);
             $em->flush();
 
-        // redirection vers la page de gestionnaire de sites
+            // redirection vers la page de gestionnaire de sites
             return $this->redirectToRoute('admin_ajoutersite');
         }
 
-        return $this->render('admin/gestionsite.html.twig',
+        return $this->renderForm('admin/gestionsite.html.twig',
             compact('listeSite', 'ajoutSite')
         );
     }
@@ -193,33 +188,27 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      */
     #[Route('/modifiersite/{id}', name: 'modifiersite')]
-    public function modifierSite(   Request $request,
-                                    SiteRepository $siteRepo,
-                                    EntityManagerInterface $em,
-                                    $id
+    public function modifierSite(Request                $request,
+                                 SiteRepository         $siteRepo,
+                                 EntityManagerInterface $em,
+                                                        $id
     ): Response
 
     {
         if (isset($_POST['modifiertype'])) {
 
-            $siteAModifier = $siteRepo->findBy(['id' => $id]);
+            $siteAModifier = $siteRepo->findOneBy(['id' => $id]);
 
             $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
 
-        $siteAModifier->setNom($nom);
-        $em->persist((object)$siteAModifier);
-        $em->flush();
+            $siteAModifier->setNom($nom);
+            $em->persist((object)$siteAModifier);
+            $em->flush();
         }
 
         return $this->redirectToRoute('admin_ajoutersite');
 
     }
-
-
-
-
-
-
 
 
 }

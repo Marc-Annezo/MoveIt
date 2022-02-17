@@ -18,12 +18,12 @@ class Participant
     private $id;
 
     #[Assert\Length(max: 50, maxMessage: "Ton nom est trop long.")]
-    #[Assert\Regex('^[a-z0-9_-]{3,15}$^', message: 'Les caractères spéciaux ne sont pas reconnus')]
+    #[Assert\Regex('/^[^@&"()!_$*€£`+=\/;?#]+$/', message: 'Les caractères spéciaux ne sont pas reconnus')]
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $nom;
 
     #[Assert\Length(max: 50, maxMessage: "Ton prénom est trop long.")]
-    #[Assert\Regex('^[a-z0-9_-]{3,15}$^', message: 'Les caractères spéciaux ne sont pas reconnus')]
+    #[Assert\Regex('/^[^@&"()!_$*€£`+=\/;?#]+$/', message: 'Les caractères spéciaux ne sont pas reconnus')]
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $prenom;
 
