@@ -29,31 +29,29 @@
 {% block NavBar %}
 
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
+        <div class="navbar-brand is-active">
             <a class="navbar-item" href="{{ path('home') }}">
-                <img src="{{ asset('img/logo.png') }}">
+                <img src="{{ asset('img/logo.png') }}" alt="logo Move It">
                 <h1 class="titrelogo"> Move It !</h1>
             </a>
-
             {% if app.user %}
-
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
+            <a role="button" class="navbar-burger burger navbar-end" aria-expanded="false" data-target="navbarBasicExample">
+                <span></span>
+                <span></span>
+                <span></span>
             </a>
         </div>
 
 
         <div id="navbarBasicExample" class="navbar-menu has-background-info">
-            <div class="navbar-end">
+
                 {% if 'ROLE_ADMIN' in app.user.roles %}
-                <div class="navbar-item has-dropdown is-hoverable ">
+                <div class="navbar-item has-dropdown is-hoverable navbar-end">
                     <div class="navbar-link has-text-primary-light has-background-info">
                         Administrer
                     </div>
 
-                    <div class="navbar-dropdown has-background-info">
+                    <div class="navbar-dropdown has-background-info navbar-end">
 
                         <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('admin_ajouterville') }}">Gérer villes</a>
                         <a class="navbar-item has-text-primary-light has-background-info" href="{{ path('admin_ajoutersite') }}">Gérer les sites</a>
@@ -61,7 +59,7 @@
 
                     </div>
                 </div>
-            </div>
+
 
                 {% endif %}
 
@@ -73,7 +71,6 @@
 
             {% endif %}
 
-            <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
                         {% if app.user %}
@@ -83,7 +80,6 @@
                         {% endif %}
                     </div>
                 </div>
-            </div>
         </div>
     </nav>
 

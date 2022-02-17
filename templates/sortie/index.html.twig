@@ -11,15 +11,16 @@
     <br>
 
     {#         Pour ajouter le site de l'organisateur #}
-    }
+
 
 
     <div class="box has-text-centered m-6 has-background-info">
 
         <div class="box m-6">
-            <p class="is-size-3"> Bienvenue {{ app.user.idParticipant.prenom }}</p>
-            <label for=""> Lieu de rattachement </label>
-            <p> {{ app.user.idParticipant.site }} </p>
+            <p class="is-size-3"> Créer une sortie </p>
+            <p class="is-size-4"> {{ app.user.idParticipant.prenom }} {{ app.user.idParticipant.nom }}</p>
+            <p class="is-size-6"> Lieu de rattachement : {{ app.user.idParticipant.site }}</p>
+
             <div class="columns">
                 <div class="column is-one-fifth">
 
@@ -79,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="field is-grouped  is-grouped-centered">
+                    <div class="field is-grouped  is-grouped-centered is-responsive">
                         <div class="control">
                             {{ form_row(creerSortie.creer) }}
                         </div>
@@ -95,7 +96,7 @@
                         </div>
                     </div>
 
-                    <button class="button is-link is-info" name="return" value="Retour"><a href="{{ path('home') }}" style="color:white;text-decoration:none">Retour à l'accueil</a></button>
+                    <button class="button is-link is-info is-responsive" name="return" value="Retour"><a href="{{ path('home') }}" style="color:white;text-decoration:none">Retour à l'accueil</a></button>
 
                     {{ form_end(creerSortie) }}
 

@@ -59,14 +59,6 @@ class UtilisateurController extends AbstractController
             if(file_exists($request->files->get('form_participant')['my_file'])) {
                 $uploads_directory = $this->getParameter('uploads_directory');
 
-                if ($participant->getImage() !== null){
-
-                    $filename=$participant->getImage();
-                    $filesystem = new Filesystem();
-                    $filesystem->remove($uploads_directory,$filename);
-
-                }
-
                 $file = $request->files->get('form_participant')['my_file'];
 
                 $filename = md5(uniqid()) . '.' . $file->guessExtension();
