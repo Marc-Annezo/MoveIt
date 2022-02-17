@@ -77,7 +77,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_PARTICIPANT","ROLE_ADMIN")
+     * @IsGranted("ROLE_PARTICIPANT")
      */
     #[Route('/inscrire/{idsortie}', name: 'inscriptionsortie')]
     public function inscriptionSortie(
@@ -101,11 +101,7 @@ class HomeController extends AbstractController
 
         // Autoriser l'inscription uniquement quand la sortie est état 2
 
-        if ($sortie->getEtat()->getLibelle() != "Ouverte") {
 
-            return $this->redirectToRoute('home');
-
-        } else {
 
 
             //ajouter l'utilisateur a la sortie
@@ -118,7 +114,7 @@ class HomeController extends AbstractController
             // verifier que la date du jour est inferieur a la date de fin d'inscription
 
             if (($nbinscrit < $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription())
-                or ($nbinscrit <= $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription() and $sortie->getInscrits()->contains($participant) )
+                or ($nbinscrit <= $sortie->getNbInscriptionsMax() and $date_du_jour < $sortie->getDateLimiteInscription() and $sortie->getInscrits()->contains($participant))
 
             ) {
 
@@ -140,7 +136,7 @@ class HomeController extends AbstractController
             }
 
             return $this->redirectToRoute('home');
-        }
+
     }
 
     /**

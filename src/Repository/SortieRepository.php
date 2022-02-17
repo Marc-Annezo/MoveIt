@@ -29,7 +29,6 @@ class SortieRepository extends ServiceEntityRepository
 
         }
 
-
         if($param3 != null){
             $qb->andWhere(
                $qb-> expr()->like('s.nom',':param3')
