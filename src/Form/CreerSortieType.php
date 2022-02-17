@@ -37,7 +37,7 @@ class CreerSortieType extends AbstractType
                 'data' => new \DateTime('now + 1 day'),
                 'attr' => [
                     'class' => 'input is-link is-rounded',
-                    'type'=>'date',
+                    'type'=>'datetime',
                     'max'=>"2117-04-30"
                 ]
 
@@ -51,7 +51,7 @@ class CreerSortieType extends AbstractType
                 'data' => new \DateTime('now + 2 day'),
                 'attr' => [
                     'class' => 'input is-link is-rounded',
-                    'type'=>'date',
+                    'type'=>'datetime',
                     'max'=>"2117-04-30"
                 ]
             ])
@@ -62,7 +62,7 @@ class CreerSortieType extends AbstractType
                 'data' => new \DateTime('now'),
                 'attr' => [
                     'class' => 'input is-link is-rounded',
-                    'type'=>'date',
+                    'type'=>'datetime',
                     'max'=>"2117-04-30"
                 ]
             ])
