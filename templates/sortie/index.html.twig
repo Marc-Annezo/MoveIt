@@ -16,18 +16,15 @@
 
     <div class="box has-text-centered m-6 has-background-info">
 
-        <div class="box m-6">
+
             <p class="is-size-3"> Créer une sortie </p>
             <p class="is-size-4"> {{ app.user.idParticipant.prenom }} {{ app.user.idParticipant.nom }}</p>
             <p class="is-size-6"> Lieu de rattachement : {{ app.user.idParticipant.site }}</p>
 
-            <div class="columns">
-                <div class="column is-one-fifth">
-
-                </div>
 
 
-                <div class="column is-three-fifths">
+
+
                     {{ form_start(creerSortie, {'attr': {'id': 'formulaire', 'class': 'box p-6'}}) }}
 
                     {{ form_row(creerSortie.nom) }}
@@ -80,36 +77,25 @@
                         </div>
                     </div>
 
-                    <div class="field is-grouped  is-grouped-centered is-responsive">
-                        <div class="control">
+                    <div class="field">
+
                             {{ form_row(creerSortie.creer) }}
-                        </div>
 
-                        <div class="control">
                             {{ form_row(creerSortie.publier) }}
-                        </div>
 
-                        <div class="control">
-                            <button class="button is-block is-info is-normal is-fullwidth" value="Ajouter un lieu">
-                                <a id="btn_href" class="has-text-white" href="{{ path('ajouterlieu') }}"> Ajouter un lieu </a>
-                            </button>
-                        </div>
+                        <a id="btn_href" class="button is-rounded is-info mb-1" href="{{ path('ajouterlieu') }}"> Ajouter un lieu </a>
+                        <a class="button is-rounded is-info" href="{{ path('home') }}"> Retour à l'accueil </a>
+
+
                     </div>
 
-                    <button class="button is-link is-info is-responsive" name="return" value="Retour"><a href="{{ path('home') }}" style="color:white;text-decoration:none">Retour à l'accueil</a></button>
-
                     {{ form_end(creerSortie) }}
-
                 </div>
 
-                <div class="column is-one-fifth">
 
-                </div>
 
 {#            {{ form_row(creerSortie.lieu) }}#}
 
-        </div>
-    </div>
 
 
     </div>

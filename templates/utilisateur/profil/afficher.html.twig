@@ -16,8 +16,8 @@
                 <div class="column is-one-quarter">
                     <figure class="image">
                         <img class="is-rounded" src="
-                        {%if InformationsDuParticipantSurLequelOnAClique.image  %}{{ asset('/uploads/' ~ InformationsDuParticipantSurLequelOnAClique.image ) }}" alt="{{ 'img/profil2.jpg'}}">
-                        {% else  %}{{ asset('img/profil2.jpg') }}" alt="image">
+                        {%if InformationsDuParticipantSurLequelOnAClique.image  %}{{ asset('/uploads/' ~ InformationsDuParticipantSurLequelOnAClique.image ) }}" alt="image">
+                        {% else  %}{{ asset('img/' ~ 'profil2.jpg') }}" alt="image">
                         {% endif %}
                      </figure>
                 </div>

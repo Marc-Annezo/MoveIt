@@ -16,18 +16,16 @@
 
     <div class="box has-text-centered m-6 has-background-info">
 
-        <div class="box m-6">
+
             <p class="is-size-3"> Bienvenue {{ app.user.idParticipant.prenom }}</p>
             <p> Modifier une sortie </p>
             <label for=""> Lieu de rattachement </label>
             <p> {{ app.user.idParticipant.site }} </p>
-            <div class="columns">
-                <div class="column is-one-fifth">
-
-                </div>
+            <div class="column">
 
 
-                <div class="column is-three-fifths">
+
+
                     {{ form_start(formModifSortie, {'attr': {'id': 'formulaire', 'class': 'box p-6'}}) }}
 
                     {{ form_row(formModifSortie.nom) }}
@@ -80,7 +78,7 @@
                         </div>
                     </div>
 
-                    <div class="field is-grouped  is-grouped-centered">
+                    <div>
                         <div class="control">
                             {{ form_row(formModifSortie.creer) }}
                         </div>
@@ -89,26 +87,11 @@
                             {{ form_row(formModifSortie.publier) }}
                         </div>
 
-                        <div class="control">
-                            <button class="button is-block is-info is-normal is-fullwidth" value="Ajouter un lieu">
-                                <a id="btn_href" class="has-text-white" href="{{ path('ajouterlieu') }}"> Ajouter un lieu </a>
-                            </button>
-                        </div>
+<div>
+                         <a id="btn_href" class="button is-info is-normal is-rounded" href="{{ path('ajouterlieu') }}"> Ajouter un lieu </a>
+</div>
                     </div>
                     {{ form_end(formModifSortie) }}
-
-                </div>
-
-                <div class="column is-one-fifth">
-
-                </div>
-
-
-
-
-
-
-
 
 
 
@@ -118,16 +101,16 @@
 
 
             </div>
-        </div>
 
 
-    </div>
 
 
 {% endblock %}
 
 
 {% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <script>
 
 

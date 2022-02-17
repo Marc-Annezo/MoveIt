@@ -98,11 +98,11 @@ class CreerSortieType extends AbstractType
 //            ])
             ->add('creer', SubmitType::class, [
                 'label' => 'Enregistrer',
-                'attr' => ['class' => 'button is-block is-info is-normal is-fullwidth'],
+                'attr' => ['class' => 'button is-info is-normal is-rounded m-1'],
             ])
             ->add('publier', SubmitType::class, [
                 'label' => 'Publier la sortie',
-                'attr' => ['class' => 'button is-block is-info is-normal is-fullwidth'],
+                'attr' => ['class' => 'button is-info is-normal is-rounded m-1'],
             ]);
 
 
