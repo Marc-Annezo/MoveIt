@@ -53,7 +53,6 @@ class Sortie
     private $site;
 
     #[ORM\ManyToOne(targetEntity: Participant::class, inversedBy: 'sorties_orga')]
-    #[ORM\JoinColumn(nullable: true)]
     private $organisateur;
 
     #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'sorties_participant')]

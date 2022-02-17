@@ -24,7 +24,6 @@ class Site
     private $participants;
 
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: Sortie::class)]
-    #[ORM\Column(nullable:true)]
     private $sorties;
 
     public function __construct()
