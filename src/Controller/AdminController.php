@@ -210,5 +210,53 @@ class AdminController extends AbstractController
 
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
+    #[Route('/supprimersite/{id}', name: 'supprimersite')]
+    public function supprimersite(
+        Request                $request,
+        EntityManagerInterface $em,
+        VilleRepository        $villeRepository,
+        LieuRepository         $lieuRepository,
+        SortieRepository       $sortieRepo,
+        ParticipantRepository  $participantRepository,
+        SiteRepository         $siteRepository,
+                               $id
+
+    ): Response
+
+    {
+        $siteASupprimer = $siteRepository->findOneBy(['id'=> $id]);
+
+        $participantsASupprimer = $siteASupprimer->getParticipants();
+        $sortiesASupprimer = $siteASupprimer->getSorties();
+
+        if($participantsASupprimer != null){
+            foreach ($participantsASupprimer as $participants){
+                if(!empty($participants)){
+                    foreach ($participants->getSortiesParticipant() as $participantsSorties){
+
+                        $listeInscrit = $participantsSorties->getInscrits();
+
+                        if(!empty($listeInscrit)){
+                            foreach($listeInscrit as $inscrit){
+                                $participantsSorties->removeInscrit($inscrit);
+                            }
+                        }
+                        $em->remove($participantsSorties);
+                        $em->flush();
+                    }
+                }
+                $em->remove($participants);
+                $em->flush();
+            }
+        }
+        $em->remove($siteASupprimer);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_ajoutersite');
+
+    }
 
 }
